@@ -1,0 +1,25 @@
+
+html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    overflow-x: hidden;
+    background-color: #f1f2f5;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    min-width: 100%;
+    background-color: #f1f2f5;
+  }
+
+  rect {
+      fill: #BA324F
+  }
+
+  text {
+      font-size: .8rem;
+  }
