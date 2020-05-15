@@ -1,44 +1,75 @@
-// import { select, scaleLinear } from 'd3'
-
-const svg = d3.select('svg');
-const width = +svg.attr('width')
-const height = +svg.attr('height')
-
-
-
 const render = data => {
-    const xValue = d => d.expenditure
-    const yValue = d => d.name
 
-    const margin = { top: 10, right: 20, bottom: 20, left:100 }
-    const innerWidth = width - margin.left - margin.right
-    const innerHeight = height - margin.top - margin.bottom
+    // let margin = {top: 50, right: 10, bottom: 10, left: 10},
+    let width = 1500; 
+    let height = 600;
 
-    const xScale = d3.scaleLinear()
-        .domain([0, d3.max(data, xValue)])
-        .range([0, innerWidth])
+    const x = d3.scale.ordinal()
+        .rangeRoundBands([0, width], .1);
 
-    const yScale = d3.scaleBand()
-        .domain(data.map(yValue))
-        .range([0, innerHeight])
-        .padding(.3)
+    const y = d3.scale.linear()
+        .range([height, 0]);
 
-    const g = svg.append('g')
-        .attr('transform', `translate(${margin.left}, ${margin.top})`)
+    const xAxis = d3.svg.axis()
+        .scale(x)
 
-    g.append('g').call(d3.axisLeft(yScale))
-    g.append('g').call(d3.axisBottom(xScale))
-        .attr('transform', `translate(0, ${innerHeight})`)
+    const yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
 
-    svg.selectAll('rect').data(data)
-        .enter().append('rect')
-            .attr('transform', `translate(${margin.left}, ${margin.top})`)
-            .attr('y', d => yScale(yValue(d)))
-            .attr('width', d => xScale(xValue(d)))
-            .attr('height', yScale.bandwidth())
-}
+    const tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+        return "<strong>"+d.name+":</strong> <span style='color:red'>" + d.value + "</span>";
+    })
 
-d3.csv("/data/country-data.csv").then(function(data) {
+    const svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+
+    svg.call(tip);
+
+        x.domain(data.map(function(d) { return d.name; }));
+        y.domain([0, d3.max(data, function(d) { return d.value; })]);
+
+        svg.selectAll(".bar")
+            .data(data)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return x(d.name); })
+            .attr("width", x.rangeBand())
+            .attr("y", function(d) { return y(d.value); })
+            .attr("height", function(d) { return height - y(d.value); })
+                
+            .on('mouseover', tip.show)
+            .on('mouseout', tip.hide)
+    
+    d3.selectAll('rect')
+    .on('click', function(d, i) {
+        console.log('d: ', d)
+        console.log('i: ', i)
+        console.log('i.style("fill"): ', d3.select(this).style('fill'))
+        let color = d3.select(this).style('fill')
+        color = d3.rgb(color)
+        console.log('color: ', color)
+        console.log('color: ', color.r)
+
+        if (color.r == 255 && color.g == 69 && color.b == 0) {
+            console.log('what')
+            d3.select(this)
+            .style('fill', 'orangered');
+        } 
+        else {
+            console.log('else')
+            d3.select(this)
+            .style('fill', 'orange');
+        }
+})}
+
+// d3.csv("/data/country-data.csv").then(function(data) {
+d3.csv("/data/country-data.csv", function(error, data) {
    let population = []
    let healthExpenditureAsPercentOfGDP = []
    console.log('data: ', data)
@@ -46,19 +77,19 @@ d3.csv("/data/country-data.csv").then(function(data) {
    for (let i=4; i<data.length; i++) {
        population.push({
            name: data[i].indicator,
-           population: parseFloat(data[i].population.replace(/,/g, ''))
+           value: parseFloat(data[i].population.replace(/,/g, ''))
        })
        if (parseFloat(data[i]["health expenditure \n% of GDP"])) {
         healthExpenditureAsPercentOfGDP.push({
             name: data[i].indicator,
-            expenditure: parseFloat(data[i]["health expenditure \n% of GDP"])
+            value: parseFloat(data[i]["health expenditure \n% of GDP"])
         })
        }
        
    }
 
-   healthExpenditureAsPercentOfGDP.sort((a,b) => (a.expenditure) - (b.expenditure))
-   population.sort((a, b) => (b.population) - (a.population));
+   healthExpenditureAsPercentOfGDP.sort((a,b) => (a.value) - (b.value))
+   population.sort((a, b) => (a.value) - (b.value));
 
    render(healthExpenditureAsPercentOfGDP)
  

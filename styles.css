@@ -15,11 +15,73 @@ html {
     min-width: 100%;
     background-color: #f1f2f5;
   }
-
+svg {
+  margin: 0;
+  padding: 0;
+  margin-top: 5vh;
+  margin-left: 8vw; 
+  width: 80vw;
+}
   rect {
       fill: #BA324F
   }
 
   text {
       font-size: .8rem;
+  }
+  body {
+    font: 10px sans-serif;
+    
+  }
+  
+  .vertical-text {
+    transform: rotate(-90.0deg);
+  }
+    
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+  
+  .bar {
+    fill: orange;
+  }
+  
+  .bar:hover {
+    fill: orangered ;
+  }
+  
+  .active {
+    fill: orangered ;
+  }
+  
+  .d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border-radius: 2px;
+  }
+  
+  /* Creates a small triangle extender for the tooltip */
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 10px;
+    /* width: 100%; */
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+  
+  /* Style northward tooltips differently */
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
   }
