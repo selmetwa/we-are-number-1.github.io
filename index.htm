@@ -7,12 +7,41 @@
     <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script src="./main.js" type="module"></script>
+    <script defer src="./main.js" type="module"></script>
     <link rel="stylesheet" href="styles.css">
     <title>d3</title>
 </head>
 <body>
     <!-- <svg height="3000" width="1750" style="border: 2px solid lightblue"></svg> -->
+    <select class="value-select" onchange="getValue(this)">
+        <option value="health expenditure \n% of GDP">health expenditure as % of GDP</option>
+        <option value="population">population</option>
+        <option value="GINI index">Wealth distribution</option>
+        <option value="surface area (Km2)">surface area</option>
+        <option value="human development index">human development index</option>
+        <option value="sustainable economic development assessment (SEDA)">sustainable economic development assessment</option>
+        <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
+        <option value="school life expectancy (YEARS)">school life expectancy (YEARS)</option>
+        <option value="unemployment (%)">percent unemployment</option>
+        <option value="government spending score">government spending score</option>
+        <option value="government expenditure (% of GDP)">government expenditure (% of GDP)</option>
+        <option value="political rights score">political rights score</option>
+        <option value="civil liberties score">civil liberties score</option>
+        <option value="political stability & absence of violence">political stability & absence of violence</option>
+        <option value="government effectiveness">government effectiveness</option>
+        <option value="rule of law">rule of law</option>
+        <option value="control of corruption">control of corruption</option>
+        <option value="judicial effectiveness score">judicial effectiveness score</option>
+        <option value="government integrity score">government integrity score</option>
+        <option value="property rights score">property rights score</option>
+        <option value="tax burden score">tax burden score</option>
+        <option value="overall economic freedom score">overall economic freedom score</option>
+        <option value="property rights score">property rights score</option>
+        <option value="financial freedom score">financial freedom score</option>
+        <option value="women MPs (% of all MPs)">women MPs (% of all MPs)</option>
+        <option value="GDP growth\n(annual %)">asd</option>
+        <option value="health expenditure \nper person">asd</option>
+    </select>
     <div class="charts"></div>
 </body>
 

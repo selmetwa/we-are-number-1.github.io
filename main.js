@@ -1,8 +1,8 @@
 const render = data => {
 
     // let margin = {top: 50, right: 10, bottom: 10, left: 10},
-    let width = 1500; 
-    let height = 600;
+    let width = 1200; 
+    let height = 500;
 
     const x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1);
@@ -24,6 +24,7 @@ const render = data => {
         return "<strong>"+d.name+":</strong> <span style='color:red'>" + d.value + "</span>";
     })
 
+    d3.select("svg").remove();
     const svg = d3.select("body").append("svg")
         .attr("width", width)
         .attr("height", height)
@@ -47,52 +48,65 @@ const render = data => {
             .on('mouseout', tip.hide)
     
     d3.selectAll('rect')
-    .on('click', function(d, i) {
-        console.log('d: ', d)
-        console.log('i: ', i)
-        console.log('i.style("fill"): ', d3.select(this).style('fill'))
-        let color = d3.select(this).style('fill')
-        color = d3.rgb(color)
-        console.log('color: ', color)
-        console.log('color: ', color.r)
+    
+}
 
-        if (color.r == 255 && color.g == 69 && color.b == 0) {
-            console.log('what')
-            d3.select(this)
-            .style('fill', 'orangered');
-        } 
-        else {
-            console.log('else')
-            d3.select(this)
-            .style('fill', 'orange');
+function readData(value) {
+    d3.csv("/data/country-data.csv", function(error, data, value) {
+        
+        let dataToBePassed = []
+        console.log('data: ', data)
+        console.log('value: ', value)
+
+        for (let i=4; i<data.length; i++) {
+            dataToBePassed.push({
+                name: data[i].indicator,
+                value: parseFloat(data[i][`${value}`])
+            })
         }
-})}
+        
+        dataToBePassed.sort((a, b) => (a.value) - (b.value));
+        console.log('dataToBePassed: ', dataToBePassed)
+        console.log('lowest: ', dataToBePassed[dataToBePassed.length-1])
+        render(dataToBePassed)
 
-// d3.csv("/data/country-data.csv").then(function(data) {
-d3.csv("/data/country-data.csv", function(error, data) {
-   let population = []
-   let healthExpenditureAsPercentOfGDP = []
-   console.log('data: ', data)
+     });
+}
 
-   for (let i=4; i<data.length; i++) {
-       population.push({
-           name: data[i].indicator,
-           value: parseFloat(data[i].population.replace(/,/g, ''))
-       })
-       if (parseFloat(data[i]["health expenditure \n% of GDP"])) {
-        healthExpenditureAsPercentOfGDP.push({
-            name: data[i].indicator,
-            value: parseFloat(data[i]["health expenditure \n% of GDP"])
-        })
-       }
-       
-   }
 
-   healthExpenditureAsPercentOfGDP.sort((a,b) => (a.value) - (b.value))
-   population.sort((a, b) => (a.value) - (b.value));
+const valueSelect = document.querySelector('.value-select')
 
-   render(healthExpenditureAsPercentOfGDP)
- 
-   console.log('population: ', population)
-   console.log('healthExpenditureAsPercentOfGDP: ', healthExpenditureAsPercentOfGDP)
-});
+function getValue() {
+    
+    var selected = valueSelect.value;  
+    console.log('selected: ', selected);
+    d3.csv("/data/country-data.csv", function(error, data) {
+
+        let dataToBePassed = []
+        console.log('data: ', data)
+        console.log('selected: ', selected)
+        
+        let test = "health expenditure \n% of GDP"
+
+        for (let i=4; i<data.length; i++) {
+            let value
+
+            if (parseFloat(data[i][selected])) {
+                dataToBePassed.push({
+                    name: data[i].indicator,
+                    value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
+                })
+            }
+        }
+     
+        
+
+        dataToBePassed.sort((a, b) => (a.value) - (b.value));
+        console.log('dataToBePassed: ', dataToBePassed)
+
+        render(dataToBePassed)
+
+     });
+  }
+
+valueSelect.onchange = getValue 
