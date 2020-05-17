@@ -1,3 +1,38 @@
+
+const outliers = (value) => {
+
+    if (value == 1) {
+        let selected = "health expenditure \n% of GDP"
+        return selected
+    } else if (value == 2) {
+        let selected = "health expenditure \nper person"
+        return selected
+    } else if (value == 3) {
+        let selected = "GDP growth\n(annual %)"
+        return selected
+    } else if (value == 4) {
+        let selected = "civil liberties score "
+        return selected
+    } else if (value == 5) {
+        let selected = "political rights score "
+        return selected
+    } else if (value == 6){
+        let selected = "education expenditure \nper person "
+        return selected
+    } else if (value == 7) {
+        let selected = "education expenditure\n% of GDP"
+        return selected
+    }
+    else {
+        return value
+    }
+}
+
+const loopThrough = data => {
+    data.forEach(datum => {
+        console.log('datum: ', datum)
+    })
+}
 const render = data => {
 
     // let margin = {top: 50, right: 10, bottom: 10, left: 10},
@@ -24,6 +59,13 @@ const render = data => {
         return "<strong>"+d.name+":</strong> <span style='color:red'>" + d.value + "</span>";
     })
 
+    const activeTip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+        return "<strong>"+d.name+":</strong> <span style='color:red'>" + d.value + "</span>";
+    })
+
     d3.select("svg").remove();
     const svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -31,6 +73,7 @@ const render = data => {
         .append("g")
 
     svg.call(tip);
+    svg.call(activeTip);
 
         x.domain(data.map(function(d) { return d.name; }));
         y.domain([0, d3.max(data, function(d) { return d.value; })]);
@@ -51,46 +94,23 @@ const render = data => {
     
 }
 
-function readData(value) {
-    d3.csv("/data/country-data.csv", function(error, data, value) {
-        
-        let dataToBePassed = []
-        console.log('data: ', data)
-        console.log('value: ', value)
-
-        for (let i=4; i<data.length; i++) {
-            dataToBePassed.push({
-                name: data[i].indicator,
-                value: parseFloat(data[i][`${value}`])
-            })
-        }
-        
-        dataToBePassed.sort((a, b) => (a.value) - (b.value));
-        console.log('dataToBePassed: ', dataToBePassed)
-        console.log('lowest: ', dataToBePassed[dataToBePassed.length-1])
-        render(dataToBePassed)
-
-     });
-}
-
-
 const valueSelect = document.querySelector('.value-select')
 
 function getValue() {
     
-    var selected = valueSelect.value;  
-    console.log('selected: ', selected);
+    let selected
+    if (valueSelect.value) {
+        selected = valueSelect.value;  
+    } else {
+        selected = 'population'
+    }
+
     d3.csv("/data/country-data.csv", function(error, data) {
 
-        let dataToBePassed = []
-        console.log('data: ', data)
-        console.log('selected: ', selected)
-        
-        let test = "health expenditure \n% of GDP"
+        let dataToBePassed = []            
 
+        selected = outliers(selected)
         for (let i=4; i<data.length; i++) {
-            let value
-
             if (parseFloat(data[i][selected])) {
                 dataToBePassed.push({
                     name: data[i].indicator,
@@ -98,15 +118,18 @@ function getValue() {
                 })
             }
         }
-     
         
-
         dataToBePassed.sort((a, b) => (a.value) - (b.value));
-        console.log('dataToBePassed: ', dataToBePassed)
-
+        // loopThrough(dataToBePassed)
+        document.querySelector('.sample-size').innerHTML = `countries included ${dataToBePassed.length}/199`
         render(dataToBePassed)
 
      });
   }
+
+window.onload = function() {
+    let selected = 'population'
+    getValue();
+};
 
 valueSelect.onchange = getValue 

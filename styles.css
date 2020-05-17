@@ -20,21 +20,10 @@ svg {
   padding: 0;
   margin-top: 5vh;
 }
-  rect {
-      fill: #BA324F
-  }
-
-  text {
-      font-size: .8rem;
-  }
-  body {
-    font: 10px sans-serif;
-    
-  }
-  
-  .vertical-text {
-    transform: rotate(-90.0deg);
-  }
+.value-select {
+  margin-left: 5vw;
+  margin-top: 5vh;
+}
     
   .axis path,
   .axis line {
