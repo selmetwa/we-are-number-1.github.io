@@ -28,15 +28,9 @@ const outliers = (value) => {
     }
 }
 
-const loopThrough = data => {
-    data.forEach(datum => {
-        console.log('datum: ', datum)
-    })
-}
 const render = data => {
 
-    // let margin = {top: 50, right: 10, bottom: 10, left: 10},
-    let width = 1200; 
+    let width = 1400; 
     let height = 500;
 
     const x = d3.scale.ordinal()
@@ -56,14 +50,14 @@ const render = data => {
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-        return "<strong>"+d.name+":</strong> <span style='color:red'>" + d.value + "</span>";
+        return "<strong>"+d.name+":</strong> <span style='color:orange'>" + d.value + "</span>";
     })
 
     const activeTip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function(d) {
-        return "<strong>"+d.name+":</strong> <span style='color:red'>" + d.value + "</span>";
+        return "<strong>"+d.name+":</strong> <span style='color:orange'>" + d.value + "</span>";
     })
 
     d3.select("svg").remove();
@@ -90,8 +84,21 @@ const render = data => {
             .on('mouseover', tip.show)
             .on('mouseout', tip.hide)
     
-    d3.selectAll('rect')
     
+    d3.selectAll('rect')
+
+
+    // let test = ['Australia', 'Brazil', 'United States']
+    let test = getSpecificCountries()
+    // document.querySelector('.countries-selected').innerHTML = test
+    console.log('test: ', test)
+    d3.selectAll(".bar")
+    .filter(function(d) { return test.includes(d.name) })
+    .style("fill", "#7692FF")
+    .activeTip.show
+
+    const names = data.map(function(d) { return d.name})
+
 }
 
 const valueSelect = document.querySelector('.value-select')
@@ -120,16 +127,31 @@ function getValue() {
         }
         
         dataToBePassed.sort((a, b) => (a.value) - (b.value));
-        // loopThrough(dataToBePassed)
-        document.querySelector('.sample-size').innerHTML = `countries included ${dataToBePassed.length}/199`
+        document.querySelector('.sample-size').innerHTML = `ranking ${dataToBePassed.length}/199 countries by`;
+        document.querySelector('.sample-size-metric').innerHTML = `${selected}`;
+
+        
         render(dataToBePassed)
 
      });
   }
 
 window.onload = function() {
-    let selected = 'population'
     getValue();
 };
 
 valueSelect.onchange = getValue 
+
+const countrySelect = document.querySelector('.country-select')
+
+$('.country-select').selectpicker();
+$('.value-select').selectpicker();
+
+function getSpecificCountries() {
+    const values = Array.from(document.querySelectorAll('.country-select option:checked')).map(el => el.value);
+    console.log('values: ', values)
+    return values
+}
+
+countrySelect.onchange = getValue
+

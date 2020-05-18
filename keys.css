@@ -1,0 +1,80 @@
+.colors-key {
+  display: flex;
+  width: 45vw;
+  flex-direction: row;
+  margin-top: -.75vh;
+}
+  .key {
+    display: flex;
+    padding: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px dashed #F1EDEE;
+  }
+  .key p {
+    text-align: center;
+    padding-top: -10px;
+    margin: auto;
+    font-size: .85rem;
+  }
+  .asia {
+    color: #487DAD!important;
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .asia-key {
+    color: #487DAD!important;
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .africa {
+    color: #00AF54!important; 
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .africa-key {
+    color: #00AF54!important; 
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .europe {
+    color: #FDB650!important;
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .europe-key {
+    color: #FDB650!important;
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .north-america {
+    color: #1D1E2C!important;
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .north-america-key {
+    color: #1D1E2C!important;
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .south-america {
+    color: #e77082!important;
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .south-america-key {
+    color: #e77082!important;
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .oceania {
+    color: #802694!important;
+    /* color: rgb(22, 10, 31)!important; */
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }
+  .oceania-key {
+    color: #802694!important;
+    font-weight: 400!important;
+    font-family: Avenir, Arial, Helvetica, sans-serif
+  }

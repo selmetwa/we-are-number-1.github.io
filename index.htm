@@ -9,43 +9,270 @@
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <script defer src="./main.js" type="module"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="keys.css">
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
     <title>d3</title>
 </head>
 <body>
     <!-- <svg height="3000" width="1750" style="border: 2px solid lightblue"></svg> -->
-    <select class="value-select" onchange="getValue(this)">
-        <option value="population">population</option>
-        <option value="1">health expenditure as % of GDP</option>
-        <option value="GINI index">Wealth distribution</option>
-        <option value="surface area (Km2)">surface area</option>
-        <option value="human development index">human development index</option>
-        <option value="sustainable economic development assessment (SEDA)">sustainable economic development assessment</option>
-        <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
-        <option value="school life expectancy (YEARS)">school life expectancy (YEARS)</option>
-        <option value="unemployment (%)">percent unemployment</option>
-        <option value="government spending score">government spending score</option>
-        <option value="government expenditure (% of GDP)">government expenditure (% of GDP)</option>
-        <option value="5">political rights score</option>
-        <option value="4">civil liberties score</option>
-        <option value="political stability & absence of violence">political stability & absence of violence</option>
-        <option value="government effectiveness">government effectiveness</option>
-        <option value="rule of law">rule of law</option>
-        <option value="control of corruption">control of corruption</option>
-        <option value="judicial effectiveness score">judicial effectiveness score</option>
-        <option value="government integrity score">government integrity score</option>
-        <option value="property rights score">property rights score</option>
-        <option value="tax burden score">tax burden score</option>
-        <option value="overall economic freedom score">overall economic freedom score</option>
-        <option value="property rights score">property rights score</option>
-        <option value="financial freedom score">financial freedom score</option>
-        <option value="women MPs (% of all MPs)">women MPs (% of all MPs)</option>
-        <option value="3">GDP growth per year</option>
-        <option value="2">health expenditure per person</option>
-        <option value="6">education expenditure\nper person</option>
-        <option value="7">education expenditure\n% of GDP </option>
-    </select>
+    <div class="selects-wrapper">
+        <div class="value-select-wrapper">
+            <div class="sample-size-wrapper">
+                <p class="sample-size"></p>
+                <p class="sample-size-metric"></p>
+            </div>
+            <select class="value-select" data-live-search="true" title="Choose metric" data-width="auto">
+                <option value="population">population</option>
+                <option value="1">health expenditure as % of GDP</option>
+                <option value="GINI index">Wealth distribution</option>
+                <option value="surface area (Km2)">surface area</option>
+                <option value="human development index">human development index</option>
+                <option value="sustainable economic development assessment (SEDA)">sustainable economic development assessment</option>
+                <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
+                <option value="school life expectancy (YEARS)">school life expectancy (YEARS)</option>
+                <option value="unemployment (%)">percent unemployment</option>
+                <option value="government spending score">government spending score</option>
+                <option value="government expenditure (% of GDP)">government expenditure (% of GDP)</option>
+                <option value="5">political rights score</option>
+                <option value="4">civil liberties score</option>
+                <option value="political stability & absence of violence">political stability & absence of violence</option>
+                <option value="government effectiveness">government effectiveness</option>
+                <option value="rule of law">rule of law</option>
+                <option value="control of corruption">control of corruption</option>
+                <option value="judicial effectiveness score">judicial effectiveness score</option>
+                <option value="government integrity score">government integrity score</option>
+                <option value="property rights score">property rights score</option>
+                <option value="tax burden score">tax burden score</option>
+                <option value="overall economic freedom score">overall economic freedom score</option>
+                <option value="property rights score">property rights score</option>
+                <option value="financial freedom score">financial freedom score</option>
+                <option value="women MPs (% of all MPs)">women MPs (% of all MPs)</option>
+                <option value="3">GDP growth per year</option>
+                <option value="2">health expenditure per person</option>
+                <option value="6">education expenditure\nper person</option>
+                <option value="7">education expenditure\n% of GDP </option>
+            </select>
+            
+        </div>  
+        <div class="country-select-wrapper">
+            <div class="colors-key">
+                <div class="key asia-key"><p>Asia</p></div>
+                <div class="key africa-key"><p>Africa</p></div>
+                <div class="key south-america-key"><p>South America</p></div>
+                <div class="key north-america-key"><p>North America</p></div>
+                <div class="key europe-key"><p>Europe</p></div>
+                <div class="key oceania-key"><p>Oceania</p></div>
+            </div>
+            <select class="country-select" multiple data-actions-box="true" data-live-search="true" title="Choose a specific country..." data-width="auto">
+                <option class="asia">Afghanistan</option>
+                <option class="europe">Albania</option>
+                <option class="africa">Algeria</option>
+                <option class="europe">Andorra</option>
+                <option class="africa">Angola</option>
+                <option class="north-america">Antigua & Barbuda</option>
+                <option class="south-america">Argentina</option>
+                <option class="asia">Armenia</option>
+                <option class="oceania">Australia</option>
+                <option class="europe">Austria</option>
+                <option class="asia">Azerbaijan</option>
+                <option class="north-america">Bahamas</option>
+                <option class="asia">Bahrain</option>
+                <option class="asia">Bangladesh</option>
+                <option class="north-america">Barbados</option>
+                <option class="europe">Belarus</option>
+                <option class="europe">Belgium</option>
+                <option class="north-america">Belize</option>
+                <option class="africa">Benin</option>
+                <option class="asia">Bhutan</option>
+                <option class="south-america">Bolivia</option>
+                <option class="europe">Bosnia and Herzegovina</option>
+                <option class="africa">Botswana</option>
+                <option class="south-america">Brazil</option>
+                <option class="asia">Brunei</option>
+                <option class="europe">Bulgaria</option>
+                <option class="africa">Burkina Faso</option>
+                <option class="africa">Burundi</option>
+                <option class="asia">Cambodia</option>
+                <option class="africa">Cameroon</option>
+                <option class="north-america">Canada</option>
+                <option class="africa">Central African Republic</option>
+                <option class="africa">Chad</option>
+                <option class="south-america">Chile</option>
+                <option class="asia">China</option>
+                <option class="south-america">Colombia</option>
+                <option class="africa">Comoros</option>
+                <option class="africa">Congo (Dem. Rep.)</option>
+                <option class="africa">Congo (Rep.)</option>
+                <option class="south-america">Costa Rica</option>
+                <option class="africa">Cote d'Ivoire</option>
+                <option class="europe">Croatia</option>
+                <option class="north-america">Cuba</option>
+                <option class="europe">Cyprus</option>
+                <option class="europe">Czech Republic</option>
+                <option class="europe">Denmark</option>
+                <option class="africa">Djibouti</option>
+                <option class="north-america">Dominican Republic</option>
+                <option class="south-america">Ecuador</option>
+                <option class="africa">Egypt</option>
+                <option class="north-america">El Salvador</option>
+                <option class="africa">Equatorial Guinea</option>
+                <option class="africa">Eritrea</option>
+                <option class="europe">Estonia</option>
+                <option class="africa">Ethiopia</option>
+                <option class="oceania">Fiji</option>
+                <option class="europe">Finland</option>
+                <option class="europe">France</option>
+                <option class="africa">Gabon</option>
+                <option class="africa">Gambia</option>
+                <option class="europe">Georgia</option>
+                <option class="europe">Germany</option>
+                <option class="africa">Ghana</option>
+                <option class="europe">Greece</option>
+                <option class="north-america">Grenada</option>
+                <option class="north-america">Guatemala</option>
+                <option class="africa">Guinea</option>
+                <option class="africa">Guinea-Bissau</option>
+                <option class="south-america">Guyana</option>
+                <option class="north-america">Haiti</option>
+                <option class="north-america">Honduras</option>
+                <option class="europe">Hungary</option>
+                <option class="europe">Iceland</option>
+                <option class="asia">India</option>
+                <option class="asia">Indonesia</option>
+                <option class="asia">Iran</option>
+                <option class="asia">Iraq</option>
+                <option class="europe">Ireland</option>
+                <option class="asia">Israel</option>
+                <option class="europe">Italy</option>
+                <option class="north-america">Jamaica</option>
+                <option class="asia">Japan</option>
+                <option class="asia">Jordan</option>
+                <option class="asia">Kazakhstan</option>
+                <option class="africa">Kenya</option>
+                <option class="oceania">Kiribati</option>
+                <option class="asia">Korea (Dem. People’s Rep.)	</option>
+                <option class="asia">Korea (Rep.)</option>
+                <option class="europe">Kosovo</option>
+                <option class="asia">Kuwait</option>
+                <option class="asia">Kyrgyzstan</option>
+                <option class="asia">Laos</option>
+                <option class="europe">Latvia</option>
+                <option class="asia">Lebanon</option>
+                <option class="africa">Lesotho</option>
+                <option class="africa">Liberia</option>
+                <option class="africa">Libya</option>
+                <option class="europe">Liechtenstein</option>
+                <option class="europe">Lithuania</option>
+                <option class="europe">Luxembourg</option>
+                <option class="europe">Macedonia</option>
+                <option class="asia">Madagascar</option>
+                <option class="africa">Malawi</option>
+                <option class="asia">Malaysia</option>
+                <option class="asia">Maldives</option>
+                <option class="africa">Mali</option>
+                <option class="europe">Malta</option>
+                <option class="oceania">Marshall Islands</option>
+                <option class="africa">Mauritania</option>
+                <option class="africa">Mauritius</option>
+                <option class="north-america">Mexico</option>
+                <option class="oceania">Micronesia</option>
+                <option class="europe">Moldova</option>
+                <option class="europe">Monaco</option>
+                <option class="asia">Mongolia</option>
+                <option class="europe">Montenegro</option>
+                <option class="africa">Morocco</option>
+                <option class="africa">Mozambique</option>
+                <option class="asia">Myanmar</option>
+                <option class="africa">Namibia</option>
+                <option class="oceania">Nauru</option>
+                <option class="asia">Nepal</option>
+                <option class="europe">Netherlands</option>
+                <option class="oceania">New Zealand</option>
+                <option class="north-america">Nicaragua</option>
+                <option class="africa">Niger</option>
+                <option class="africa">Nigeria</option>
+                <option class="europe">Norway</option>
+                <option class="asia">Oman</option>
+                <option class="asia">Pakistan</option>
+                <option class="oceania">Palau</option>
+                <option class="north-america">Panama</option>
+                <option class="oceania">Papua New Guinea</option>
+                <option class="south-america">Paraguay</option>
+                <option class="south-america">Peru</option>
+                <option class="asia">Philippines</option>
+                <option class="europe">Poland</option>
+                <option class="europe">Portugal</option>
+                <option class="asia">Qatar</option>
+                <option class="europe">Romania</option>
+                <option class="europe">Russia</option>
+                <option class="africa">Rwanda</option>
+                <option class="north-america">Saint Kitts and Nevis</option>
+                <option class="north-america">Saint Lucia</option>
+                <option class="north-america">Saint Vincent and the Grenadines</option>
+                <option class="oceania">Samoa</option>
+                <option class="europe">San Marino</option>
+                <option class="africa">Sao Tome and Principe</option>
+                <option class="asia">Saudi Arabia</option>
+                <option class="africa">Senegal</option>
+                <option class="europe">Serbia</option>
+                <option class="africa">Seychelles</option>
+                <option class="africa">Sierra Leone</option>
+                <option class="asia">Singapore</option>
+                <option class="europe">Slovenia</option>
+                <option class="oceania">Solomon Islands</option>
+                <option class="africa">Somalia</option>
+                <option class="africa">South Africa</option>
+                <option class="africa">South Sudan</option>
+                <option class="europe">Spain</option>
+                <option class="asia">Sri Lanka</option>
+                <option class="africa">Sudan</option>
+                <option class="south-america">Suriname</option>
+                <option class="europe">Sweden</option>
+                <option class="europe">Switzerland</option>
+                <option class="asia">Syria</option>
+                <option class="asia">Taiwan</option>
+                <option class="asia">Tajikistan</option>
+                <option class="africa">Tanzania</option>
+                <option class="asia">Thailand</option>
+                <option class="asia">Timor-Leste</option>
+                <option class="africa">Togo</option>
+                <option class="oceania">Tonga</option>
+                <option class="north-america">Trinidad and Tobago</option>
+                <option class="africa">Tunisia</option>
+                <option class="asia">Turkey</option>
+                <option class="asia">Turkmenistan</option>
+                <option class="oceania">Tuvalu</option>
+                <option class="africa">Uganda</option>
+                <option class="europe">Ukraine</option>
+                <option class="asia">United Arab Emirates</option>
+                <option class="europe">United Kingdom</option>
+                <option class="north-america">United States</option>
+                <option class="south-america">Uruguay</option>
+                <option class="asia">Uzbekistan</option>
+                <option class="oceania">Vanuatu</option>
+                <option class="south-america">Venezuela</option>
+                <option class="asia">Vietnam</option>
+                <option class="asia">Yemen</option>
+                <option class="africa">Zambia</option>
+                <option class="africa">Zimbabwe</option>
+            </select>
+            
+            <!-- <div class="countries-selected"></div> -->
+        </div>
+    </div>
+    
+    
     <div class="charts"></div>
-    <p class="sample-size"></p>
 </body>
 
 

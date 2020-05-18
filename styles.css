@@ -18,26 +18,16 @@ html {
 svg {
   margin: 0;
   padding: 0;
-  margin-top: 5vh;
+  margin-top: 3vh;
+  margin-left: 7vw;
 }
-.value-select {
-  margin-left: 5vw;
-  margin-top: 5vh;
-}
-    
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
-  
+
   .bar {
     fill: orange;
   }
   
   .bar:hover {
-    fill: orangered ;
+    fill: #7692FF ;
   }
   
   .active {
@@ -48,27 +38,70 @@ svg {
     line-height: 1;
     font-weight: bold;
     padding: 12px;
-    background: rgba(0, 0, 0, 0.8);
+    background: #070707;
     color: #fff;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    font-size: .8rem;
     border-radius: 2px;
   }
   
-  /* Creates a small triangle extender for the tooltip */
   .d3-tip:after {
     box-sizing: border-box;
     display: inline;
     font-size: 10px;
     /* width: 100%; */
     line-height: 1;
-    color: rgba(0, 0, 0, 0.8);
+    color: #070707;
     content: "\25BC";
     position: absolute;
     text-align: center;
   }
   
-  /* Style northward tooltips differently */
   .d3-tip.n:after {
     margin: -1px 0 0 0;
     top: 100%;
     left: 0;
   }
+.selects-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1vh;
+  margin-left: 7vw;
+}
+.value-select-wrapper {
+  margin-top: 5vh;
+}
+.sample-size {
+  
+}
+.country-select-wrapper {
+  margin-top: 5vh;
+  margin-left: 3vw;
+}
+.country-select {
+  display: flex;
+  flex: 1;
+  margin-top: .8vh;
+  border-radius: 4px;
+  border: 1px solid #d6d3d3;
+}
+.sample-size-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin-left: .5vw;
+  font-size: .85rem;
+  margin: 0;
+  padding: 0;
+}
+.sample-size-metric {
+  margin-left: .2vw;
+  border-bottom: 3px solid  #E57A44;
+  font-size: .85rem;
+}
+.value-select {
+  display: flex;
+  flex: 1;
+  border-radius: 4px;
+  border: 1px solid #d6d3d3;
+}
