@@ -11,6 +11,9 @@
     padding-right: 15px;
     border: 1px dashed #F1EDEE;
   }
+  .key:hover {
+    cursor: pointer;
+  }
   .key p {
     text-align: center;
     padding-top: -10px;
@@ -53,7 +56,7 @@
     font-family: Avenir, Arial, Helvetica, sans-serif
   }
   .north-america-key {
-    color: #1D1E2C!important;
+    color: #1D1E2C;
     font-weight: 400!important;
     font-family: Avenir, Arial, Helvetica, sans-serif
   }

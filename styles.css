@@ -26,14 +26,34 @@ svg {
     fill: orange;
   }
   
-  .bar:hover {
-    fill: #7692FF ;
-  }
   
+  .bar.africaActive {
+    fill: #00AF54!important;
+  }
+  .bar.asiaActive {
+    fill: #487DAD!important;
+  }
+  .bar.europeActive {
+    fill: #FDB650!important
+  }
+  .bar.southAmericaActive {
+    fill: #e77082!important
+  }
+  .bar.northAmericaActive {
+    fill: #1D1E2C!important
+  }
+  .bar.oceaniaActive {
+    fill: #802694!important
+  }
   .active {
     fill: orangered ;
   }
-  
+  .bar.specificCountry {
+    fill: red!important;
+  }
+  .bar:hover {
+    fill: red!important;
+  }
   .d3-tip {
     line-height: 1;
     font-weight: bold;
@@ -105,3 +125,4 @@ svg {
   border-radius: 4px;
   border: 1px solid #d6d3d3;
 }
+
