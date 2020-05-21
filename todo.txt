@@ -1,7 +1,4 @@
-political rights score * 
-civil liberties score *
-GDP growth\n(annual %) *
-health expenditure \n% of GDP
-health expenditure \nper person * 
-education expenditure\n% of GDP * 
-education expenditure\nper person
+generate array for values of each country
+then pass into correlation function 
+
+have to get percentile for each measurement
