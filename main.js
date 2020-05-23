@@ -234,7 +234,7 @@ const tip = d3
     d =>
       `<strong>Country: </strong><span class='details'>${
         d.properties.name
-      }<br></span><strong>Population: </strong><span class='details'>${format(
+      }<br></span><strong>Correlation with ${testArray[testArray.length - 1].name}: </strong><span class='details'>${format(
         d[colorVariable]
       )}</span>`
   )
@@ -309,7 +309,7 @@ const parentWidth = d3
   .node()
   .getBoundingClientRect().width
 const margin = { top: 150, right: 100, bottom: 0, left: 0 }
-const width = 1460 - margin.left - margin.right
+const width = 1700 - margin.left - margin.right
 const height = 1100 - margin.top - margin.bottom
 
 const color = d3
@@ -385,17 +385,17 @@ function ready(data) {
       if (typeof d.score !== 'undefined') {
         // return color(d.score)
         if (d.score < 0) {
-            return `rgba(13, 33, 73, ${d.score + .9})`
+            return `rgba(200, 62, 70, ${d.score + .9})`
         } else if (d.score == 1) {
-            return `rgb(108, 20, 26)`
+            return `rgb(5, 7, 77)`
         }  
         else {
-            return `rgba(219, 80, 74, ${d.score + .1})`            
+            return `rgba(26, 35, 115, ${d.score + .1})`            
         }
       }
       return 'white'
     })
-    .style('fill-opacity', .8)
+    .style('fill-opacity', 1)
     .style('stroke', d => {
       if (d.score == 1) {
         return 'red'

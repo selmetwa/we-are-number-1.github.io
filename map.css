@@ -1,9 +1,7 @@
 .map-wrapper {
     margin-top: 20vh;
-    margin-left: 7vw;
-    border: 1px solid red;
+    /* margin-left: 3vw; */
 }
-
 .country-to-compare {
     display: flex;
     flex: 1;
@@ -12,23 +10,28 @@
     border: 1px solid #d6d3d3;
   }
   .similar-wrapper {
-      margin-top: 2vh;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    margin-top: 2vh;
   }
   .most-span {
-      color: blue;
-      font-size: .8rem;
+      color: #333;
+      opacity: .6;
+      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+      font-size: .9rem;
   }
   .most-similar {
-      /* color: red; */
-      color: rgb(108, 20, 26);
-      font-size: 1.2rem;
+      color: rgb(200, 62, 70);
+      font-size: 1.1rem;
+      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
   }
   .least-span {
-    color: red;
-    font-size: .8rem;
+    color: #333;
+    opacity: .6;
+    font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+    font-size: .9rem;
   }
   .least-similar {
-      color: blue;
-      color: rgb(13, 33, 73);
-      font-size: 1.2rem;
-  }
+      color: rgb(5, 7, 77);
+      font-size: 1.1rem;  
+      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+    }
