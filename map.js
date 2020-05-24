@@ -31,7 +31,6 @@ const happy_planet_array = []
 const world_happiness_score_array = []
 
 d3.csv("/data/country-data.csv", function(error, data) {
-    // console.log('data: ', data )
     let dataWithValues = []              
     for (let i=4; i<data.length; i++) {
         let value = []
@@ -357,9 +356,7 @@ function ready(data) {
     numberOfClasses
   )
   const ckmeansBreaks = ckmeansClusters.map(d => d3.min(d))
-  console.log('numberOfClasses', numberOfClasses)
-  console.log('ckmeansClusters', ckmeansClusters)
-  console.log('ckmeansBreaks', ckmeansBreaks)
+
 
   color.domain(ckmeansBreaks)
 
@@ -372,7 +369,6 @@ function ready(data) {
     .append('path')
     .attr('d', path)
     .style('fill', d => {
-        console.log('d:' ,d.properties.name)
       if (typeof d.score !== 'undefined') {
         // return color(d.score)
         if (d.score < 0) {
@@ -429,12 +425,7 @@ fetch('world_countries.json')
                 } 
             })
         }
-        console.log('json: ', json.features)
         ready(json.features)
     })
-
-
-console.log('geography: ', geography)
-console.log('testArray: ', testArray)
 
 })

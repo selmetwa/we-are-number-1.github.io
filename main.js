@@ -1,6 +1,7 @@
+const isLaptop = window.innerWidth <= 1900 ? true : false;
 
-function loadMap() {
-    const human_development_index_array = []
+function loadMap(valueFromClick) {
+const human_development_index_array = []
 const GDP_percent_billions_array = []
 const GDP_capita_billions_array = []
 const GDP_growth_annual_array = []
@@ -174,20 +175,47 @@ d3.csv("/data/country-data.csv", function(error, data) {
                 percentileArray: hmmArray
             })
       }
+
       let countryToCompare = document.querySelector('#country-to-compare')
       let targetCountry
-      if (countryToCompare.value) {
-        targetCountry = arrWithPercentiles.filter(obj => {
-            return obj.name == countryToCompare.value
-        })
-      } else {
-        targetCountry = arrWithPercentiles.filter(obj => {
-            return obj.name == 'United States'
-        })
+
+      function getCountry() {
+        //  if (valueFromClick != null) {
+        //     console.log('if hits')
+        //     console.log('valueFromClick.name: ', valueFromClick.name)
+        //     targetCountry = arrWithPercentiles.filter(obj => {
+        //         return obj.name == valueFromClick.name
+        //     })
+        //     countryToCompare.innerHTML = targetCountry
+        //     valueFromClick = null
+        //     return targetCountry
+        //  }
+        //  else 
+         if (countryToCompare.value) {
+            targetCountry = arrWithPercentiles.filter(obj => {
+                return obj.name == countryToCompare.value
+            })
+            // selectElement('#country-to-compare', targetCountry)
+            return targetCountry
+         }
+          else {
+            targetCountry =  arrWithPercentiles.filter(obj => {
+                countryToCompare.placeholder = 'United States'
+                return obj.name == 'United States'
+            })
+            return targetCountry
+          }
       }
-      console.log('countryToCompare: ', countryToCompare)
-      console.log('targetCountry: ', targetCountry.value)
       
+      targetCountry = getCountry()
+   
+      function setSelectedIndex(s, i) {
+        s.options[i-1].selected = true;
+        return;
+    }
+
+
+
 
       for (let i=0; i<arrWithPercentiles.length; i++) {
         let result = pearson(
@@ -201,7 +229,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
       }
 
     testArray.sort((a,b) => a.score - b.score)
-    console.log('testArray: ', testArray)
     function percentRank(array, n) {
     var L = 0;
     var S = 0;
@@ -308,10 +335,19 @@ const parentWidth = d3
   .select('body')
   .node()
   .getBoundingClientRect().width
-const margin = { top: 150, right: 100, bottom: 0, left: 0 }
-const width = 1700 - margin.left - margin.right
-const height = 1100 - margin.top - margin.bottom
-
+// const 
+let margin
+let width
+let height
+if (isLaptop) {
+    margin = { top: 150, right: 400, bottom: 0, left: 0 }
+    width = 1600 - margin.left - margin.right
+    height = 1000 - margin.top - margin.bottom
+} else {
+    margin = { top: 150, right: 100, bottom: 0, left: 0 }
+    width = 1800 - margin.left - margin.right
+    height = 1100 - margin.top - margin.bottom
+}
 const color = d3
   .scaleQuantile()
   .range([
@@ -336,20 +372,29 @@ const map = d3
   .append('g')
   .attr('class', 'map')
 
-  document.querySelector('.most-similar').innerHTML = `<span class="most-span">Most Similar</span> ${testArray[193].name}, ${testArray[192].name}, ${testArray[191].name}`
-  document.querySelector('.least-similar').innerHTML = `<span class="least-span">Least Similar</span> ${testArray[0].name}, ${testArray[1].name}, ${testArray[2].name}`
-// let maps = d3.selectAll('.map')
-// var arr = Array.prototype.slice.call(maps._groups[0]);
-// console.log('arr: ', arr)
-// if (arr.length > 1) {
-//     arr[0] = arr[1]
-//     arr[1].remove()
-// }
-const projection = d3
-  .geoRobinson()
-  .scale(275)
-  .rotate([352, 0, 0])
-  .translate([width / 2, height / 2])
+  document.querySelector('.most-similar').innerHTML = `
+  <span class="country">${testArray[193].name}</span>, 
+  <span class="country">${testArray[192].name}</span>, 
+  <span class="country">${testArray[191].name}</span>
+  `
+  document.querySelector('.least-similar').innerHTML = `${testArray[0].name}, ${testArray[1].name}, ${testArray[2].name}`
+
+let projection
+if (isLaptop) {
+    projection = d3
+    .geoRobinson()
+    .scale(245)
+    .rotate([352, 0, 0])
+    .translate([width / 2, height / 2])
+} else {
+    projection = d3
+    .geoRobinson()
+    .scale(300)
+    .rotate([352, 0, 0])
+    .translate([width / 2, height / 2])
+}
+
+
 
 const path = d3.geoPath().projection(projection)
 
@@ -357,7 +402,6 @@ map.call(tip)
 
 queue()
   .defer(d3.json, 'world_countries.json')
-  .defer(d3.tsv, 'world_population.tsv')
   .await(ready)
 
 function ready(data) {
@@ -367,9 +411,6 @@ function ready(data) {
     numberOfClasses
   )
   const ckmeansBreaks = ckmeansClusters.map(d => d3.min(d))
-  console.log('numberOfClasses', numberOfClasses)
-  console.log('ckmeansClusters', ckmeansClusters)
-  console.log('ckmeansBreaks', ckmeansBreaks)
 
   color.domain(ckmeansBreaks)
 
@@ -422,6 +463,8 @@ function ready(data) {
         .style('stroke-opacity', 0.5)
         .style('stroke-width', 1)
     })
+    // .on('click', clickHandler)
+
 
   map
     .append('path')
@@ -429,14 +472,14 @@ function ready(data) {
     .attr('class', 'names')
     .attr('d', path)
 }
-
+function clickHandler(d, i) {
+    loadMap(d.properties)    
+}
 let geography
 fetch('world_countries.json')
     .then(response => response.json())
     .then(result => geography = result)
     .then(json => {
-        // console.log('json: ', json)
-        // console.log('json: ', json.features)
         for (let i=0; i<testArray.length; i++) {
             json.features.forEach(feature => {
                 if (feature.properties.name == testArray[i].name) {
@@ -444,14 +487,8 @@ fetch('world_countries.json')
                 } 
             })
         }
-        console.log('json: ', json.features)
         ready(json.features)
     })
-
-
-console.log('geography: ', geography)
-console.log('testArray: ', testArray)
-
 })
 
 }
@@ -556,8 +593,16 @@ const outliers = (value) => {
 
 const render = data => {
 
-    let width = 1400; 
-    let height = 500;
+    let width 
+    let height 
+    if (isLaptop) {
+        width = 1200; 
+        height = 500;
+    } else {
+        width = 1600; 
+        height = 600;
+    }
+    
 
     const x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1);
@@ -665,7 +710,7 @@ function getValue() {
     if (valueSelect.value) {
         selected = valueSelect.value;  
     } else {
-        selected = 'population'
+        selected = 'health expenditure \n% of GDP'
     }
 
     d3.csv("/data/country-data.csv", function(error, data) {

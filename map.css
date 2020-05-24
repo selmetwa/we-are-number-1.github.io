@@ -1,6 +1,9 @@
 .map-wrapper {
-    margin-top: 20vh;
-    /* margin-left: 3vw; */
+    margin-top: 30vh;
+}
+.map-wrapper-widgets {
+  width: 60%;
+  margin: auto;
 }
 .country-to-compare {
     display: flex;
@@ -8,30 +11,60 @@
     margin-top: .8vh;
     border-radius: 4px;
     border: 1px solid #d6d3d3;
+    margin: auto;
+  margin-left: 25%;
   }
   .similar-wrapper {
     font-family: Avenir, Arial, Helvetica, sans-serif;
     margin-top: 2vh;
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+    flex-direction: row;
   }
   .most-span {
       color: #333;
       opacity: .6;
       font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
-      font-size: .9rem;
+      font-size: .8rem;
+      margin-right: 1%;
+      font-weight: 100;
+      text-transform: uppercase;
   }
   .most-similar {
-      color: rgb(200, 62, 70);
-      font-size: 1.1rem;
+      color: rgb(5, 7, 77);
+      font-size: 1.2rem;
+      width: auto;
       font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
   }
   .least-span {
     color: #333;
     opacity: .6;
     font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
-    font-size: .9rem;
+    font-size: .8rem;
+    font-weight: 100;
+    text-transform: uppercase;
+    margin-left: 1%;
+    /* margin-top: .5%; */
   }
   .least-similar {
-      color: rgb(5, 7, 77);
-      font-size: 1.1rem;  
+      color: rgb(200, 62, 70);
+      font-size: 1.2rem;  
       font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+      margin-left: 3%;
+    }
+    .country-to-compare-wrapper {
+      display: flex;
+      width: 70%;
+      margin: auto;
+      flex-direction: row;
+    }
+    .country-to-compare-wrapper h1 {
+      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+      font-size: 1.4rem;
+      margin-right: 3%;
+      margin-top: 1%;
+    }
+    .country {
+      margin-left: 4px;
     }
