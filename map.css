@@ -1,9 +1,15 @@
 .map-wrapper {
-    margin-top: 30vh;
+    margin-top: 10vh;
 }
+/* .map-container {
+  margin-top: -1vh;
+} */
 .map-wrapper-widgets {
-  width: 60%;
+  width: 80%;
   margin: auto;
+}
+.metric-text {
+  font-size: 1rem;
 }
 .country-to-compare {
     display: flex;
@@ -12,29 +18,53 @@
     border-radius: 4px;
     border: 1px solid #d6d3d3;
     margin: auto;
-  margin-left: 25%;
   }
   .similar-wrapper {
     font-family: Avenir, Arial, Helvetica, sans-serif;
-    margin-top: 2vh;
     display: flex;
-    width: 80%;
-    margin-left: 10%;
+    width: min-content;
+    margin: auto;
+    margin-top: 2vh;
+    flex-direction: row;
+  }
+  .signifigant-metrics-wrapper {
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    margin-top: 0vh;
+    display: flex;
+    width: 100%;
+    margin: auto;
+    width: min-content;
     flex-direction: row;
   }
   .most-span {
       color: #333;
       opacity: .6;
       font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
-      font-size: .8rem;
+      font-size: .75rem;
       margin-right: 1%;
       font-weight: 100;
+      white-space: nowrap;
       text-transform: uppercase;
+  }
+  .highest {
+    border-bottom: 2px solid rgb(5, 7, 77);
+    white-space: nowrap;
+  }
+  .highest-metrics {
+    white-space: nowrap;
+  }
+  .lowest {
+    border-bottom: 2px solid rgb(200, 62, 70);
+  }
+  .lowest-metrics {
+    margin-left: 1%;
+    white-space: nowrap;
   }
   .most-similar {
       color: rgb(5, 7, 77);
       font-size: 1.2rem;
       width: auto;
+      white-space: nowrap;
       font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
   }
   .least-span {
@@ -43,28 +73,59 @@
     font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
     font-size: .8rem;
     font-weight: 100;
+    white-space: nowrap;
     text-transform: uppercase;
     margin-left: 1%;
-    /* margin-top: .5%; */
   }
   .least-similar {
       color: rgb(200, 62, 70);
       font-size: 1.2rem;  
+      white-space: nowrap;
       font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
       margin-left: 3%;
     }
     .country-to-compare-wrapper {
       display: flex;
-      width: 70%;
+      width: 35%;
       margin: auto;
       flex-direction: row;
     }
     .country-to-compare-wrapper h1 {
       font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
-      font-size: 1.4rem;
+      font-size: 1.6rem;
       margin-right: 3%;
       margin-top: 1%;
     }
     .country {
       margin-left: 4px;
+      white-space: nowrap
+    }
+
+    .map-description {
+      width: 100%;
+      height: min-content;
+      margin-top: 15vh;
+    }
+    .map-description-title {
+      font-size: 3.2rem;
+      margin-left: 7vw;
+      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+      color: #323648;
+      font-weight: 900;
+    }
+    .map-description-paragraph {
+      width: 60%;
+      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+      margin-left: 7vw;
+      color: #323648;
+      opacity: .8;
+      font-size: 1.4rem;
+    }
+    .most-similar-countries-span {
+      font-weight: 900;
+      color: rgba(5, 7, 77)
+    }
+    .least-similar-countries-span {
+      font-weight: 900;
+      color: rgba(200, 62, 70)
     }

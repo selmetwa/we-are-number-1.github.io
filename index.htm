@@ -291,7 +291,20 @@
     
     
     <div class="charts"></div>
-    
+    <div class="map-description">
+        <h1 class="map-description-title">Country Correlation Map</h1>
+        <p class="map-description-paragraph">
+            Select a country from the dropdown menu to see which other countries are closely related. The map 
+            will recolor itself to display the <span class="most-similar-countries-span">most similar countries</span>
+            and the <span class="least-similar-countries-span">least similar countries</span>.
+        </p>
+        <p class="map-description-paragraph">
+            The correlation was done by creating an array filled with the percentile scores of each metric for every country,
+            and then comparing every array to the target country using the Pearson Correlation Coefficient (PCC).
+             The numbers you 
+            see when hovering over a country represents each countries score from the PCC. 
+        </p>
+    </div>
     <div class="map-wrapper">
         <div class="map-wrapper-widgets">
             <div class="country-to-compare-wrapper">
@@ -500,6 +513,12 @@
                 <p class="most-similar"></p>
                 <p class="least-similar"></p>
                 <p class="least-span">Least Similar</p>
+            </div>
+            <div class="signifigant-metrics-wrapper">
+                <p class="most-span">Highest Scoring Metrics</p>
+                <p class="highest-metrics"></p>
+                <p class="lowest-metrics"></p>
+                <p class="least-span">Lowest Scoring Metrics</p>
             </div>
         </div>
         <div class="map-container"></div>

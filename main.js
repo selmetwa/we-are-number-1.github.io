@@ -31,6 +31,7 @@ const happy_planet_array = []
 const world_happiness_score_array = []
 
 d3.csv("/data/country-data.csv", function(error, data) {
+    console.log('data: ', data)
     let dataWithValues = []              
     for (let i=4; i<data.length; i++) {
         let value = []
@@ -39,6 +40,11 @@ d3.csv("/data/country-data.csv", function(error, data) {
 
         parseFloat(data[i]['GDP \n(billions PPP)']) ? value.push(parseFloat(data[i]['GDP \n(billions PPP)'])) : value.push(0)
         parseFloat(data[i]['GDP \n(billions PPP)']) ? GDP_percent_billions_array.push(parseFloat(data[i]['GDP \n(billions PPP)'])) : GDP_percent_billions_array.push(0)
+
+        if (data[i].indicator == 'United States') {
+            console.log("parseFloat(data[i]['population']): ", data[i]['population'])
+            console.log("parseFloat(data[i]['GDP']): ", parseFloat(data[i]['GDP \n(billions PPP)']))
+        }
 
         parseFloat(data[i]['GDP per capita (PPP)']) ? value.push(parseFloat(data[i]['GDP per capita (PPP)'])) : value.push(0)
         parseFloat(data[i]['GDP per capita (PPP)']) ? GDP_capita_billions_array.push(parseFloat(data[i]['GDP per capita (PPP)'])) : GDP_capita_billions_array.push(0)
@@ -106,11 +112,18 @@ d3.csv("/data/country-data.csv", function(error, data) {
         parseFloat(data[i]['women MPs (% of all MPs)']) ? value.push(parseFloat(data[i]['women MPs (% of all MPs)'])) : value.push(0)
         parseFloat(data[i]['women MPs (% of all MPs)']) ? women_MPS_array.push(parseFloat(data[i]['women MPs (% of all MPs)'])) : women_MPS_array.push(0)
 
-        parseFloat(data[i]['population']) ? value.push(parseFloat(data[i]['population'])) : value.push(0)
-        parseFloat(data[i]['population']) ? population_array.push(parseFloat(data[i]['population'])) : population_array.push(0)
+        if (data[i].indicator == 'China') {
+            console.log("parseFloat(data[i]['population']): ", data[i]['population'])
+            console.log("parseFloat(data[i]['population']): ", parseFloat(data[i]['surface area (Km2)'].replace(/,/g, '')))
+        }
+        parseFloat(data[i]['population']) ? value.push(parseFloat(data[i]['population'].replace(/,/g, ''))) : value.push(0)
+        data[i]['population'] ? population_array.push(parseFloat(data[i]['population'].replace(/,/g, ''))) : value.push(0)
 
-        parseFloat(data[i]['surface area (Km2)']) ? value.push(parseFloat(data[i]['surface area (Km2)'])) : value.push(0)
-        parseFloat(data[i]['surface area (Km2)']) ? surface_area_array.push(parseFloat(data[i]['surface area (Km2)'])) : surface_area_array.push(0)
+        parseFloat(data[i]['surface area (Km2)']) ? value.push(parseFloat(data[i]['surface area (Km2)'].replace(/,/g, ''))) : value.push(0)
+        // parseFloat(data[i]['surface area (Km2)']) ? surface_area_array.push(parseFloat(data[i]['surface area (Km2)'])) : surface_area_array.push(0)
+        parseFloat(data[i]['surface area (Km2)']) ? surface_area_array.push(parseFloat(data[i]['surface area (Km2)'].replace(/,/g, ''))) : value.push(0)
+
+
 
         parseFloat(data[i]['happy planet index']) ? value.push(parseFloat(data[i]['happy planet index'])) : value.push(0)
         parseFloat(data[i]['happy planet index']) ? happy_planet_array.push(parseFloat(data[i]['happy planet index'])) : happy_planet_array.push(0)
@@ -122,12 +135,15 @@ d3.csv("/data/country-data.csv", function(error, data) {
             name: data[i].indicator,
             totalValue: value
         })
-        
+        // if (data[i].indicator == 'China') {
+        //     console.log('value: ', value)
+        //     console.log('value: ', value.sort( (a,b) => a - b))
+        // }
         
     }
 
     dataWithValues.sort((a, b) => (a.totalValue) - (b.totalValue));
-
+    console.log('dataWithValues: ', dataWithValues)
     function pearson(x, y){
         let promedio = (lista) => { return lista.reduce((s, a) => s + a, 0) / lista.length };
         let n = x.length, prom_x = promedio(x) , prom_y = promedio(y);
@@ -141,6 +157,7 @@ d3.csv("/data/country-data.csv", function(error, data) {
    
       for (let i=0; i<dataWithValues.length; i++) {
             let hmmArray = []
+            let whatArray = []
             hmmArray.push(percentRank(human_development_index_array, dataWithValues[i].totalValue[0]))
             hmmArray.push(percentRank(GDP_percent_billions_array, dataWithValues[i].totalValue[1]))
             hmmArray.push(percentRank(GDP_capita_billions_array, dataWithValues[i].totalValue[2]))
@@ -170,15 +187,167 @@ d3.csv("/data/country-data.csv", function(error, data) {
             hmmArray.push(percentRank(happy_planet_array, dataWithValues[i].totalValue[26]))
             hmmArray.push(percentRank(world_happiness_score_array, dataWithValues[i].totalValue[27]))
 
+            // hmmArray.push(percentRank(health_expenditure_capita_array, dataWithValues[i].totalValue[5]))
+            // hmmArray.push(percentRank(school_life_years_array, dataWithValues[i].totalValue[6]))
+           
+
+            whatArray.push({
+                metric: 'human development index',
+                rawValue: dataWithValues[i].totalValue[0],
+                percentile: percentRank(human_development_index_array, dataWithValues[i].totalValue[0])
+            })
+            whatArray.push({
+                metric: 'GDP percent in billions',
+                rawValue: dataWithValues[i].totalValue[1],
+                percentile: percentRank(GDP_percent_billions_array, dataWithValues[i].totalValue[1])
+            })
+            whatArray.push({
+                metric: 'GDP',
+                rawValue: dataWithValues[i].totalValue[2],
+                percentile: percentRank(GDP_capita_billions_array, dataWithValues[i].totalValue[2])
+            })
+            whatArray.push({
+                metric: 'Annual GDP growth',
+                rawValue: dataWithValues[i].totalValue[3],
+                percentile: percentRank(GDP_growth_annual_array, dataWithValues[i].totalValue[3])
+            })
+            whatArray.push({
+                metric: 'Health expenditure as percent of GDP',
+                rawValue: dataWithValues[i].totalValue[4],
+                percentile: percentRank(health_expenditure_percent_array, dataWithValues[i].totalValue[4])
+            })
+            whatArray.push({
+                metric: 'Health expenditure per capita',
+                rawValue: dataWithValues[i].totalValue[5],
+                percentile: percentRank(health_expenditure_capita_array, dataWithValues[i].totalValue[5])
+            })
+            whatArray.push({
+                metric: 'school life expectancy',
+                rawValue: dataWithValues[i].totalValue[6],
+                percentile: percentRank(school_life_years_array, dataWithValues[i].totalValue[6])
+            })
+            whatArray.push({
+                metric: 'Percent Unemployment',
+                rawValue: dataWithValues[i].totalValue[7],
+                percentile: percentRank(unemployment_array, dataWithValues[i].totalValue[7])
+            })
+            whatArray.push({
+                metric: 'Government Spending Score',
+                rawValue: dataWithValues[i].totalValue[8],
+                percentile: percentRank(government_spending_score_array, dataWithValues[i].totalValue[8])
+            })
+            whatArray.push({
+                metric: 'Government Expenditure of GDP',
+                rawValue: dataWithValues[i].totalValue[9],
+                percentile: percentRank(government_expenditure_GDP_array, dataWithValues[i].totalValue[9])
+            })
+            whatArray.push({
+                metric: 'Political Rights Score',
+                rawValue: dataWithValues[i].totalValue[10],
+                percentile: percentRank(political_rights_score_array, dataWithValues[i].totalValue[10])
+            })
+            whatArray.push({
+                metric: 'Civil Liberties Score',
+                rawValue: dataWithValues[i].totalValue[11],
+                percentile: percentRank(civil_liberties_score_array, dataWithValues[i].totalValue[11])
+            })
+            whatArray.push({
+                metric: 'Political Stability & Absence of Violence',
+                rawValue: dataWithValues[i].totalValue[12],
+                percentile: percentRank(political_stability_absence_array, dataWithValues[i].totalValue[12])
+            })
+            whatArray.push({
+                metric: 'Government Effectiveness',
+                rawValue: dataWithValues[i].totalValue[13],
+                percentile: percentRank(government_effectiveness_array, dataWithValues[i].totalValue[13])
+            })
+            whatArray.push({
+                metric: 'Regulatory Quality',
+                rawValue: dataWithValues[i].totalValue[14],
+                percentile: percentRank(regulatory_quality_array, dataWithValues[i].totalValue[14])
+            })
+            whatArray.push({
+                metric: 'Rule of Law',
+                rawValue: dataWithValues[i].totalValue[15],
+                percentile: percentRank(rule_of_law_array, dataWithValues[i].totalValue[15])
+            })
+            whatArray.push({
+                metric: 'Control of Corruption',
+                rawValue: dataWithValues[i].totalValue[16],
+                percentile: percentRank(control_of_corruption_array, dataWithValues[i].totalValue[16])
+            })
+            whatArray.push({
+                metric: 'Judicial Effectiveness',
+                rawValue: dataWithValues[i].totalValue[17],
+                percentile: percentRank(judicial_effectiveness_array, dataWithValues[i].totalValue[17])
+            })
+            whatArray.push({
+                metric: 'Government Integrity',
+                rawValue: dataWithValues[i].totalValue[18],
+                percentile: percentRank(government_integrity_array, dataWithValues[i].totalValue[18])
+            })
+            whatArray.push({
+                metric: 'Property Rights',
+                rawValue: dataWithValues[i].totalValue[19],
+                percentile: percentRank(property_rights_array, dataWithValues[i].totalValue[19])
+            })
+            whatArray.push({
+                metric: 'Tax Burden Score',
+                rawValue: dataWithValues[i].totalValue[20],
+                percentile: percentRank(tax_burden_array, dataWithValues[i].totalValue[20])
+            })
+            whatArray.push({
+                metric: 'Economic Freedom Score',
+                rawValue: dataWithValues[i].totalValue[21],
+                percentile: percentRank(economic_freedom_array, dataWithValues[i].totalValue[21])
+            })
+            whatArray.push({
+                metric: 'Financial Freedom Score',
+                rawValue: dataWithValues[i].totalValue[22],
+                percentile: percentRank(financial_freedom_array, dataWithValues[i].totalValue[22])
+            })
+            whatArray.push({
+                metric: 'Women in Parliament',
+                rawValue: dataWithValues[i].totalValue[23],
+                percentile: percentRank(women_MPS_array, dataWithValues[i].totalValue[23])
+            })
+            if (dataWithValues[i].name == 'China') {
+                console.log('parseFloat(dataWithValues[i].totalValue[24]): ', parseFloat(dataWithValues[i].totalValue[24]))
+                console.log('parseFloat(dataWithValues[i].totalValue[24]): ', parseFloat(dataWithValues[i].totalValue[25]))
+            }
+            whatArray.push({
+                metric: 'Population',
+                rawValue: parseFloat(dataWithValues[i].totalValue[24]),
+                // value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
+                percentile: percentRank(population_array, dataWithValues[i].totalValue[24])
+            })
+            whatArray.push({
+                metric: 'Surface Area',
+                rawValue: dataWithValues[i].totalValue[25],
+                percentile: percentRank(surface_area_array, dataWithValues[i].totalValue[25])
+            })
+            whatArray.push({
+                metric: 'Happy Planet Index',
+                rawValue: dataWithValues[i].totalValue[26],
+                percentile: percentRank(happy_planet_array, dataWithValues[i].totalValue[26])
+            })
+            whatArray.push({
+                metric: 'World Happiness Report Score',
+                rawValue: dataWithValues[i].totalValue[27],
+                percentile: percentRank(world_happiness_score_array, dataWithValues[i].totalValue[27])
+            })
+
             arrWithPercentiles.push({
                 name: dataWithValues[i].name,
-                percentileArray: hmmArray
+                percentileArray: hmmArray,
+                whatArray: whatArray
             })
       }
 
       let countryToCompare = document.querySelector('#country-to-compare')
       let targetCountry
-
+      console.log('arrWithPercentiles: ', arrWithPercentiles)
+      console.log('whatArray: ', arrWithPercentiles.whatArray)
       function getCountry() {
         //  if (valueFromClick != null) {
         //     console.log('if hits')
@@ -214,21 +383,26 @@ d3.csv("/data/country-data.csv", function(error, data) {
         return;
     }
 
-
-
-
       for (let i=0; i<arrWithPercentiles.length; i++) {
+        let precentilesArray = []
+        arrWithPercentiles[i].whatArray.forEach(what => {
+            precentilesArray.push(what.percentile)
+        })
         let result = pearson(
             targetCountry[0].percentileArray, 
-            arrWithPercentiles[i].percentileArray
+            precentilesArray
         )
         testArray.push({
             name: dataWithValues[i].name,
             score: result
         })
+
+        arrWithPercentiles[i].whatArray.sort( (a,b) => a.percentile - b.percentile)
+        // console.log('arrWithPercentiles[i].whatArray: ', arrWithPercentiles)
       }
 
     testArray.sort((a,b) => a.score - b.score)
+    
     function percentRank(array, n) {
     var L = 0;
     var S = 0;
@@ -379,6 +553,21 @@ const map = d3
   `
   document.querySelector('.least-similar').innerHTML = `${testArray[0].name}, ${testArray[1].name}, ${testArray[2].name}`
 
+  console.log('targetCountry: ', targetCountry[0].whatArray)
+  console.log('targetCountry.length: ', targetCountry[0].whatArray.length)
+  console.log('targetCountry[0].whatArray[whatArray.length - 1].metric: ', targetCountry[0].whatArray[28])
+
+  document.querySelector('.highest-metrics').innerHTML = `
+  <span class="metric-text highest">${targetCountry[0].whatArray[27].metric}</span>,
+  <span class="metric-text highest">${targetCountry[0].whatArray[26].metric}</span>,
+  <span class="metric-text highest">${targetCountry[0].whatArray[25].metric}</span>
+  `
+  document.querySelector('.lowest-metrics').innerHTML = `
+  <span class="metric-text lowest">${targetCountry[0].whatArray[0].metric}</span>,
+  <span class="metric-text lowest">${targetCountry[0].whatArray[1].metric}</span>,
+  <span class="metric-text lowest">${targetCountry[0].whatArray[2].metric}</span>
+  `
+  
 let projection
 if (isLaptop) {
     projection = d3
@@ -425,8 +614,9 @@ function ready(data) {
     .style('fill', d => {
       if (typeof d.score !== 'undefined') {
         // return color(d.score)
+        // console.log('d.score: ', d)
         if (d.score < 0) {
-            return `rgba(200, 62, 70, ${d.score + .9})`
+            return `rgba(200, 62, 70, ${d.score + .8})`
         } else if (d.score == 1) {
             return `rgb(5, 7, 77)`
         }  
@@ -441,13 +631,13 @@ function ready(data) {
       if (d.score == 1) {
         return 'red'
       } else if (d.score !== 0) {
-          return 'white'
+          return '#050609'
       } else {
         return 'lightgray'
       }
     })
-    .style('stroke-width', 1.5)
-    .style('stroke-opacity', 0.5)
+    .style('stroke-width', 1)
+    .style('stroke-opacity', 0.3)
     // tooltips
     .on('mouseover', function(d) {
       tip.show(d)
@@ -459,7 +649,7 @@ function ready(data) {
     .on('mouseout', function(d) {
       tip.hide(d)
       d3.select(this)
-        .style('fill-opacity', 0.8)
+        .style('fill-opacity', 1)
         .style('stroke-opacity', 0.5)
         .style('stroke-width', 1)
     })
