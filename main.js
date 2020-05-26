@@ -192,12 +192,12 @@ d3.csv("/data/country-data.csv", function(error, data) {
            
 
             whatArray.push({
-                metric: 'human development index',
+                metric: 'Human Development Index',
                 rawValue: dataWithValues[i].totalValue[0],
                 percentile: percentRank(human_development_index_array, dataWithValues[i].totalValue[0])
             })
             whatArray.push({
-                metric: 'GDP percent in billions',
+                metric: 'GDP Percent in Billions',
                 rawValue: dataWithValues[i].totalValue[1],
                 percentile: percentRank(GDP_percent_billions_array, dataWithValues[i].totalValue[1])
             })
@@ -207,27 +207,27 @@ d3.csv("/data/country-data.csv", function(error, data) {
                 percentile: percentRank(GDP_capita_billions_array, dataWithValues[i].totalValue[2])
             })
             whatArray.push({
-                metric: 'Annual GDP growth',
+                metric: 'Annual GDP Growth',
                 rawValue: dataWithValues[i].totalValue[3],
                 percentile: percentRank(GDP_growth_annual_array, dataWithValues[i].totalValue[3])
             })
             whatArray.push({
-                metric: 'Health expenditure as percent of GDP',
+                metric: 'Health Expenditure as Percent of GDP',
                 rawValue: dataWithValues[i].totalValue[4],
                 percentile: percentRank(health_expenditure_percent_array, dataWithValues[i].totalValue[4])
             })
             whatArray.push({
-                metric: 'Health expenditure per capita',
+                metric: 'Health Expenditure Per Capita',
                 rawValue: dataWithValues[i].totalValue[5],
                 percentile: percentRank(health_expenditure_capita_array, dataWithValues[i].totalValue[5])
             })
             whatArray.push({
-                metric: 'school life expectancy',
+                metric: 'School Life Expectancy',
                 rawValue: dataWithValues[i].totalValue[6],
                 percentile: percentRank(school_life_years_array, dataWithValues[i].totalValue[6])
             })
             whatArray.push({
-                metric: 'Percent Unemployment',
+                metric: 'High Percent of Unemployment',
                 rawValue: dataWithValues[i].totalValue[7],
                 percentile: percentRank(unemployment_array, dataWithValues[i].totalValue[7])
             })
@@ -242,12 +242,12 @@ d3.csv("/data/country-data.csv", function(error, data) {
                 percentile: percentRank(government_expenditure_GDP_array, dataWithValues[i].totalValue[9])
             })
             whatArray.push({
-                metric: 'Political Rights Score',
+                metric: 'Lack of Political Rights Score',
                 rawValue: dataWithValues[i].totalValue[10],
                 percentile: percentRank(political_rights_score_array, dataWithValues[i].totalValue[10])
             })
             whatArray.push({
-                metric: 'Civil Liberties Score',
+                metric: 'Lack of Civil Liberties Score',
                 rawValue: dataWithValues[i].totalValue[11],
                 percentile: percentRank(civil_liberties_score_array, dataWithValues[i].totalValue[11])
             })
@@ -433,11 +433,13 @@ const tip = d3
   .offset([-10, 0])
   .html(
     d =>
-      `<strong>Country: </strong><span class='details'>${
+      `<span class='country-details'>${
         d.properties.name
-      }<br></span><strong>Correlation with ${testArray[testArray.length - 1].name}: </strong><span class='details'>${format(
+      }<br>
+      <div class="country-details-bottom">
+      </span><strong><span class="blurb-details">Correlation with ${testArray[testArray.length - 1].name}:</span> </strong><span class='correlation-details'>${format(
         d[colorVariable]
-      )}</span>`
+      )}</span></div>`
   )
 
 tip.direction(function(d) {
@@ -578,9 +580,9 @@ if (isLaptop) {
 } else {
     projection = d3
     .geoRobinson()
-    .scale(300)
+    .scale(325)
     .rotate([352, 0, 0])
-    .translate([width / 2, height / 2])
+    .translate([width / 2.15, height / 1.7])
 }
 
 
@@ -616,7 +618,7 @@ function ready(data) {
         // return color(d.score)
         // console.log('d.score: ', d)
         if (d.score < 0) {
-            return `rgba(200, 62, 70, ${d.score + .8})`
+            return `rgba(222, 60, 75, ${d.score + .8})`
         } else if (d.score == 1) {
             return `rgb(5, 7, 77)`
         }  
@@ -629,7 +631,7 @@ function ready(data) {
     .style('fill-opacity', 1)
     .style('stroke', d => {
       if (d.score == 1) {
-        return 'red'
+        return '#050609'
       } else if (d.score !== 0) {
           return '#050609'
       } else {
@@ -808,17 +810,19 @@ const render = data => {
         .orient("left")
 
     const tip = d3.tip()
-    .attr('class', 'd3-tip')
+    .attr('class', 'first-d3-tip')
     .offset([-10, 0])
     .html(function(d) {
-        return "<strong>"+d.name+":</strong> <span style='color:orange'>" + d.value + "</span>";
+        // return "<strong>"+d.name+":</strong> <span style='color:#323648'>" + d.value + "</span>";
+        return `<span class="first-tip-country">${d.name}</span><span class="first-tip-value">${d.value}</span>`
     })
 
     const activeTip = d3.tip()
-    .attr('class', 'd3-tip')
+    .attr('class', 'first-d3-tip')
     .offset([-10, 0])
     .html(function(d) {
-        return "<strong>"+d.name+":</strong> <span style='color:orange'>" + d.value + "</span>";
+        // return "<strong>"+d.name+":</strong> <span style='color:#323648'>" + d.value + "</span>";
+        return `<span class="first-tip-country">${d.name}</span><span class="first-tip-value">${d.value}</span>`
     })
 
     d3.select("svg").remove();

@@ -8,6 +8,7 @@
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,700&display=swap" rel="stylesheet">
     <script defer src="./main.js" type="module"></script>
     <script defer src="d3-tip.js"></script>
     <link rel="stylesheet" href="styles.css">
@@ -293,7 +294,7 @@
     <div class="charts"></div>
     <div class="map-description">
         <h1 class="map-description-title">Country Correlation Map</h1>
-        <p class="map-description-paragraph">
+        <p class="map-description-paragraph first-map-description-paragraph">
             Select a country from the dropdown menu to see which other countries are closely related. The map 
             will recolor itself to display the <span class="most-similar-countries-span">most similar countries</span>
             and the <span class="least-similar-countries-span">least similar countries</span>.
@@ -522,6 +523,30 @@
             </div>
         </div>
         <div class="map-container"></div>
+        <h1 class="takeaways-title">Key takeaways from this map:</h1>
+        <div class="takeaways-wrapper">
+            <div class="takeaway first-takeaway">
+                <h1 class="takeaway-title">Most countries are similar to nearby countries</h1>
+                <p class="takeaway-description">
+                    A country like Egypt is closely correlated to most of Africa and the rest of the Arab world. The same
+                    trend applies to Western Europe, most of South America, and most of Asia.
+                </p>
+            </div>
+            <div class="takeaway">
+                    <h1 class="takeaway-title">Some countries are not similar to nearby countries</h1>
+                    <p class="takeaway-description">
+                        Countries like Japan and Korea and more related to Western Europe & North America than China, and Southeast Asia.
+                        Also Uruguay is unlike most of South America and again resembles Western Europe more than neighboring countries.
+                    </p>
+                </div>
+            <div class="takeaway">
+                <h1 class="takeaway-title">Some countries are oddly unique</h1>
+                <p class="takeaway-description">
+                    A few countries, most notably, Tunisia and Mongolia, are not closely correlated to any other countries on 
+                    the map.
+                </p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -1,9 +1,9 @@
 .map-wrapper {
     margin-top: 10vh;
 }
-/* .map-container {
-  margin-top: -1vh;
-} */
+.map-container {
+  margin-top: -2vh;
+}
 .map-wrapper-widgets {
   width: 80%;
   margin: auto;
@@ -107,18 +107,22 @@
       margin-top: 15vh;
     }
     .map-description-title {
-      font-size: 3.2rem;
+      font-size: 3.3rem;
       margin-left: 7vw;
-      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+      font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
       color: #323648;
       font-weight: 900;
     }
+    .first-map-description-paragraph {
+      margin-top: 3vh;
+    }
     .map-description-paragraph {
       width: 60%;
-      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+      font-family: 'Avenir', Arial, Helvetica, sans-serif;
       margin-left: 7vw;
       color: #323648;
       opacity: .8;
+      font-weight: 100;
       font-size: 1.4rem;
     }
     .most-similar-countries-span {
