@@ -31,7 +31,7 @@ const happy_planet_array = []
 const world_happiness_score_array = []
 
 d3.csv("/data/country-data.csv", function(error, data) {
-    console.log('data: ', data)
+    // console.log('data: ', data)
     let dataWithValues = []              
     for (let i=4; i<data.length; i++) {
         let value = []
@@ -126,10 +126,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
             name: data[i].indicator,
             totalValue: value
         })
-        // if (data[i].indicator == 'China') {
-        //     console.log('value: ', value)
-        //     console.log('value: ', value.sort( (a,b) => a - b))
-        // }
         
     }
 
@@ -339,8 +335,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
             targetCountry = arrWithPercentiles.filter(obj => {
                 return obj.name == valueFromClick.name
             })
-            console.log('targetCountry: ', targetCountry[0].name)
-            // countryToCompare.innerHTML = targetCountry[0].name
             valueFromClick = null
             return targetCountry
          }
@@ -348,7 +342,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
             targetCountry = arrWithPercentiles.filter(obj => {
                 return obj.name == countryToCompare.value
             })
-            // selectElement('#country-to-compare', targetCountry)
             return targetCountry
          }
           else {
@@ -382,7 +375,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
         })
 
         arrWithPercentiles[i].whatArray.sort( (a,b) => a.percentile - b.percentile)
-        // console.log('arrWithPercentiles[i].whatArray: ', arrWithPercentiles)
       }
 
     testArray.sort((a,b) => a.score - b.score)
@@ -540,14 +532,14 @@ const map = d3
   document.querySelector('.least-similar').innerHTML = `${testArray[0].name}, ${testArray[1].name}, ${testArray[2].name}`
 
   document.querySelector('.highest-metrics').innerHTML = `
-  <span class="metric-text highest">${targetCountry[0].whatArray[27].metric}</span>,
-  <span class="metric-text highest">${targetCountry[0].whatArray[26].metric}</span>,
-  <span class="metric-text highest">${targetCountry[0].whatArray[25].metric}</span>
+  <span class="metric-text highest">${targetCountry[0].whatArray[27].metric}<div class="highest-box"></div></span>,
+  <span class="metric-text highest">${targetCountry[0].whatArray[26].metric}<div class="highest-box"></div></span></span>,
+  <span class="metric-text highest">${targetCountry[0].whatArray[25].metric}<div class="highest-box"></div></span></span>
   `
   document.querySelector('.lowest-metrics').innerHTML = `
-  <span class="metric-text lowest">${targetCountry[0].whatArray[0].metric}</span>,
-  <span class="metric-text lowest">${targetCountry[0].whatArray[1].metric}</span>,
-  <span class="metric-text lowest">${targetCountry[0].whatArray[2].metric}</span>
+  <span class="metric-text lowest">${targetCountry[0].whatArray[0].metric}<div class="lowest-box"></div></span>,
+  <span class="metric-text lowest">${targetCountry[0].whatArray[1].metric}<div class="lowest-box"></div></span>,
+  <span class="metric-text lowest">${targetCountry[0].whatArray[2].metric}<div class="lowest-box"></div></span>
   `
   
 let projection
@@ -595,8 +587,6 @@ function ready(data) {
     .attr('d', path)
     .style('fill', d => {
       if (typeof d.score !== 'undefined') {
-        // return color(d.score)
-        // console.log('d.score: ', d)
         if (d.score < 0) {
             return `rgba(222, 60, 75, ${d.score + .8})`
         } else if (d.score == 1) {
@@ -941,7 +931,6 @@ function getValue() {
         'Samoa', 'Solomon Islands', 'Tonga', 'Tuvalu', 'Vanuatu']
 
         selected = outliers(selected)
-        console.log('selected: ', selected)
         for (let i=4; i<data.length; i++) {
             let continent
             if (africa.includes(data[i].indicator)) {
@@ -975,7 +964,6 @@ function getValue() {
                 
             }
         }
-        console.log('dataToBePassed: ', dataToBePassed)
 
         let newData = []
         // poor solution until i can think of a better way
@@ -1090,6 +1078,11 @@ function getSpecificCountries() {
 
 countrySelect.onchange = getValue
 
-// $(document).ready(function () {
-    
-// });
+
+function compareOECD() {
+    d3.csv("/data/oced_labor.csv", function(error, data) {
+        data.sort( (a,b) => a['lowest hourly wage (USD)'] - b['lowest hourly wage (USD)'])
+        console.log('data: ',data)
+    })
+}
+compareOECD()
