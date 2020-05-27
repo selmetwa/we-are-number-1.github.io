@@ -41,11 +41,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
         parseFloat(data[i]['GDP \n(billions PPP)']) ? value.push(parseFloat(data[i]['GDP \n(billions PPP)'])) : value.push(0)
         parseFloat(data[i]['GDP \n(billions PPP)']) ? GDP_percent_billions_array.push(parseFloat(data[i]['GDP \n(billions PPP)'])) : GDP_percent_billions_array.push(0)
 
-        if (data[i].indicator == 'United States') {
-            console.log("parseFloat(data[i]['population']): ", data[i]['population'])
-            console.log("parseFloat(data[i]['GDP']): ", parseFloat(data[i]['GDP \n(billions PPP)']))
-        }
-
         parseFloat(data[i]['GDP per capita (PPP)']) ? value.push(parseFloat(data[i]['GDP per capita (PPP)'])) : value.push(0)
         parseFloat(data[i]['GDP per capita (PPP)']) ? GDP_capita_billions_array.push(parseFloat(data[i]['GDP per capita (PPP)'])) : GDP_capita_billions_array.push(0)
 
@@ -112,10 +107,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
         parseFloat(data[i]['women MPs (% of all MPs)']) ? value.push(parseFloat(data[i]['women MPs (% of all MPs)'])) : value.push(0)
         parseFloat(data[i]['women MPs (% of all MPs)']) ? women_MPS_array.push(parseFloat(data[i]['women MPs (% of all MPs)'])) : women_MPS_array.push(0)
 
-        if (data[i].indicator == 'China') {
-            console.log("parseFloat(data[i]['population']): ", data[i]['population'])
-            console.log("parseFloat(data[i]['population']): ", parseFloat(data[i]['surface area (Km2)'].replace(/,/g, '')))
-        }
         parseFloat(data[i]['population']) ? value.push(parseFloat(data[i]['population'].replace(/,/g, ''))) : value.push(0)
         data[i]['population'] ? population_array.push(parseFloat(data[i]['population'].replace(/,/g, ''))) : value.push(0)
 
@@ -143,7 +134,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
     }
 
     dataWithValues.sort((a, b) => (a.totalValue) - (b.totalValue));
-    console.log('dataWithValues: ', dataWithValues)
     function pearson(x, y){
         let promedio = (lista) => { return lista.reduce((s, a) => s + a, 0) / lista.length };
         let n = x.length, prom_x = promedio(x) , prom_y = promedio(y);
@@ -197,12 +187,12 @@ d3.csv("/data/country-data.csv", function(error, data) {
                 percentile: percentRank(human_development_index_array, dataWithValues[i].totalValue[0])
             })
             whatArray.push({
-                metric: 'GDP Percent in Billions',
+                metric: 'GDP',
                 rawValue: dataWithValues[i].totalValue[1],
                 percentile: percentRank(GDP_percent_billions_array, dataWithValues[i].totalValue[1])
             })
             whatArray.push({
-                metric: 'GDP',
+                metric: 'GDP Per Capita',
                 rawValue: dataWithValues[i].totalValue[2],
                 percentile: percentRank(GDP_capita_billions_array, dataWithValues[i].totalValue[2])
             })
@@ -227,7 +217,7 @@ d3.csv("/data/country-data.csv", function(error, data) {
                 percentile: percentRank(school_life_years_array, dataWithValues[i].totalValue[6])
             })
             whatArray.push({
-                metric: 'High Percent of Unemployment',
+                metric: 'High Rate of Unemployment',
                 rawValue: dataWithValues[i].totalValue[7],
                 percentile: percentRank(unemployment_array, dataWithValues[i].totalValue[7])
             })
@@ -242,12 +232,12 @@ d3.csv("/data/country-data.csv", function(error, data) {
                 percentile: percentRank(government_expenditure_GDP_array, dataWithValues[i].totalValue[9])
             })
             whatArray.push({
-                metric: 'Lack of Political Rights Score',
+                metric: 'Low Political Rights',
                 rawValue: dataWithValues[i].totalValue[10],
                 percentile: percentRank(political_rights_score_array, dataWithValues[i].totalValue[10])
             })
             whatArray.push({
-                metric: 'Lack of Civil Liberties Score',
+                metric: 'Low Civil Liberties',
                 rawValue: dataWithValues[i].totalValue[11],
                 percentile: percentRank(civil_liberties_score_array, dataWithValues[i].totalValue[11])
             })
@@ -311,10 +301,7 @@ d3.csv("/data/country-data.csv", function(error, data) {
                 rawValue: dataWithValues[i].totalValue[23],
                 percentile: percentRank(women_MPS_array, dataWithValues[i].totalValue[23])
             })
-            if (dataWithValues[i].name == 'China') {
-                console.log('parseFloat(dataWithValues[i].totalValue[24]): ', parseFloat(dataWithValues[i].totalValue[24]))
-                console.log('parseFloat(dataWithValues[i].totalValue[24]): ', parseFloat(dataWithValues[i].totalValue[25]))
-            }
+
             whatArray.push({
                 metric: 'Population',
                 rawValue: parseFloat(dataWithValues[i].totalValue[24]),
@@ -346,21 +333,18 @@ d3.csv("/data/country-data.csv", function(error, data) {
 
       let countryToCompare = document.querySelector('#country-to-compare')
       let targetCountry
-      console.log('arrWithPercentiles: ', arrWithPercentiles)
-      console.log('whatArray: ', arrWithPercentiles.whatArray)
+
       function getCountry() {
-        //  if (valueFromClick != null) {
-        //     console.log('if hits')
-        //     console.log('valueFromClick.name: ', valueFromClick.name)
-        //     targetCountry = arrWithPercentiles.filter(obj => {
-        //         return obj.name == valueFromClick.name
-        //     })
-        //     countryToCompare.innerHTML = targetCountry
-        //     valueFromClick = null
-        //     return targetCountry
-        //  }
-        //  else 
-         if (countryToCompare.value) {
+         if (valueFromClick != null) {
+            targetCountry = arrWithPercentiles.filter(obj => {
+                return obj.name == valueFromClick.name
+            })
+            console.log('targetCountry: ', targetCountry[0].name)
+            // countryToCompare.innerHTML = targetCountry[0].name
+            valueFromClick = null
+            return targetCountry
+         }
+         else if (countryToCompare.value) {
             targetCountry = arrWithPercentiles.filter(obj => {
                 return obj.name == countryToCompare.value
             })
@@ -555,10 +539,6 @@ const map = d3
   `
   document.querySelector('.least-similar').innerHTML = `${testArray[0].name}, ${testArray[1].name}, ${testArray[2].name}`
 
-  console.log('targetCountry: ', targetCountry[0].whatArray)
-  console.log('targetCountry.length: ', targetCountry[0].whatArray.length)
-  console.log('targetCountry[0].whatArray[whatArray.length - 1].metric: ', targetCountry[0].whatArray[28])
-
   document.querySelector('.highest-metrics').innerHTML = `
   <span class="metric-text highest">${targetCountry[0].whatArray[27].metric}</span>,
   <span class="metric-text highest">${targetCountry[0].whatArray[26].metric}</span>,
@@ -641,21 +621,23 @@ function ready(data) {
     .style('stroke-width', 1)
     .style('stroke-opacity', 0.3)
     // tooltips
+    .on('click', clickHandler)
     .on('mouseover', function(d) {
-      tip.show(d)
-      d3.select(this)
-        .style('fill-opacity', 1)
-        .style('stroke-opacity', 1)
-        .style('stroke-width', 2)
-    })
-    .on('mouseout', function(d) {
-      tip.hide(d)
-      d3.select(this)
-        .style('fill-opacity', 1)
-        .style('stroke-opacity', 0.5)
-        .style('stroke-width', 1)
-    })
-    // .on('click', clickHandler)
+        tip.show(d)
+        d3.select(this)
+          .style('fill-opacity', 1)
+          .style('stroke-opacity', 1)
+          .style('stroke-width', 2)
+          .style("cursor", "pointer"); 
+      })
+      .on('mouseout', function(d) {
+        tip.hide(d)
+        d3.select(this)
+          .style('fill-opacity', 1)
+          .style('stroke-opacity', 0.5)
+          .style('stroke-width', 1)
+          .style("cursor", "default"); 
+      })
 
 
   map
@@ -665,7 +647,10 @@ function ready(data) {
     .attr('d', path)
 }
 function clickHandler(d, i) {
-    loadMap(d.properties)    
+    loadMap(d.properties)
+    let checkMe = document.querySelector('#country-to-compare');
+    checkMe.value = d.properties.name;
+    tip.hide(d)
 }
 let geography
 fetch('world_countries.json')
@@ -778,6 +763,10 @@ const outliers = (value) => {
         let selected = "education expenditure\n% of GDP"
         return selected
     }
+    else if (value == 8) {
+        let selected = "GDP \n(billions PPP)"
+        return selected
+    }
     else {
         return value
     }
@@ -844,7 +833,7 @@ const render = data => {
             .attr("x", function(d) { return x(d.name); })
             .attr("width", x.rangeBand())
             .attr("y", function(d) { return y(d.value); })
-            .attr("height", function(d) { return height - y(d.value); })
+            .attr("height", function(d) { return height - y(d.value)})
             .on('mouseover', tip.show)
             .on('mouseout', tip.hide)
     
@@ -952,6 +941,7 @@ function getValue() {
         'Samoa', 'Solomon Islands', 'Tonga', 'Tuvalu', 'Vanuatu']
 
         selected = outliers(selected)
+        console.log('selected: ', selected)
         for (let i=4; i<data.length; i++) {
             let continent
             if (africa.includes(data[i].indicator)) {
@@ -967,14 +957,25 @@ function getValue() {
             } else if (oceania.includes(data[i].indicator)) {
                 continent = 'oceania'
             }
+            
             if (parseFloat(data[i][selected])) {
-                dataToBePassed.push({
-                    name: data[i].indicator,
-                    continent: continent,
-                    value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
-                })
+                if (selected == 'human development index') {
+                    dataToBePassed.push({
+                        name: data[i].indicator,
+                        continent: continent,
+                        value: parseFloat(data[i][selected].replace(/,/g, '')) * parseFloat(data[i][selected].replace(/,/g, ''))
+                    })
+                } else {
+                    dataToBePassed.push({
+                        name: data[i].indicator,
+                        continent: continent,
+                        value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
+                    })
+                }
+                
             }
         }
+        console.log('dataToBePassed: ', dataToBePassed)
 
         let newData = []
         // poor solution until i can think of a better way
@@ -1068,6 +1069,9 @@ function getValue() {
 
 window.onload = function() {
     getValue();
+    // $('.country-to-compare').selectize({
+    //     sortField: 'text'
+    // });
 };
 
 valueSelect.onchange = getValue 
@@ -1077,7 +1081,7 @@ document.querySelector('.country-to-compare').onchange = getValue
 
 $('.country-select').selectpicker();
 $('.value-select').selectpicker();
-$('.country-to-compare').selectpicker();
+// $('.country-to-compare').selectpicker();
 
 function getSpecificCountries() {
     const values = Array.from(document.querySelectorAll('.country-select option:checked')).map(el => el.value);
@@ -1085,3 +1089,7 @@ function getSpecificCountries() {
 }
 
 countrySelect.onchange = getValue
+
+// $(document).ready(function () {
+    
+// });

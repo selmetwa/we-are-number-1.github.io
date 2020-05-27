@@ -9,6 +9,7 @@
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,700&display=swap" rel="stylesheet">
+    
     <script defer src="./main.js" type="module"></script>
     <script defer src="d3-tip.js"></script>
     <link rel="stylesheet" href="styles.css">
@@ -33,7 +34,8 @@
     <script src='https://unpkg.com/simple-statistics@2.0.0/dist/simple-statistics.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
     <script defer src="./map.js" type="module"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
     <title>d3</title>
 </head>
 <body>
@@ -46,10 +48,12 @@
             </div>
             <select class="value-select" data-live-search="true" title="Choose metric" data-width="auto">
                 <option value="1">health expenditure as % of GDP</option>
+                <option value="8">GDP (based on purchasing power parity)</option>
                 <option value="population">population</option>
-                <option value="GINI index">Wealth distribution</option>
+                <option value="GINI index">Wealth Inequality</option>
                 <option value="surface area (Km2)">surface area</option>
                 <option value="human development index">human development index</option>
+                <option value="world happiness report score">world happiness report score</option>
                 <option value="sustainable economic development assessment (SEDA)">sustainable economic development assessment</option>
                 <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
                 <option value="school life expectancy (YEARS)">school life expectancy (YEARS)</option>
@@ -311,8 +315,8 @@
             <div class="country-to-compare-wrapper">
                 <h1>Countries Similar to</h1>
                 <select class="country-to-compare" id="country-to-compare" data-actions-box="true" data-live-search="true" data-width="auto" name="country-compare">
-                        <option>Afghanistan</option>
-                        <option>Albania</option>
+                        <option value="Afghanistan">Afghanistan</option>
+                        <option value="Albania">Albania</option>
                         <option>Algeria</option>
                         <option>Andorra</option>
                         <option>Angola</option>
