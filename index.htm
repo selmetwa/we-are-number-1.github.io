@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="keys.css">
     <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="flag.css">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -40,6 +41,19 @@
 </head>
 <body>
     <!-- <svg height="3000" width="1750" style="border: 2px solid lightblue"></svg> -->
+    <div class="section-header">
+        <h1 class="section-header__title">We're number 1!</h1>
+        <h3 class="section-header__subtitle">By Sherif Elmetwally</h3>
+
+        <p class="section-header__description first-description">Many of us in the United States grow up assuming that we live in the richest, 
+            most powerful, freest, and overall greatest country in the world.</p>
+        <p class="section-header__description">I remember watching Obama’s 2013 inaugural address where he said “America is still number one”(The “still” of course hints at some 
+            anxiety that there may be some slippage).</p>
+        <p class="section-header__description">If we’re number one, what exactly are we number one in? Intrigued by this question, 
+            I decided to create this project and allow users to compare countries 
+            and continents based on a whole host of different metrics.
+        </p>
+    </div>
     <div class="selects-wrapper">
         <div class="value-select-wrapper">
             <div class="sample-size-wrapper">
@@ -47,37 +61,45 @@
                 <p class="sample-size-metric"></p>
             </div>
             <select class="value-select" data-live-search="true" title="Choose metric" data-width="auto">
-                <option value="1">health expenditure as % of GDP</option>
-                <option value="8">GDP (based on purchasing power parity)</option>
-                <option value="population">population</option>
-                <option value="GINI index">Wealth Inequality</option>
-                <option value="surface area (Km2)">surface area</option>
-                <option value="human development index">human development index</option>
-                <option value="world happiness report score">world happiness report score</option>
-                <option value="sustainable economic development assessment (SEDA)">sustainable economic development assessment</option>
-                <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
-                <option value="school life expectancy (YEARS)">school life expectancy (YEARS)</option>
-                <option value="unemployment (%)">percent unemployment</option>
-                <option value="government spending score">government spending score</option>
-                <option value="government expenditure (% of GDP)">government expenditure (% of GDP)</option>
-                <option value="5">political rights score</option>
                 <option value="4">civil liberties score</option>
-                <option value="political stability & absence of violence">political stability & absence of violence</option>
-                <option value="government effectiveness">government effectiveness</option>
-                <option value="rule of law">rule of law</option>
                 <option value="control of corruption">control of corruption</option>
-                <option value="judicial effectiveness score">judicial effectiveness score</option>
-                <option value="government integrity score">government integrity score</option>
-                <option value="property rights score">property rights score</option>
-                <option value="tax burden score">tax burden score</option>
-                <option value="overall economic freedom score">overall economic freedom score</option>
-                <option value="property rights score">property rights score</option>
+                <option value="6">education expenditure per person</option>
+                <option value="7">education expenditure as % of GDP </option>
                 <option value="financial freedom score">financial freedom score</option>
-                <option value="women MPs (% of all MPs)">women MPs (% of all MPs)</option>
-                <option value="3">GDP growth per year</option>
+                <option value="1">health expenditure as % of GDP</option>
                 <option value="2">health expenditure per person</option>
-                <option value="6">education expenditure\nper person</option>
-                <option value="7">education expenditure\n% of GDP </option>
+                <option value="8">GDP (based on purchasing power parity)</option>
+                <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
+                <option value="3">GDP growth per year</option>
+                <option value="government effectiveness">government effectiveness</option>
+                <option value="government expenditure (% of GDP)">government expenditure (% of GDP)</option>
+                <option value="government integrity score">government integrity score</option>
+                <option value="government spending score">government spending score</option>
+                <option value="human development index">human development index</option>
+                <option value="judicial effectiveness score">judicial effectiveness score</option>
+                <option value="overall economic freedom score">overall economic freedom score</option>
+                <option value="unemployment (%)">percent unemployment</option>
+                <option value="5">political rights score</option>
+                <option value="political stability & absence of violence">political stability & absence of violence</option>
+                <option value="population">population</option>
+                <option value="property rights score">property rights score</option>
+                <option value="rule of law">rule of law</option>
+                <option value="school life expectancy (YEARS)">school life expectancy (YEARS)</option>
+                <option value="surface area (Km2)">surface area</option>
+                <option value="sustainable economic development assessment (SEDA)">sustainable economic development assessment</option>
+                <option value="tax burden score">tax burden score</option>
+                <option value="GINI index">Wealth Inequality</option>
+                <option value="women MPs (% of all MPs)">women in parliament/congress</option>
+                <option value="world happiness report score">world happiness report score</option>
+                <!-- <option value="property rights score">property rights score</option> -->
+                <optgroup label="OCED Only">
+                    <option value="collective bargaining">collective bargaining</option>
+                    <option value="trade unions participation">trade unions participation</option>
+                    <option value="annual hours per worker">annual hours per worker</option>
+                    <option value="public expenditure as percent of GDP">public expenditure as percent of GDP</option>
+                    <option value="tax revenue as percent of GDP">tax revenue as percent of GDP</option>
+                    <option value="lowest hourly wage (USD)">lowest hourly wage (USD)</option>
+                </optgroup>
             </select>
             
         </div>  
@@ -296,6 +318,8 @@
     
     
     <div class="charts"></div>
+
+    <div class="oced-chart"></div>
     <div class="map-description">
         <h1 class="map-description-title">Country Correlation Map</h1>
         <p class="map-description-paragraph first-map-description-paragraph">

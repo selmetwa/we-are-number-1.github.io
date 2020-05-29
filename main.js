@@ -31,27 +31,27 @@ const happy_planet_array = []
 const world_happiness_score_array = []
 
 d3.csv("/data/country-data.csv", function(error, data) {
-    // console.log('data: ', data)
+    console.log('data: ', data)
     let dataWithValues = []              
     for (let i=4; i<data.length; i++) {
         let value = []
         parseFloat(data[i]['human development index']) ? value.push(parseFloat(data[i]['human development index'])) : value.push(0)
         parseFloat(data[i]['human development index']) ? human_development_index_array.push(parseFloat(data[i]['human development index'])) : human_development_index_array.push(0)
 
-        parseFloat(data[i]['GDP \n(billions PPP)']) ? value.push(parseFloat(data[i]['GDP \n(billions PPP)'])) : value.push(0)
-        parseFloat(data[i]['GDP \n(billions PPP)']) ? GDP_percent_billions_array.push(parseFloat(data[i]['GDP \n(billions PPP)'])) : GDP_percent_billions_array.push(0)
+        parseFloat(data[i]['GDP \r\n(billions PPP)']) ? value.push(parseFloat(data[i]['GDP \r\n(billions PPP)'])) : value.push(0)
+        parseFloat(data[i]['GDP \r\n(billions PPP)']) ? GDP_percent_billions_array.push(parseFloat(data[i]['GDP \r\n(billions PPP)'])) : GDP_percent_billions_array.push(0)
 
         parseFloat(data[i]['GDP per capita (PPP)']) ? value.push(parseFloat(data[i]['GDP per capita (PPP)'])) : value.push(0)
         parseFloat(data[i]['GDP per capita (PPP)']) ? GDP_capita_billions_array.push(parseFloat(data[i]['GDP per capita (PPP)'])) : GDP_capita_billions_array.push(0)
 
-        parseFloat(data[i]['GDP growth\n(annual %)']) ? value.push(parseFloat(data[i]['GDP growth\n(annual %)'])) : value.push(0)
-        parseFloat(data[i]['GDP growth\n(annual %)']) ? GDP_growth_annual_array.push(parseFloat(data[i]['GDP growth\n(annual %)'])) : GDP_growth_annual_array.push(0)
+        parseFloat(data[i]['GDP growth\r\n(annual %)']) ? value.push(parseFloat(data[i]['GDP growth\r\n(annual %)'])) : value.push(0)
+        parseFloat(data[i]['GDP growth\r\n(annual %)']) ? GDP_growth_annual_array.push(parseFloat(data[i]['GDP growth\r\n(annual %)'])) : GDP_growth_annual_array.push(0)
 
-        parseFloat(data[i]['health expenditure \n% of GDP']) ? value.push(parseFloat(data[i]['health expenditure \n% of GDP'])) : value.push(0)
-        parseFloat(data[i]['health expenditure \n% of GDP']) ? health_expenditure_percent_array.push(parseFloat(data[i]['health expenditure \n% of GDP'])) : health_expenditure_percent_array.push(0)
+        parseFloat(data[i]['health expenditure \r\n% of GDP']) ? value.push(parseFloat(data[i]['health expenditure \r\n% of GDP'])) : value.push(0)
+        parseFloat(data[i]['health expenditure \r\n% of GDP']) ? health_expenditure_percent_array.push(parseFloat(data[i]['health expenditure \r\n% of GDP'])) : health_expenditure_percent_array.push(0)
 
-        parseFloat(data[i]['health expenditure \nper person']) ? value.push(parseFloat(data[i]['health expenditure \nper person'])) : value.push(0)
-        parseFloat(data[i]['health expenditure \nper person']) ? health_expenditure_capita_array.push(parseFloat(data[i]['health expenditure \nper person'])) : health_expenditure_capita_array.push(0)
+        parseFloat(data[i]['health expenditure \r\nper person']) ? value.push(parseFloat(data[i]['health expenditure \r\nper person'])) : value.push(0)
+        parseFloat(data[i]['health expenditure \r\nper person']) ? health_expenditure_capita_array.push(parseFloat(data[i]['health expenditure \r\nper person'])) : health_expenditure_capita_array.push(0)
 
         parseFloat(data[i]['school life expectancy (YEARS)']) ? value.push(parseFloat(data[i]['school life expectancy (YEARS)'])) : value.push(0)
         parseFloat(data[i]['school life expectancy (YEARS)']) ? school_life_years_array.push(parseFloat(data[i]['school life expectancy (YEARS)'])) : school_life_years_array.push(0)
@@ -176,7 +176,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
             // hmmArray.push(percentRank(health_expenditure_capita_array, dataWithValues[i].totalValue[5]))
             // hmmArray.push(percentRank(school_life_years_array, dataWithValues[i].totalValue[6]))
            
-
             whatArray.push({
                 metric: 'Human Development Index',
                 rawValue: dataWithValues[i].totalValue[0],
@@ -301,7 +300,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
             whatArray.push({
                 metric: 'Population',
                 rawValue: parseFloat(dataWithValues[i].totalValue[24]),
-                // value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
                 percentile: percentRank(population_array, dataWithValues[i].totalValue[24])
             })
             whatArray.push({
@@ -326,7 +324,7 @@ d3.csv("/data/country-data.csv", function(error, data) {
                 whatArray: whatArray
             })
       }
-
+      console.log('arrWithPercentiles: ', arrWithPercentiles)
       let countryToCompare = document.querySelector('#country-to-compare')
       let targetCountry
 
@@ -378,7 +376,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
       }
 
     testArray.sort((a,b) => a.score - b.score)
-    
     function percentRank(array, n) {
     var L = 0;
     var S = 0;
@@ -659,6 +656,7 @@ fetch('world_countries.json')
 })
 
 }
+
 let continentKeys = {
     africaKeyActive: false,
     asiaKeyActive: false,
@@ -730,15 +728,15 @@ oceaniaKey.addEventListener('click', () => {
 let all = true
 
 const outliers = (value) => {
-
+    console.log('value: ', value)
     if (value == 1) {
-        let selected = "health expenditure \n% of GDP"
+        let selected = "health expenditure \r\n% of GDP"
         return selected
     } else if (value == 2) {
-        let selected = "health expenditure \nper person"
+        let selected = "health expenditure \r\nper person"
         return selected
     } else if (value == 3) {
-        let selected = "GDP growth\n(annual %)"
+        let selected = "GDP growth\r\n(annual %)"
         return selected
     } else if (value == 4) {
         let selected = "civil liberties score "
@@ -747,14 +745,14 @@ const outliers = (value) => {
         let selected = "political rights score "
         return selected
     } else if (value == 6){
-        let selected = "education expenditure \nper person "
+        let selected = "education expenditure \r\nper person "
         return selected
     } else if (value == 7) {
-        let selected = "education expenditure\n% of GDP"
+        let selected = "education expenditure\r\n% of GDP"
         return selected
     }
     else if (value == 8) {
-        let selected = "GDP \n(billions PPP)"
+        let selected = "GDP \r\n(billions PPP)"
         return selected
     }
     else {
@@ -808,6 +806,7 @@ const render = data => {
     const svg = d3.select(".charts").append("svg")
         .attr("width", width)
         .attr("height", height)
+        // .attr("viewBox", [0, 0, width, height])
         .append("g")
 
     svg.call(tip);
@@ -824,6 +823,8 @@ const render = data => {
             .attr("width", x.rangeBand())
             .attr("y", function(d) { return y(d.value); })
             .attr("height", function(d) { return height - y(d.value)})
+            
+            // .attr('height', 500)
             .on('mouseover', tip.show)
             .on('mouseout', tip.hide)
     
@@ -883,7 +884,7 @@ function getValue() {
     if (valueSelect.value) {
         selected = valueSelect.value;  
     } else {
-        selected = 'health expenditure \n% of GDP'
+        selected = 'health expenditure \r\n% of GDP'
     }
 
     d3.csv("/data/country-data.csv", function(error, data) {
@@ -931,6 +932,7 @@ function getValue() {
         'Samoa', 'Solomon Islands', 'Tonga', 'Tuvalu', 'Vanuatu']
 
         selected = outliers(selected)
+        console.log('selected: ',selected)
         for (let i=4; i<data.length; i++) {
             let continent
             if (africa.includes(data[i].indicator)) {
@@ -954,11 +956,53 @@ function getValue() {
                         continent: continent,
                         value: parseFloat(data[i][selected].replace(/,/g, '')) * parseFloat(data[i][selected].replace(/,/g, ''))
                     })
-                } else {
+                } else if (selected == 'control of corruption') {
                     dataToBePassed.push({
                         name: data[i].indicator,
                         continent: continent,
                         value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
+                    })
+                } 
+                else if (selected == 'rule of law') {
+                    dataToBePassed.push({
+                        name: data[i].indicator,
+                        continent: continent,
+                        value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
+                    })
+                }
+                else if (selected == 'government effectiveness') {
+                    dataToBePassed.push({
+                        name: data[i].indicator,
+                        continent: continent,
+                        value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
+                    })
+                }
+                else if (selected == 'political stability & absence of violence') {
+                    dataToBePassed.push({
+                        name: data[i].indicator,
+                        continent: continent,
+                        value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
+                    })
+                }
+                else if (selected == 'GDP growth\r\n(annual %)') {
+                    dataToBePassed.push({
+                        name: data[i].indicator,
+                        continent: continent,
+                        value: parseFloat(data[i][selected].replace(/,/g, '')) + 4
+                    })
+                }
+                else if (selected == 'GDP \r\n(billions PPP)') {
+                    dataToBePassed.push({
+                        name: data[i].indicator,
+                        continent: continent,
+                        value: parseFloat(data[i][selected].replace(/,/g, '')) + 200
+                    })
+                }
+                else {
+                    dataToBePassed.push({
+                        name: data[i].indicator,
+                        continent: continent,
+                        value: parseFloat(data[i][selected].replace(/,/g, ''))
                     })
                 }
                 
@@ -1049,6 +1093,7 @@ function getValue() {
         document.querySelector('.sample-size').innerHTML = `ranking ${dataToBePassed.length}/199 countries by`;
         document.querySelector('.sample-size-metric').innerHTML = `${selected}`;
         render(dataToBePassed)
+        console.log('dataToBePassed: ', dataToBePassed)
         loadMap()
      });
 
@@ -1077,12 +1122,3 @@ function getSpecificCountries() {
 }
 
 countrySelect.onchange = getValue
-
-
-function compareOECD() {
-    d3.csv("/data/oced_labor.csv", function(error, data) {
-        data.sort( (a,b) => a['lowest hourly wage (USD)'] - b['lowest hourly wage (USD)'])
-        console.log('data: ',data)
-    })
-}
-compareOECD()

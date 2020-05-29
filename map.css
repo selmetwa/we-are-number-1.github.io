@@ -9,7 +9,7 @@
   margin: auto;
 }
 .metric-text {
-  font-size: .85rem;
+  font-size: 1rem;
   display: flex;
   margin-left: 2%;
   flex-direction: row;
@@ -18,7 +18,7 @@
   height: 11px;
   width: 11px;
   margin-left: 6px;
-  margin-top: 4px;
+  margin-top: 6px;
   border: 2px dashed rgb(5, 7, 77);
 }
 .lowest-box {
