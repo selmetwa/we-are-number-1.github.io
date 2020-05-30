@@ -1,4 +1,9 @@
-generate array for values of each country
-then pass into correlation function 
+Compared with All countries
 
-have to get percentile for each measurement
+united states high gdp
+
+extreme wealth inequality comparable with developing nations
+
+United states spends the most on healthcare despite not having universal coverage
+
+OCED Countries

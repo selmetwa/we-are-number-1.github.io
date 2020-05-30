@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="keys.css">
     <link rel="stylesheet" href="map.css">
-    <link rel="stylesheet" href="flag.css">
+    <link rel="stylesheet" href="chart-takeaways.css">
+    <link rel="stylesheet" href="oced-compare.css">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -318,7 +319,41 @@
     
     
     <div class="charts"></div>
-
+    <h1 class="chart-takeaways-title">Interesting takeaways from this chart:</h1>
+    <div class="chart-takeaways">
+        <div class="chart-takeaway">
+            <div class="chart-takeaway-text-wrapper">
+                <p>The United States ranks very high on <span>GDP</span> (only behind China), but is closer
+                to developing nations such as Guyana, Peru, and Mozambique, than it is to say Western Europe when it 
+                comes to <span>Wealth Inequality</span>.</p>
+                <p>America also spends more than almost any nation on <span>Health as a percentage of GDP</span>,
+                despite not having universal coverage.</p>
+            </div>
+            <div class="chart-takeaway-images">
+                <div class="chart-takeaway-image-wrapper">
+                    <h1 class="chart-takeaway-image-title">GDP in billions (based on purchasing power parity)</h1>
+                    <img src="./assets/gdp.svg" class="chart-image">
+                </div>
+                <div class="chart-takeaway-image-wrapper">
+                    <h1 class="chart-takeaway-image-title second-image-title">Wealth Inequality Score</h1>
+                    <img src="./assets/wealth_inequality.svg" class="chart-image wealth-inequality-chart">
+                </div>
+                <div class="chart-takeaway-image-wrapper">
+                    <h1 class="chart-takeaway-image-title second-image-title">Health Expenditure as a percentage of GDP</h1>
+                    <img src="./assets/health_expenditure.svg" class="chart-image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="oced-compare">
+        <p>Interested by these results, particularly the score regarding Wealth Inequality, I wanted to do a more in-depth
+            comparison with other OCED countries on metrics that I found personally interesting. 
+        </p>
+        <!-- <p>The metrics I added were: collective bargaining score, <span>trade unions participation, annual hours per worker, 
+            public expenditure as percent of GDP, tax revenue as percent of GDP, and the lowest hourly wage for each OCED country.</span>
+        </p> -->
+    </div>
+    <div class="scatterplot-container"></div>
     <div class="oced-chart"></div>
     <div class="map-description">
         <h1 class="map-description-title">Country Correlation Map</h1>
@@ -332,6 +367,10 @@
             and then comparing every array to the target country using the Pearson Correlation Coefficient (PCC).
              The numbers you 
             see when hovering over a country represents each countries score from the PCC. 
+        </p>
+        <p class="map-notes">
+            Note: the metrics exclusive to OCED countries were excluded from these calculations,
+            as the results would be skewed too much. 
         </p>
     </div>
     <div class="map-wrapper">

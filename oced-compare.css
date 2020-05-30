@@ -1,0 +1,64 @@
+.oced-compare {
+    width: 100vw;
+    height: 500px;
+    margin-left: 7vw;
+    margin-top: 5vh;
+    border: 1px solid red;
+}
+.oced-compare p {
+    width: 60%;
+    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    color: #323648;
+    opacity: .8;
+    font-weight: 100;
+    font-size: 1.4rem;
+    margin-top: 1vh;
+    line-height: 2.5rem;
+}
+.oced-compare ul {
+    width: 60%;
+    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    color: #323648;
+    opacity: .8;
+    font-weight: 100;
+    font-size: 1.4rem;
+    margin-top: 1vh;
+    line-height: 2.5rem;
+}
+
+circle {
+    fill: red;
+    opacity: 0.3;
+  }
+  
+  text {
+    font-family: sans-serif;
+  }
+  
+  .tick text {
+    font-size: 2.7em;
+    fill: #635F5D;
+  }
+  
+  .tick line {
+    stroke: #C0C0BB;
+  }
+  
+  .axis-label {
+    font-size: 5em;
+    fill: #8E8883;
+  }
+  
+  .title {
+    font-size: 3.7em;
+    fill: #635F5D;
+  }
+  .line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
+  }
+  .scatterplot-container svg {
+    border: 1px solid red;
+    margin-left: 5vw;
+  }

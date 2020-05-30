@@ -31,7 +31,6 @@ const happy_planet_array = []
 const world_happiness_score_array = []
 
 d3.csv("/data/country-data.csv", function(error, data) {
-    console.log('data: ', data)
     let dataWithValues = []              
     for (let i=4; i<data.length; i++) {
         let value = []
@@ -324,7 +323,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
                 whatArray: whatArray
             })
       }
-      console.log('arrWithPercentiles: ', arrWithPercentiles)
       let countryToCompare = document.querySelector('#country-to-compare')
       let targetCountry
 
@@ -1008,7 +1006,155 @@ function getValue() {
                 
             }
         }
+        let lowestHourlyWageArray = []
+        let collectiveBargainingArray = []
+        let unionMembershipArray = []
+        let hoursWorkedArray = []
+        for (let i=0; i<data.length; i++) {
+            if (parseFloat(data[i]['lowest hourly wage (USD)'])) {
+                lowestHourlyWageArray.push({
+                    name: data[i].indicator,
+                    value: parseFloat(data[i]['lowest hourly wage (USD)'].replace(/,/g, ''))
+                })
+            }
+            if (parseFloat(data[i]['collective bargaining'])) {
+                collectiveBargainingArray.push({
+                    name: data[i].indicator,
+                    value: parseFloat(data[i]['collective bargaining'].replace(/,/g, ''))
+                })
+            }
+            if (parseFloat(data[i]['trade unions participation'])) {
+                unionMembershipArray.push({
+                    name: data[i].indicator,
+                    value: parseFloat(data[i]['trade unions participation'].replace(/,/g, ''))
+                })
+            }
+            if (parseFloat(data[i]['annual hours per worker'])) {
+                hoursWorkedArray.push({
+                    name: data[i].indicator,
+                    value: parseFloat(data[i]['annual hours per worker'].replace(/,/g, ''))
+                })
+            }
+        }
+        // console.log('lowestHourlyWageArray: ', lowestHourlyWageArray)
+        // console.log('hoursWorkedArray: ', hoursWorkedArray)
 
+        // console.log('collectiveBargainingArray: ', collectiveBargainingArray)
+        // console.log('unionMembershipArray: ', unionMembershipArray)
+
+
+
+
+function renderScatterplot() {
+    document.querySelector('.scatterplot-container').innerHTML = ''
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+// set the ranges
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+// define the line
+var valueline = d3.line()
+    .x(function(d) { 
+        // console.log('d: ', d.hours)
+        return x(d.hours); 
+    })
+    .y(function(d) { 
+        console.log('d: ', d.wages)
+        return y(d.wages); 
+    });
+
+// append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+/* 
+const map = d3
+  .select('.map-container')
+  .append('svg')
+  .attr('width', width)
+  .attr('height', height)
+  .append('g')
+  .attr('class', 'map')
+*/ 
+var scatterplot = d3.select(".scatterplot-container").append('svg')
+    .attr("width", 2000)
+    .attr("height", 1500)
+    .attr('stroke', '1px solid blue')
+    .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+console.log('scatterplot: ', scatterplot)
+// Get the data
+d3.csv("data/oced_labor.csv", function(error, data) {
+  if (error) throw error;
+  // format the data
+  data.forEach(function(d) {
+    // console.log('d["annual hours per worker"]: ', d['annual hours per worker'])
+    // console.log('d["lowest hourly wage (USD)"]: ', d['lowest hourly wage (USD)'])
+    if (d['collective bargaining'] !== 'undefined' && d['annual hours per worker'] !== 'undefined') {
+        d.hours = +d['collective bargaining'];
+    }
+    if (d['annual hours per worker'] !== 'undefined' && d['collective bargaining'] !== 'undefined') {
+        d.wages = +d['annual hours per worker'];
+    }
+  });
+  console.log('data: ', data)
+
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return d.wages; }));
+  y.domain([0, d3.max(data, function(d) { return d.hours; })]);
+
+  // Add the valueline path.
+  scatterplot.append("path")
+      .data([data])
+      .attr("class", "line")
+      .attr("d", valueline)
+      
+var tooltip = d3.select("body").append("div")
+.attr("class", "tooltip")
+.style("opacity", 0);    
+  // Add the scatterplot
+  scatterplot.selectAll("dot")
+      .data(data)
+      .enter().append("circle")
+      .attr("r",15)
+      .attr("cx", function(d) { return x(d.wages); })
+      .attr("cy", function(d) { return y(d.hours); })
+      .on("mouseover", function(d) {
+        console.log('d: ', d)
+        tooltip.transition()
+             .style("opacity", 1);
+        tooltip.html(d.Name)
+             .style("left", (d3.event.pageX + 5) + "px")
+             .style("top", (d3.event.pageY - 28) + "px");
+    })
+
+  // Add the X Axis
+  scatterplot.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  // Add the Y Axis
+  scatterplot.append("g")
+      .call(d3.axisLeft(y));
+});
+}
+// d3.csv("/data/oced_labor.csv", function(error, data) {
+//     let dataForScatterPlot = []
+//     data.forEach(d => {
+//       dataForScatterPlot.push({
+//           name: d.Name,
+//           bargaining: parseFloat(d['collective bargaining'].replace(/,/g, '')),
+//           wage: parseFloat(d['lowest hourly wage (USD)'].replace(/,/g, ''))
+//       })
+//     });
+//     console.log('dataForScatterPlot: ', dataForScatterPlot)
+//     renderScatterplot(dataForScatterPlot)
+//   })
+renderScatterplot()
         let newData = []
         // poor solution until i can think of a better way
         if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
@@ -1093,7 +1239,6 @@ function getValue() {
         document.querySelector('.sample-size').innerHTML = `ranking ${dataToBePassed.length}/199 countries by`;
         document.querySelector('.sample-size-metric').innerHTML = `${selected}`;
         render(dataToBePassed)
-        console.log('dataToBePassed: ', dataToBePassed)
         loadMap()
      });
 
