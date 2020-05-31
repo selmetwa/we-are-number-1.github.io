@@ -1,6 +1,6 @@
 .oced-compare {
     width: 100vw;
-    height: 500px;
+    /* height: 500px; */
     margin-left: 7vw;
     margin-top: 5vh;
     border: 1px solid red;
@@ -59,6 +59,25 @@ circle {
     stroke-width: 2px;
   }
   .scatterplot-container svg {
-    border: 1px solid red;
-    margin-left: 5vw;
+    margin-left: 7vw;
   }
+ .scatterplot-select-wrapper {
+   margin-top: 2vw;   
+   display: flex;
+   flex-direction: row;
+ }
+
+ .scatterplot-selects-wrapper{
+   display: flex;
+   margin-left: 3vw;
+   flex-direction: column;
+ }
+ .first-scatterplot-selects-wrapper {
+  margin-left: 7vw!important;
+}
+ .scatterplot-label {
+
+ }
+ .scatterplot-select {
+   padding: 10px;
+ }

@@ -876,6 +876,126 @@ const render = data => {
 
 const valueSelect = document.querySelector('.value-select')
 
+function renderScatterplot(xValue, yValue) {
+    document.querySelector('.scatterplot-svg-container').innerHTML = ''
+    var margin = {top: 20, right: 50, bottom: 30, left: 50},
+    width = 1300 - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
+
+   
+// set the ranges
+var x = d3.scaleLinear().range([25, width]);
+var y = d3.scaleLinear().range([height, 25]);
+
+// define the line
+var valueline = d3.line()
+    .x(function(d) { 
+        // console.log('d: ', d.hours)
+        return x(d.hours); 
+    })
+    .y(function(d) { 
+        console.log('d: ', d.wages)
+        return y(d.wages); 
+    });
+
+// append the svg obgect to the body of the page
+// appends a 'group' element to 'svg'
+// moves the 'group' element to the top left margin
+/* 
+const map = d3
+  .select('.map-container')
+  .append('svg')
+  .attr('width', width)
+  .attr('height', height)
+  .append('g')
+  .attr('class', 'map')
+*/ 
+var scatterplot = d3.select(".scatterplot-svg-container").append('svg')
+    .attr("width", 1700)
+    .attr("height", 1200)
+    .attr('stroke', '1px solid blue')
+    .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
+
+console.log('scatterplot: ', scatterplot)
+// Get the data
+d3.csv("data/oced_labor.csv", function(error, data) {
+  if (error) throw error;
+  // format the data
+  data.forEach(function(d) {
+    // console.log('d["annual hours per worker"]: ', d['annual hours per worker'])
+    // console.log('d["lowest hourly wage (USD)"]: ', d['lowest hourly wage (USD)'])
+    // Y AXIS
+    if (d[yValueSelect.value] !== 'undefined' && d[xValueSelect.value] !== 'undefined') {
+        d.hours = +d[yValueSelect.value];
+    }
+    // X AXIS
+    if (d[xValueSelect.value] !== 'undefined' && d[yValueSelect.value] !== 'undefined') {
+        d.wages = +d[xValueSelect.value];
+    }
+  });
+  console.log('data: ', data)
+
+  // Scale the range of the data
+  x.domain(d3.extent(data, function(d) { return d.wages; }));
+  y.domain([0, d3.max(data, function(d) { return d.hours; })]);
+
+  // Add the valueline path.
+//   scatterplot.append("path")
+//       .data([data])
+//       .attr("class", "line")
+//       .attr("d", valueline)
+      
+var tooltip = d3.select("body").append("div")
+.attr("class", "tooltip")
+.style("opacity", 0);    
+  // Add the scatterplot
+  scatterplot.selectAll("dot")
+      .data(data)
+      .enter().append("circle")
+      .attr("r",10)
+      .attr("cx", function(d) { return x(d.wages); })
+      .attr("cy", function(d) { return y(d.hours); })
+      .on("mouseover", function(d) {
+        console.log('d: ', d)
+        tooltip.transition()
+             .style("opacity", 1);
+        tooltip.html(d.Name)
+             .style("left", (d3.event.pageX + 5) + "px")
+             .style("top", (d3.event.pageY - 28) + "px");
+    })
+
+  // Add the X Axis
+  scatterplot.append("g")
+      .attr("transform", "translate(0," + height + ")")
+      .attr("class", "x-axis")
+      .call(d3.axisBottom(x))
+
+  // text label for the x axis
+    scatterplot.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height - 6)
+    .text(xValueSelect.value);
+
+
+  // Add the Y Axis
+  scatterplot.append("g")
+      .call(d3.axisLeft(y))
+    });
+
+    // text label for the y axis
+scatterplot.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", 6)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text(yValueSelect.value);
+}
+
 function getValue() {
     
     let selected
@@ -1045,191 +1165,83 @@ function getValue() {
 
 
 
-function renderScatterplot() {
-    document.querySelector('.scatterplot-container').innerHTML = ''
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
 
-// set the ranges
-var x = d3.scaleLinear().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
 
-// define the line
-var valueline = d3.line()
-    .x(function(d) { 
-        // console.log('d: ', d.hours)
-        return x(d.hours); 
-    })
-    .y(function(d) { 
-        console.log('d: ', d.wages)
-        return y(d.wages); 
-    });
+let newData = []
+// poor solution until i can think of a better way
+if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
 
-// append the svg obgect to the body of the page
-// appends a 'group' element to 'svg'
-// moves the 'group' element to the top left margin
-/* 
-const map = d3
-  .select('.map-container')
-  .append('svg')
-  .attr('width', width)
-  .attr('height', height)
-  .append('g')
-  .attr('class', 'map')
-*/ 
-var scatterplot = d3.select(".scatterplot-container").append('svg')
-    .attr("width", 2000)
-    .attr("height", 1500)
-    .attr('stroke', '1px solid blue')
-    .append("g")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+// n=5 
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
 
-console.log('scatterplot: ', scatterplot)
-// Get the data
-d3.csv("data/oced_labor.csv", function(error, data) {
-  if (error) throw error;
-  // format the data
-  data.forEach(function(d) {
-    // console.log('d["annual hours per worker"]: ', d['annual hours per worker'])
-    // console.log('d["lowest hourly wage (USD)"]: ', d['lowest hourly wage (USD)'])
-    if (d['collective bargaining'] !== 'undefined' && d['annual hours per worker'] !== 'undefined') {
-        d.hours = +d['collective bargaining'];
-    }
-    if (d['annual hours per worker'] !== 'undefined' && d['collective bargaining'] !== 'undefined') {
-        d.wages = +d['annual hours per worker'];
-    }
-  });
-  console.log('data: ', data)
+// quadruples ?
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'south-america' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
 
-  // Scale the range of the data
-  x.domain(d3.extent(data, function(d) { return d.wages; }));
-  y.domain([0, d3.max(data, function(d) { return d.hours; })]);
+// triples 
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
 
-  // Add the valueline path.
-  scatterplot.append("path")
-      .data([data])
-      .attr("class", "line")
-      .attr("d", valueline)
-      
-var tooltip = d3.select("body").append("div")
-.attr("class", "tooltip")
-.style("opacity", 0);    
-  // Add the scatterplot
-  scatterplot.selectAll("dot")
-      .data(data)
-      .enter().append("circle")
-      .attr("r",15)
-      .attr("cx", function(d) { return x(d.wages); })
-      .attr("cy", function(d) { return y(d.hours); })
-      .on("mouseover", function(d) {
-        console.log('d: ', d)
-        tooltip.transition()
-             .style("opacity", 1);
-        tooltip.html(d.Name)
-             .style("left", (d3.event.pageX + 5) + "px")
-             .style("top", (d3.event.pageY - 28) + "px");
-    })
+// doubles
+else if (continentKeys.africaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.africaKeyActive && continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.africaKeyActive && continentKeys.northAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'north-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.southAmericaKeyActive && continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' || datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.southAmericaKeyActive && continentKeys.northAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' || datum.continent == 'north-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.southAmericaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.southAmericaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.oceaniaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'oceania' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.oceaniaKeyActive && continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'oceania' || datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'oceania' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
 
-  // Add the X Axis
-  scatterplot.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
-
-  // Add the Y Axis
-  scatterplot.append("g")
-      .call(d3.axisLeft(y));
-});
-}
-// d3.csv("/data/oced_labor.csv", function(error, data) {
-//     let dataForScatterPlot = []
-//     data.forEach(d => {
-//       dataForScatterPlot.push({
-//           name: d.Name,
-//           bargaining: parseFloat(d['collective bargaining'].replace(/,/g, '')),
-//           wage: parseFloat(d['lowest hourly wage (USD)'].replace(/,/g, ''))
-//       })
-//     });
-//     console.log('dataForScatterPlot: ', dataForScatterPlot)
-//     renderScatterplot(dataForScatterPlot)
-//   })
-renderScatterplot()
-        let newData = []
-        // poor solution until i can think of a better way
-        if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-
-        // n=5 
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-
-        // quadruples ?
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'south-america' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-
-        // triples 
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.northAmericaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'north-america' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'asia' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.asiaKeyActive && continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' || datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.asiaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'oceania' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-
-        // doubles
-        else if (continentKeys.africaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.africaKeyActive && continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.africaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.africaKeyActive && continentKeys.northAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'north-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.africaKeyActive && continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' || datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.southAmericaKeyActive && continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' || datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.southAmericaKeyActive && continentKeys.northAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' || datum.continent == 'north-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.southAmericaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.southAmericaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.oceaniaKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'oceania' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.oceaniaKeyActive && continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'oceania' || datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive && continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'oceania' || datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        
-        // singles 6
-        else if (continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.northAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
-        else if (continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
+// singles 6
+else if (continentKeys.africaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'africa' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.asiaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'asia' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.europeKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'europe' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.southAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'south-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.northAmericaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'north-america' ? newData.push(datum) : '' }); dataToBePassed = newData }
+else if (continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { datum.continent == 'oceania' ? newData.push(datum) : '' }); dataToBePassed = newData }
         else if  (all) {
             newData = dataToBePassed
         }
@@ -1239,6 +1251,7 @@ renderScatterplot()
         document.querySelector('.sample-size').innerHTML = `ranking ${dataToBePassed.length}/199 countries by`;
         document.querySelector('.sample-size-metric').innerHTML = `${selected}`;
         render(dataToBePassed)
+        renderScatterplot()
         loadMap()
      });
 
@@ -1246,10 +1259,8 @@ renderScatterplot()
   }
 
 window.onload = function() {
+    console.log('loaded')
     getValue();
-    // $('.country-to-compare').selectize({
-    //     sortField: 'text'
-    // });
 };
 
 valueSelect.onchange = getValue 
@@ -1266,4 +1277,9 @@ function getSpecificCountries() {
     return values
 }
 
+let xValueSelect = document.querySelector('.x-value-select')
+let yValueSelect = document.querySelector('.y-value-select')
+
+xValueSelect.onchange = getValue
+yValueSelect.onchange = getValue
 countrySelect.onchange = getValue
