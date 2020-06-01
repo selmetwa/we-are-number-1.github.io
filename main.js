@@ -770,7 +770,6 @@ const render = data => {
         height = 600;
     }
     
-
     const x = d3.scale.ordinal()
         .rangeRoundBands([0, width], .1);
 
@@ -799,6 +798,8 @@ const render = data => {
         // return "<strong>"+d.name+":</strong> <span style='color:#323648'>" + d.value + "</span>";
         return `<span class="first-tip-country">${d.name}</span><span class="first-tip-value">${d.value}</span>`
     })
+    // svg.call(activeTip);
+
 
     d3.select("svg").remove();
     const svg = d3.select(".charts").append("svg")
@@ -879,8 +880,8 @@ const valueSelect = document.querySelector('.value-select')
 function renderScatterplot(xValue, yValue) {
     document.querySelector('.scatterplot-svg-container').innerHTML = ''
     var margin = {top: 20, right: 50, bottom: 30, left: 50},
-    width = 1300 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    width = 1100 - margin.left - margin.right,
+    height = 600 - margin.top - margin.bottom;
 
    
 // set the ranges
@@ -920,33 +921,54 @@ var scatterplot = d3.select(".scatterplot-svg-container").append('svg')
 
 console.log('scatterplot: ', scatterplot)
 // Get the data
-d3.csv("data/oced_labor.csv", function(error, data) {
+const ocedCountries = [
+    "Australia","Austria","Belgium","Canada","Chile","Czech Republic","Denmark","Estonia","Finland","France",
+    "Germany","Greece", "Hungary","Iceland","Ireland","Israel","Italy","Japan","Korea","Latvia","Lithuania",
+    "Luxembourg","Mexico","Netherlands","New Zealand","Norway","Poland","Portugal","Slovakia","Slovenia",
+    "Spain","Sweden","Switzerland","Turkey","United Kingdom","United States"
+]
+d3.csv("data/country-data.csv", function(error, data) {
+  console.log('data; ', data)
   if (error) throw error;
   // format the data
   data.forEach(function(d) {
-    // console.log('d["annual hours per worker"]: ', d['annual hours per worker'])
-    // console.log('d["lowest hourly wage (USD)"]: ', d['lowest hourly wage (USD)'])
     // Y AXIS
-    if (d[yValueSelect.value] !== 'undefined' && d[xValueSelect.value] !== 'undefined') {
-        d.hours = +d[yValueSelect.value];
+    if (ocedCountries.includes(d.indicator) && d.indicator != 'Zimbabwe') {
+        if (d[yValueSelect.value] !== 'undefined' && d[xValueSelect.value] !== 'undefined') {
+            d.hours = +d[yValueSelect.value];
+        }
+        // X AXIS
+        if (d[xValueSelect.value] !== 'undefined' && d[yValueSelect.value] !== 'undefined') {
+            d.wages = +d[xValueSelect.value];
+        }
     }
-    // X AXIS
-    if (d[xValueSelect.value] !== 'undefined' && d[yValueSelect.value] !== 'undefined') {
-        d.wages = +d[xValueSelect.value];
-    }
+    
   });
-  console.log('data: ', data)
 
   // Scale the range of the data
   x.domain(d3.extent(data, function(d) { return d.wages; }));
   y.domain([0, d3.max(data, function(d) { return d.hours; })]);
+
+  const scatterplotTip = d3.tip()
+    .attr('class', 'first-d3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+        return `
+        <div class="scatterplot-tooltip">
+            <h3>Country: ${d.indicator}</h3>
+            <h4>${xValueSelect.value}: ${d.wages}</h4>
+            <h4>${yValueSelect.value}: ${d.hours}</h4>
+        </div>
+        `
+    })
+    scatterplot.call(scatterplotTip);
 
   // Add the valueline path.
 //   scatterplot.append("path")
 //       .data([data])
 //       .attr("class", "line")
 //       .attr("d", valueline)
-      
+
 var tooltip = d3.select("body").append("div")
 .attr("class", "tooltip")
 .style("opacity", 0);    
@@ -954,17 +976,40 @@ var tooltip = d3.select("body").append("div")
   scatterplot.selectAll("dot")
       .data(data)
       .enter().append("circle")
-      .attr("r",10)
+      .attr("r",14)
+      .attr("class", "dot")
       .attr("cx", function(d) { return x(d.wages); })
       .attr("cy", function(d) { return y(d.hours); })
-      .on("mouseover", function(d) {
-        console.log('d: ', d)
-        tooltip.transition()
-             .style("opacity", 1);
-        tooltip.html(d.Name)
-             .style("left", (d3.event.pageX + 5) + "px")
-             .style("top", (d3.event.pageY - 28) + "px");
-    })
+      .on('mouseover', function(d) {
+        scatterplotTip.show(d)
+      })
+      .on('mouseout', function(d) {
+        scatterplotTip.hide(d)
+      })
+    //   .on("mousemove", function(d) {
+    //     console.log('d.name: ', d.Name)
+    //     tooltip.transition()
+    //          .style("opacity", 1);
+    //     tooltip.html(`
+    //     <div class="scatterplot-tooltip">
+    //         <h3>Country: ${d.indicator}</h3>
+    //         <h4>${xValueSelect.value}: ${d.wages}</h4>
+    //         <h4>${yValueSelect.value}: ${d.hours}</h4>
+    //     </div>
+    //     `)
+    //          .style("left", (d3.event.pageX + 5) + "px")
+    //          .style("top", (d3.event.pageY - 28) + "px");
+    //     })
+        // .on("mouseout", function(d) {
+        //     tooltip.transition().style("opacity", 0);
+        //     })
+
+    
+
+    let test = getSpecificCountriesScatterplot()
+    d3.selectAll("circle")
+    .filter(function(d) { return test.includes(d.indicator) })
+    .classed('specificCountryScatterplot', function(d) { return test.includes(d.indicator) })
 
   // Add the X Axis
   scatterplot.append("g")
@@ -1270,10 +1315,22 @@ document.querySelector('.country-to-compare').onchange = getValue
 
 $('.country-select').selectpicker();
 $('.value-select').selectpicker();
+// $('.scatterplot-select').selectpicker();
+$('.scatterplot-country-select').selectpicker();
+// $('.x-value-select').selectpicker();
+// $('.y-value-select').selectpicker();
 // $('.country-to-compare').selectpicker();
+
+document.querySelector('.scatterplot-country-select').onchange = getValue
 
 function getSpecificCountries() {
     const values = Array.from(document.querySelectorAll('.country-select option:checked')).map(el => el.value);
+    return values
+}
+
+function getSpecificCountriesScatterplot() {
+    const values = Array.from(document.querySelectorAll('.scatterplot-country-select option:checked')).map(el => el.value);
+    console.log('values: ', values)
     return values
 }
 

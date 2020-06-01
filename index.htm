@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="map.css">
     <link rel="stylesheet" href="chart-takeaways.css">
     <link rel="stylesheet" href="oced-compare.css">
+    <link rel="stylesheet" href="scatterplot-tooltip.css">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -43,8 +44,11 @@
 <body>
     <!-- <svg height="3000" width="1750" style="border: 2px solid lightblue"></svg> -->
     <div class="section-header">
-        <h1 class="section-header__title">We're number 1!</h1>
-        <h3 class="section-header__subtitle">By Sherif Elmetwally</h3>
+        <div class="section-header-wrapper">
+            <h1 class="section-header__title">We're number 1!</h1>
+            <h3 class="section-header__subtitle">By Sherif Elmetwally</h3>
+        </div>
+        
 
         <p class="section-header__description first-description">Many of us in the United States grow up assuming that we live in the richest, 
             most powerful, freest, and overall greatest country in the world.</p>
@@ -349,24 +353,72 @@
         <p>Interested by these results, particularly the score regarding Wealth Inequality, I wanted to do a more in-depth
             comparison with other OCED countries on metrics that I found personally interesting. 
         </p>
-        <!-- <p>The metrics I added were: collective bargaining score, <span>trade unions participation, annual hours per worker, 
-            public expenditure as percent of GDP, tax revenue as percent of GDP, and the lowest hourly wage for each OCED country.</span>
-        </p> -->
+        <p>I added 4 new metrics specific to OCED countries including, <span>collective bargaining score, trade union participation, annual hours
+            per worker, and public expenditure as a percent of GDP</span>.
+        </p>
+        <p>I then made a scatterplot to see if workers rights (collective bargaining, trade union participation) is a good indicator of
+            wealth inequality, the minimum wage, and annual hours worked.
+        </p>
     </div>
     <div class="scatterplot-container">
         <div class="scatterplot-select-wrapper">
             <div class="scatterplot-selects-wrapper first-scatterplot-selects-wrapper">
                 <label class="scatterplot-label">Y Value Metric</label>
-                <select class="y-value-select scatterplot-select">
+                <select class="y-value-select scatterplot-select" data-live-search="true" title="Y Value Select" data-width="auto">
                     <option value="collective bargaining">collective bargaining</option>
                     <option value="trade unions participation">trade unions participation</option>
+                    <option value="public expenditure as percent of GDP">public expenditure as percent of GDP</option>
                 </select>
             </div>
             <div class="scatterplot-selects-wrapper ">
                 <label class="scatterplot-label">X Value Metric</label>
-                <select class="x-value-select scatterplot-select">
+                <select class="x-value-select scatterplot-select" data-live-search="true" title="X Value Select" data-width="auto">
                     <option value="annual hours per worker">annual hours per worker</option>
                     <option value="lowest hourly wage (USD)">lowest hourly wage (USD)</option>
+                    <option value="GINI index">wealth Inequality</option>
+                    <option value="human development index">human development index</option>
+                    <option value="world happiness report score">world happiness report score</option>
+                </select>
+            </div>
+            <div class="scatterplot-selects-wrapper">
+                <label class="scatterplot-label">Highlight Specific Country</label>
+                <select class="scatterplot-country-select " id="chkveg" multiple data-actions-box="true" data-live-search="true" title="Choose a specific country..." data-width="auto">
+                    <option value="Australia">Australia</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Belgium">Belgium</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Chile">Chile</option>
+                    <option value="Czech Republic">Czech Republic</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Estonia">Estonia</option>
+                    <option value="Finland">Finland</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Greece">Greece</option>
+                    <option value="Hungary">Hungary</option>
+                    <option value="Iceland">Iceland</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Israel">Israel</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Korea">Korea</option>
+                    <option value="Latvia">Latvia</option>
+                    <option value="Lithuania">Lithuania</option>
+                    <option value="Luxembourg">Luxembourg</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Slovenia">Slovenia</option>
+                    <option value="Slovenia">Slovenia</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Switzerland">Switzerland</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States">United States</option>
                 </select>
             </div>
             

@@ -17,22 +17,31 @@ html {
   .section-header {
     width: 100%;
   }
+  .section-header-wrapper {
+    border: 1px solid rgb(5, 7, 77);
+    padding-bottom: 30px;
+    background: rgb(5, 7, 77);
+  }
   .section-header__title {
-    font-size: 3.3rem;
+    font-size: 4rem;
     margin: 0;
     padding: 0;
+    margin-top: 10vh;
     margin-left: 7vw;
-    margin-top: 3vh;
-    color: #323648;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
+    color: #fafafa;
+    /* font-family: Avenir, Lato, Arial, Helvetica, sans-serif; */
+    font-family: Lora, 'Times New Roman', Times, serif;
     font-weight: 900;
   }
   .section-header__subtitle {
-    font-size: 1.4rem;
+    font-size: 1.2em;
     margin: 0;
     padding: 0;
+    opacity: 1;
+    color: #fafafa;
     margin-left: 7vw;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
+    margin-top: 1vh;
+    font-family: Lato, Avenir, Arial, Helvetica, sans-serif;
     font-weight: 500;
   }
   .first-description { 
