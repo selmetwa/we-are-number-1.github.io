@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="chart-takeaways.css">
     <link rel="stylesheet" href="oced-compare.css">
     <link rel="stylesheet" href="scatterplot-tooltip.css">
+    <link rel="stylesheet" href="scatterplot-takeaways.css">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -368,6 +369,7 @@
                     <option value="collective bargaining">collective bargaining</option>
                     <option value="trade unions participation">trade unions participation</option>
                     <option value="public expenditure as percent of GDP">public expenditure as percent of GDP</option>
+                    <option value="tax revenue as percent of GDP">tax revenue as percent of GDP</option>
                 </select>
             </div>
             <div class="scatterplot-selects-wrapper ">
@@ -423,9 +425,53 @@
             </div>
             
         </div>
-        <div class="scatterplot-svg-container">
-
+        <div class="scatterplot-svg-container"></div>
+    
+    <div class="scatterplot-takeaways">
+        <h1 class="scatterplot-takeaways-title">Interesting takeaways from this scatterplot:</h1>
+        <div class="scatterplot-takeaways-wrapper">
+            <div class="scatterplot-takeaway">
+                <h1 class="scatterplot-takeaway-title">Collective Bargaining vs Annual Hours</h1>
+                <img src="assets/bargaining_vs_hours.svg" class="scatterplot-takeaway-image">
+                <p class="scatterplot-takeaway-paragraph first-scatterplot-takeaway-paragraph">
+                    Based on this scatterplot there appears to be a negative correlation between the
+                    <span>collective bargaining rights of workers</span> compared to the <span>amount of hours they work annually</span>
+                </p>
+                <p class="scatterplot-takeaway-paragraph">
+                    This means the higher the bargaining rights of workers the less hours they work annually.
+                </p>
+                <p class="scatterplot-takeaway-paragraph">
+                    It is also interesting to note that the United States is more similar to Turkey, Poland, and Estonia,
+                    than Western/Northern Europe.
+                </p>
+            </div>
+            <div class="scatterplot-takeaway">
+                <h1 class="scatterplot-takeaway-title">Trade Unions vs Lowest Hourly Wage</h1>
+                <img src="assets/trade_unions_vs_minimum_wage.svg" class="scatterplot-takeaway-image">
+                <p class="scatterplot-takeaway-paragraph first-scatterplot-takeaway-paragraph">
+                    There is a slight positive correlation between trade union membership and the lowest
+                    hourly wage of a country.
+                </p>
+                <p class="scatterplot-takeaway-paragraph ">
+                    The obvious outlier is Switzerland which has a relatively low number of workers
+                    in trade unions but has the highest minimum wage of any country.
+                </p>
+            </div>
+            <div class="scatterplot-takeaway">
+                <h1 class="scatterplot-takeaway-title">Tax Rate vs Wealth Inequality</h1>
+                <img src="assets/taxes_vs_wealth_inequality.svg" class="scatterplot-takeaway-image">
+                <p class="scatterplot-takeaway-paragraph first-scatterplot-takeaway-paragraph">
+                    There appears to be a strong negative correlation between the amount of taxes
+                    a country pays compared with the amount of wealth inequality in that country.
+                    Higher taxes generally means less wealth inequality.
+                </p>
+                <p class="scatterplot-takeaway-paragraph">
+                    The United States again ranks much closer to Mexico, Turkey, and Chile than Western/Northern 
+                    Europe.
+                </p>
+            </div>
         </div>
+    </div>
     </div>
     <div class="oced-chart"></div>
     <div class="map-description">

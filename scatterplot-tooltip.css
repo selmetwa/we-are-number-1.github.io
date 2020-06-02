@@ -9,13 +9,14 @@
     padding-top: 4px;
     padding-bottom: 4px;
     border-radius: 4px;
-    font-family: 'Avenir',  'Lato', Arial, Helvetica, sans-serif;
+    font-family: Lora, 'Times New Roman', Times, serif;
 }
 .scatterplot-tooltip h3 {
-    font-size: .8rem;
+    font-size: 1rem;
 }
 .scatterplot-tooltip h4 {
-    font-size: .8rem;
+    font-size: 1rem;
+    font-family: 'Avenir',  'Lato', Arial, Helvetica, sans-serif;
 }
 .scatterplot-country-select {
     margin-top: -1vh;

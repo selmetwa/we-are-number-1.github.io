@@ -914,7 +914,6 @@ const map = d3
 var scatterplot = d3.select(".scatterplot-svg-container").append('svg')
     .attr("width", 1700)
     .attr("height", 1200)
-    .attr('stroke', '1px solid blue')
     .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
@@ -925,15 +924,15 @@ const ocedCountries = [
     "Australia","Austria","Belgium","Canada","Chile","Czech Republic","Denmark","Estonia","Finland","France",
     "Germany","Greece", "Hungary","Iceland","Ireland","Israel","Italy","Japan","Korea","Latvia","Lithuania",
     "Luxembourg","Mexico","Netherlands","New Zealand","Norway","Poland","Portugal","Slovakia","Slovenia",
-    "Spain","Sweden","Switzerland","Turkey","United Kingdom","United States"
-]
+    "Spain","Sweden","Switzerland","Turkey","United Kingdom","United States"]
+
 d3.csv("data/country-data.csv", function(error, data) {
   console.log('data; ', data)
   if (error) throw error;
   // format the data
   data.forEach(function(d) {
     // Y AXIS
-    if (ocedCountries.includes(d.indicator) && d.indicator != 'Zimbabwe') {
+    if (ocedCountries.includes(d.indicator)) {
         if (d[yValueSelect.value] !== 'undefined' && d[xValueSelect.value] !== 'undefined') {
             d.hours = +d[yValueSelect.value];
         }
@@ -955,7 +954,7 @@ d3.csv("data/country-data.csv", function(error, data) {
     .html(function(d) {
         return `
         <div class="scatterplot-tooltip">
-            <h3>Country: ${d.indicator}</h3>
+            <h3>${d.indicator}</h3>
             <h4>${xValueSelect.value}: ${d.wages}</h4>
             <h4>${yValueSelect.value}: ${d.hours}</h4>
         </div>
@@ -974,7 +973,8 @@ var tooltip = d3.select("body").append("div")
 .style("opacity", 0);    
   // Add the scatterplot
   scatterplot.selectAll("dot")
-      .data(data)
+    //   .data(data)
+      .data(data.filter(function(d){ return ocedCountries.includes(d.indicator); }))
       .enter().append("circle")
       .attr("r",14)
       .attr("class", "dot")
@@ -986,25 +986,6 @@ var tooltip = d3.select("body").append("div")
       .on('mouseout', function(d) {
         scatterplotTip.hide(d)
       })
-    //   .on("mousemove", function(d) {
-    //     console.log('d.name: ', d.Name)
-    //     tooltip.transition()
-    //          .style("opacity", 1);
-    //     tooltip.html(`
-    //     <div class="scatterplot-tooltip">
-    //         <h3>Country: ${d.indicator}</h3>
-    //         <h4>${xValueSelect.value}: ${d.wages}</h4>
-    //         <h4>${yValueSelect.value}: ${d.hours}</h4>
-    //     </div>
-    //     `)
-    //          .style("left", (d3.event.pageX + 5) + "px")
-    //          .style("top", (d3.event.pageY - 28) + "px");
-    //     })
-        // .on("mouseout", function(d) {
-        //     tooltip.transition().style("opacity", 0);
-        //     })
-
-    
 
     let test = getSpecificCountriesScatterplot()
     d3.selectAll("circle")
