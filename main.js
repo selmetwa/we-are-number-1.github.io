@@ -526,17 +526,17 @@ const map = d3
   `
   document.querySelector('.least-similar').innerHTML = `${testArray[0].name}, ${testArray[1].name}, ${testArray[2].name}`
 
-  document.querySelector('.highest-metrics').innerHTML = `
-  <span class="metric-text highest">${targetCountry[0].whatArray[27].metric}<div class="highest-box"></div></span>,
-  <span class="metric-text highest">${targetCountry[0].whatArray[26].metric}<div class="highest-box"></div></span></span>,
-  <span class="metric-text highest">${targetCountry[0].whatArray[25].metric}<div class="highest-box"></div></span></span>
-  `
-  document.querySelector('.lowest-metrics').innerHTML = `
-  <span class="metric-text lowest">${targetCountry[0].whatArray[0].metric}<div class="lowest-box"></div></span>,
-  <span class="metric-text lowest">${targetCountry[0].whatArray[1].metric}<div class="lowest-box"></div></span>,
-  <span class="metric-text lowest">${targetCountry[0].whatArray[2].metric}<div class="lowest-box"></div></span>
-  `
-  
+document.querySelector('.highest-metrics').innerHTML = `
+<span class="metric-text highest">${targetCountry[0].whatArray[27].metric}<div class="highest-box"></div></span>,
+<span class="metric-text highest">${targetCountry[0].whatArray[26].metric}<div class="highest-box"></div></span></span>,
+<span class="metric-text highest">${targetCountry[0].whatArray[25].metric}<div class="highest-box"></div></span></span>
+`
+document.querySelector('.lowest-metrics').innerHTML = `
+<span class="metric-text lowest">${targetCountry[0].whatArray[0].metric}<div class="lowest-box"></div></span>,
+<span class="metric-text lowest">${targetCountry[0].whatArray[1].metric}<div class="lowest-box"></div></span>,
+<span class="metric-text lowest">${targetCountry[0].whatArray[2].metric}<div class="lowest-box"></div></span>
+`
+
 let projection
 if (isLaptop) {
     projection = d3

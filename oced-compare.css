@@ -112,3 +112,15 @@
 circle.specificCountryScatterplot {
   fill: rgb(222, 60, 75)
 }
+@media screen and (min-width: 1900px) {
+  .oced-compare p {
+    width: 45%;
+    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    color: #323648;
+    opacity: .8;
+    font-weight: 100;
+    font-size: 1.4rem;
+    margin-top: 1vh;
+    line-height: 2.5rem;
+}
+}

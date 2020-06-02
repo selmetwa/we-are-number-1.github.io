@@ -36,13 +36,13 @@
     background-color: #f8f9fa;
     border: 1px solid #d6d3d3;
     margin: auto;
-    height: 4vh;
+    height: 5.5vh;
     transition: .2s ease-in-out;
   }
   .country-to-compare:hover { 
     background-color: #dae0e5;
     cursor: pointer;
-    border: 2px solid #d6d3d3;
+    border: 1px solid #d6d3d3;
     transition: .2s ease-in-out;
   }
   .similar-wrapper {
@@ -58,20 +58,19 @@
     margin-top: 0vh;
     display: flex;
     width: 100vw;
-    /* border: 1px solid red; */
     margin: auto;
     width: min-content;
-    flex-direction: row;
+    flex-direction: column;
   }
   .most-span {
-      color: #333;
-      opacity: .6;
-      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
-      font-size: .75rem;
-      margin-right: 1%;
-      font-weight: 100;
-      white-space: nowrap;
-      text-transform: uppercase;
+    color: #333;
+    opacity: .6;
+    font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+    font-size: .75rem;
+    margin-right: 1%;
+    font-weight: 100;
+    white-space: nowrap;
+    text-transform: uppercase;
   }
   .highest {
     /* border-bottom: 2px solid rgb(5, 7, 77); */
@@ -86,7 +85,7 @@
     /* border-bottom: 2px solid rgb(200, 62, 70); */
   }
   .lowest-metrics {
-    margin-left: 3%;
+    margin-left: 0%;
     white-space: nowrap;
     display: flex;
     flex-direction: row;
@@ -106,15 +105,25 @@
     font-weight: 100;
     white-space: nowrap;
     text-transform: uppercase;
-    margin-left: 5%;
+    margin-left: 0%;
+  }
+  .least-similar-span {
+    color: #333;
+    opacity: .6;
+    font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+    font-size: .8rem;
+    font-weight: 100;
+    white-space: nowrap;
+    text-transform: uppercase;
+    margin-left: 2%;
   }
   .least-similar {
-      color: rgb(200, 62, 70);
-      font-size: 1.2rem;  
-      white-space: nowrap;
-      font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
-      margin-left: 3%;
-    }
+    color: rgb(200, 62, 70);
+    font-size: 1.2rem;  
+    white-space: nowrap;
+    font-family: 'Lato', 'Avenir', Arial, Helvetica, sans-serif;
+    margin-left: 3%;
+  }
     .country-to-compare-wrapper {
       display: flex;
       width: 35%;
@@ -165,3 +174,26 @@
       color: rgba(200, 62, 70)
     }
     
+    @media screen and (min-width: 1900px) {
+      .signifigant-metrics-wrapper {
+        flex-direction: row;
+      }
+      .country-to-compare {
+        height: 4vh;
+      }
+    .lowest-metrics {
+      margin-left: 3%;
+    }
+    .least-span {
+      margin-left: 5%;
+    }
+    .least-similar-span {
+      margin-left: 3%;
+    }
+    .most-similar-span {
+      margin-right: 3%;
+    }
+      .map-description-paragraph {
+        width: 45%;
+      }
+  }
