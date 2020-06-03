@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="styles/scatterplot-tooltip.css">
     <link rel="stylesheet" href="styles/scatterplot-takeaways.css">
     <link rel="stylesheet" href="styles/mobile-responsive.css">
+    <link rel="stylesheet" href="styles/footer.css">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -48,7 +49,7 @@
     <div class="section-header">
         <div class="section-header-wrapper">
             <h1 class="section-header__title">We're number 1!</h1>
-            <h3 class="section-header__subtitle">By Sherif Elmetwally</h3>
+            <!-- <h3 class="section-header__subtitle">By Sherif Elmetwally</h3> -->
         </div>
         
 
@@ -372,7 +373,6 @@
                     <option value="public expenditure as percent of GDP">public expenditure as percent of GDP</option>
                     <option value="tax revenue as percent of GDP">tax revenue as percent of GDP</option>
                     <option value="government spending score">government spending score</option>
-                    <option value="population">population</option>
                 </select>
             </div>
             <div class="scatterplot-selects-wrapper x-value-scatterplot-selects-wrapper">
@@ -383,13 +383,12 @@
                     <option value="GINI index">wealth Inequality</option>
                     <option value="human development index">human development index</option>
                     <option value="world happiness report score">world happiness report score</option>
-                    <option value="GDP (Purchasing Power Parity)">GDP (based on purchasing power parity)</option>
                     <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
                 </select>
             </div>
             <div class="scatterplot-selects-wrapper scatterplot-country-selects-wrapper">
                 <label class="scatterplot-label">Highlight Specific Country</label>
-                <select class="scatterplot-country-select " id="chkveg" multiple data-actions-box="true" data-live-search="true" title="Choose a specific country..." data-width="auto">
+                <select class="scatterplot-country-select" id="chkveg" multiple data-actions-box="true" data-live-search="true" title="Choose a specific country..." data-width="auto">
                     <option value="Australia">Australia</option>
                     <option value="Austria">Austria</option>
                     <option value="Belgium">Belgium</option>
@@ -738,6 +737,17 @@
                     the map.
                 </p>
             </div>
+        </div>
+    </div>
+    <div class="footer">
+        <h1 class="footer-title">Thanks for Scrolling!</h1>
+        <div class="footer-contents">
+            <h3><span>Built by</span>Sherif Elmetwally</h3>
+            <h3><span>Tools Used</span>JavaScript, CSS, D3.js, Photoshop</h3>
+            <h3><span>Datasets</span>
+                <a href="https://docs.google.com/spreadsheets/d/11LhOlwsloUuA495r-04IDwciMqNrLwWGpveqpF61WXU/edit#gid=0" target="_blank">WDVP</a>, 
+                <a href="https://docs.google.com/spreadsheets/d/1DKP-wlDPxBBTny7yabCT39CZ1MZTQn2JaD7kfGmhdOY/edit?usp=sharing" target="_blank">OCED specific</a>
+            </h3>
         </div>
     </div>
 </body>

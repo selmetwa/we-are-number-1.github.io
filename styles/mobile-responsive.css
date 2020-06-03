@@ -188,6 +188,15 @@
     width: 90%!important;
     margin-left: 5%!important;  
   }
-  
+  .footer {
+    height: 50vh;
+}
+.footer-title {
+    font-size: 2.1rem!important;
+    padding-top: 4vw!important;
+}
+.footer-contents h3 span {
+    margin-right: 2%!important;
+}
   
   }

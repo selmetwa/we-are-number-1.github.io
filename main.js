@@ -111,7 +111,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
         data[i]['population'] ? population_array.push(parseFloat(data[i]['population'].replace(/,/g, ''))) : value.push(0)
 
         parseFloat(data[i]['surface area (Km2)']) ? value.push(parseFloat(data[i]['surface area (Km2)'].replace(/,/g, ''))) : value.push(0)
-        // parseFloat(data[i]['surface area (Km2)']) ? surface_area_array.push(parseFloat(data[i]['surface area (Km2)'])) : surface_area_array.push(0)
         parseFloat(data[i]['surface area (Km2)']) ? surface_area_array.push(parseFloat(data[i]['surface area (Km2)'].replace(/,/g, ''))) : value.push(0)
 
 
@@ -173,9 +172,6 @@ d3.csv("/data/country-data.csv", function(error, data) {
             hmmArray.push(percentRank(happy_planet_array, dataWithValues[i].totalValue[26]))
             hmmArray.push(percentRank(world_happiness_score_array, dataWithValues[i].totalValue[27]))
 
-            // hmmArray.push(percentRank(health_expenditure_capita_array, dataWithValues[i].totalValue[5]))
-            // hmmArray.push(percentRank(school_life_years_array, dataWithValues[i].totalValue[6]))
-           
             whatArray.push({
                 metric: 'Human Development Index',
                 rawValue: dataWithValues[i].totalValue[0],
@@ -486,19 +482,16 @@ const parentWidth = d3
   .select('body')
   .node()
   .getBoundingClientRect().width
-// const 
 let margin
 let width
 let height
 
 if (isMobile) {
-    console.log('is Mobile')
     margin = { top: 0, right: 0, bottom: 0, left: 0 }
     width = 1400 
     height = 800
 }
 else if (isLaptop) {
-    console.log('is Mobile asd')
     margin = { top: 150, right: 400, bottom: 0, left: 0 }
     width = 1600 - margin.left - margin.right
     height = 1000 - margin.top - margin.bottom
@@ -749,7 +742,6 @@ oceaniaKey.addEventListener('click', () => {
 let all = true
 
 const outliers = (value) => {
-    console.log('value: ', value)
     if (value == 1) {
         let selected = "health expenditure \r\n% of GDP"
         return selected
@@ -817,7 +809,6 @@ const render = data => {
     .attr('class', 'first-d3-tip')
     .offset([-10, 0])
     .html(function(d) {
-        // return "<strong>"+d.name+":</strong> <span style='color:#323648'>" + d.value + "</span>";
         return `<span class="first-tip-country">${d.name}</span><span class="first-tip-value">${d.value}</span>`
     })
 
@@ -825,17 +816,14 @@ const render = data => {
     .attr('class', 'first-d3-tip')
     .offset([-10, 0])
     .html(function(d) {
-        // return "<strong>"+d.name+":</strong> <span style='color:#323648'>" + d.value + "</span>";
         return `<span class="first-tip-country">${d.name}</span><span class="first-tip-value">${d.value}</span>`
     })
-    // svg.call(activeTip);
 
 
     d3.select("svg").remove();
     const svg = d3.select(".charts").append("svg")
         .attr("width", width)
         .attr("height", height)
-        // .attr("viewBox", [0, 0, width, height])
         .append("g")
 
     svg.call(tip);
@@ -853,7 +841,6 @@ const render = data => {
             .attr("y", function(d) { return y(d.value); })
             .attr("height", function(d) { return height - y(d.value)})
             
-            // .attr('height', 500)
             .on('mouseover', tip.show)
             .on('mouseout', tip.hide)
     
@@ -907,10 +894,6 @@ const render = data => {
 
 const valueSelect = document.querySelector('.value-select')
 
-if (isMobile) {
-    // d3.select('.scatterplot-svg-container').style('overflow', 'auto')
-}
-
 function renderScatterplot(xValue, yValue) {
     document.querySelector('.scatterplot-svg-container').innerHTML = '';
     let height
@@ -933,11 +916,9 @@ var y = d3.scaleLinear().range([height, 25]);
 // define the line
 var valueline = d3.line()
     .x(function(d) { 
-        // console.log('d: ', d.hours)
         return x(d.hours); 
     })
     .y(function(d) { 
-        console.log('d: ', d.wages)
         return y(d.wages); 
     });
 
@@ -948,7 +929,6 @@ var scatterplot = d3.select(".scatterplot-svg-container").append('svg')
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-console.log('scatterplot: ', scatterplot)
 // Get the data
 const ocedCountries = [
     "Australia","Austria","Belgium","Canada","Chile","Czech Republic","Denmark","Estonia","Finland","France",
@@ -957,29 +937,24 @@ const ocedCountries = [
     "Spain","Sweden","Switzerland","Turkey","United Kingdom","United States"]
 
 d3.csv("data/country-data.csv", function(error, data) {
-  console.log('data; ', data)
   if (error) throw error;
   // format the data
   data.forEach(function(d) {
     // Y AXIS
     if (ocedCountries.includes(d.indicator)) {
-    console.log('xValueSelect.valie: ',xValueSelect.value)
-    console.log('d: ',d)
-    var dArray = Object.keys(d).map(function(key) {
-        return [(key), d[key]];
-    });
-    console.log('dArray: ',dArray)
+    // var dArray = Object.keys(d).map(function(key) {
+    //     return [(key), d[key]];
+    // });
         if (d[yValueSelect.value] !== 'undefined' && d[xValueSelect.value] !== 'undefined') {
             d.hours = +d[yValueSelect.value].replace(/,/g, '');
         }
         // X AXIS
         if (d[xValueSelect.value] !== 'undefined' && d[yValueSelect.value] !== 'undefined') {
-            if (xValueSelect.value == 'GDP (Purchasing Power Parity)') {
-                console.log('dArray[10][1]: ',dArray[10][1])
-                d.wages = +dArray[10][1].replace(/,/g, '')
-            } else {
+            // if (xValueSelect.value == 'GDP (Purchasing Power Parity)') {
+            //     d.wages = +dArray[10][1].replace(/,/g, '')
+            // } else {
                 d.wages = +d[xValueSelect.value].replace(/,/g, '');
-            }
+            // }
         }
     }
     
@@ -1003,12 +978,6 @@ d3.csv("data/country-data.csv", function(error, data) {
     })
     scatterplot.call(scatterplotTip);
 
-  // Add the valueline path.
-//   scatterplot.append("path")
-//       .data([data])
-//       .attr("class", "line")
-//       .attr("d", valueline)
-
 var tooltip = d3.select("body").append("div")
 .attr("class", "tooltip")
 .style("opacity", 0);    
@@ -1016,7 +985,6 @@ var tooltip = d3.select("body").append("div")
 if (isMobile) {
 // Add the scatterplot
 scatterplot.selectAll("dot")
-//   .data(data)
   .data(data.filter(function(d){ return ocedCountries.includes(d.indicator); }))
   .enter().append("circle")
   .attr("r",8)
@@ -1032,7 +1000,6 @@ scatterplot.selectAll("dot")
 } else {
 // Add the scatterplot
 scatterplot.selectAll("dot")
-//   .data(data)
   .data(data.filter(function(d){ return ocedCountries.includes(d.indicator); }))
   .enter().append("circle")
   .attr("r",14)
@@ -1137,7 +1104,6 @@ function getValue() {
         'Samoa', 'Solomon Islands', 'Tonga', 'Tuvalu', 'Vanuatu']
 
         selected = outliers(selected)
-        console.log('selected: ',selected)
         for (let i=4; i<data.length; i++) {
             let continent
             if (africa.includes(data[i].indicator)) {
@@ -1243,16 +1209,6 @@ function getValue() {
                 })
             }
         }
-        // console.log('lowestHourlyWageArray: ', lowestHourlyWageArray)
-        // console.log('hoursWorkedArray: ', hoursWorkedArray)
-
-        // console.log('collectiveBargainingArray: ', collectiveBargainingArray)
-        // console.log('unionMembershipArray: ', unionMembershipArray)
-
-
-
-
-
 
 let newData = []
 // poor solution until i can think of a better way
@@ -1346,7 +1302,6 @@ else if (continentKeys.oceaniaKeyActive) { dataToBePassed.forEach(datum => { dat
   }
 
 window.onload = function() {
-    console.log('loaded')
     getValue();
 };
 
@@ -1357,11 +1312,7 @@ document.querySelector('.country-to-compare').onchange = getValue
 
 $('.country-select').selectpicker();
 $('.value-select').selectpicker();
-// $('.scatterplot-select').selectpicker();
 $('.scatterplot-country-select').selectpicker();
-// $('.x-value-select').selectpicker();
-// $('.y-value-select').selectpicker();
-// $('.country-to-compare').selectpicker();
 
 document.querySelector('.scatterplot-country-select').onchange = getValue
 
@@ -1372,7 +1323,6 @@ function getSpecificCountries() {
 
 function getSpecificCountriesScatterplot() {
     const values = Array.from(document.querySelectorAll('.scatterplot-country-select option:checked')).map(el => el.value);
-    console.log('values: ', values)
     return values
 }
 

@@ -21,6 +21,7 @@
 }
 .scatterplot-country-select {
     margin-top: -1vh;
+    width: 15vw!important;
 }
 @media screen and (min-width: 1900px) {
     .scatterplot-svg-container {
