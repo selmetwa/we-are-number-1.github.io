@@ -1,4 +1,5 @@
 const isLaptop = window.innerWidth <= 1900 ? true : false;
+const isMobile = window.matchMedia('screen and (max-width: 768px)').matches
 
 function loadMap(valueFromClick) {
 const human_development_index_array = []
@@ -477,6 +478,9 @@ tip.offset(function(d) {
 })
 
 d3.select('body').style('overflow', 'hidden')
+if (isMobile) {
+    d3.select('.map-container').style('overflow', 'auto')
+}
 
 const parentWidth = d3
   .select('body')
@@ -486,7 +490,15 @@ const parentWidth = d3
 let margin
 let width
 let height
-if (isLaptop) {
+
+if (isMobile) {
+    console.log('is Mobile')
+    margin = { top: 0, right: 0, bottom: 0, left: 0 }
+    width = 1400 
+    height = 800
+}
+else if (isLaptop) {
+    console.log('is Mobile asd')
     margin = { top: 150, right: 400, bottom: 0, left: 0 }
     width = 1600 - margin.left - margin.right
     height = 1000 - margin.top - margin.bottom
@@ -536,7 +548,18 @@ document.querySelector('.lowest-metrics').innerHTML = `
 <span class="metric-text lowest">${targetCountry[0].whatArray[1].metric}<div class="lowest-box"></div></span>,
 <span class="metric-text lowest">${targetCountry[0].whatArray[2].metric}<div class="lowest-box"></div></span>
 `
-
+if (isMobile) {
+    document.querySelector('.highest-metrics').innerHTML = `
+    <span class="metric-text highest">${targetCountry[0].whatArray[27].metric}<div class="highest-box"></div></span>
+    <span class="metric-text highest">${targetCountry[0].whatArray[26].metric}<div class="highest-box"></div></span></span>
+    <span class="metric-text highest">${targetCountry[0].whatArray[25].metric}<div class="highest-box"></div></span></span>
+    `
+    document.querySelector('.lowest-metrics').innerHTML = `
+    <span class="metric-text lowest">${targetCountry[0].whatArray[0].metric}<div class="lowest-box"></div></span>
+    <span class="metric-text lowest">${targetCountry[0].whatArray[1].metric}<div class="lowest-box"></div></span>
+    <span class="metric-text lowest">${targetCountry[0].whatArray[2].metric}<div class="lowest-box"></div></span>
+    `
+}
 let projection
 if (isLaptop) {
     projection = d3
@@ -759,10 +782,17 @@ const outliers = (value) => {
 }
 
 const render = data => {
+    if (isMobile) {
+        d3.select('.charts').style('overflow', 'auto')
+    }
 
     let width 
     let height 
-    if (isLaptop) {
+    if (isMobile) {
+        width = 1200; 
+        height = 500;
+    }
+    else if (isLaptop) {
         width = 1200; 
         height = 500;
     } else {
@@ -877,13 +907,25 @@ const render = data => {
 
 const valueSelect = document.querySelector('.value-select')
 
+if (isMobile) {
+    // d3.select('.scatterplot-svg-container').style('overflow', 'auto')
+}
+
 function renderScatterplot(xValue, yValue) {
-    document.querySelector('.scatterplot-svg-container').innerHTML = ''
-    var margin = {top: 20, right: 50, bottom: 30, left: 50},
+    document.querySelector('.scatterplot-svg-container').innerHTML = '';
+    let height
+    let width
+    let margin
+
+   if (isMobile) {
+    margin = {top: 20, right: 50, bottom: 30, left: 50},
+    width = 400 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+   } else {
+    margin = {top: 20, right: 50, bottom: 30, left: 50},
     width = 1100 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
-
-   
+   }
 // set the ranges
 var x = d3.scaleLinear().range([25, width]);
 var y = d3.scaleLinear().range([height, 25]);
@@ -899,18 +941,6 @@ var valueline = d3.line()
         return y(d.wages); 
     });
 
-// append the svg obgect to the body of the page
-// appends a 'group' element to 'svg'
-// moves the 'group' element to the top left margin
-/* 
-const map = d3
-  .select('.map-container')
-  .append('svg')
-  .attr('width', width)
-  .attr('height', height)
-  .append('g')
-  .attr('class', 'map')
-*/ 
 var scatterplot = d3.select(".scatterplot-svg-container").append('svg')
     .attr("width", 1700)
     .attr("height", 1200)
@@ -933,12 +963,23 @@ d3.csv("data/country-data.csv", function(error, data) {
   data.forEach(function(d) {
     // Y AXIS
     if (ocedCountries.includes(d.indicator)) {
+    console.log('xValueSelect.valie: ',xValueSelect.value)
+    console.log('d: ',d)
+    var dArray = Object.keys(d).map(function(key) {
+        return [(key), d[key]];
+    });
+    console.log('dArray: ',dArray)
         if (d[yValueSelect.value] !== 'undefined' && d[xValueSelect.value] !== 'undefined') {
-            d.hours = +d[yValueSelect.value];
+            d.hours = +d[yValueSelect.value].replace(/,/g, '');
         }
         // X AXIS
         if (d[xValueSelect.value] !== 'undefined' && d[yValueSelect.value] !== 'undefined') {
-            d.wages = +d[xValueSelect.value];
+            if (xValueSelect.value == 'GDP (Purchasing Power Parity)') {
+                console.log('dArray[10][1]: ',dArray[10][1])
+                d.wages = +dArray[10][1].replace(/,/g, '')
+            } else {
+                d.wages = +d[xValueSelect.value].replace(/,/g, '');
+            }
         }
     }
     
@@ -971,21 +1012,41 @@ d3.csv("data/country-data.csv", function(error, data) {
 var tooltip = d3.select("body").append("div")
 .attr("class", "tooltip")
 .style("opacity", 0);    
-  // Add the scatterplot
-  scatterplot.selectAll("dot")
-    //   .data(data)
-      .data(data.filter(function(d){ return ocedCountries.includes(d.indicator); }))
-      .enter().append("circle")
-      .attr("r",14)
-      .attr("class", "dot")
-      .attr("cx", function(d) { return x(d.wages); })
-      .attr("cy", function(d) { return y(d.hours); })
-      .on('mouseover', function(d) {
-        scatterplotTip.show(d)
-      })
-      .on('mouseout', function(d) {
-        scatterplotTip.hide(d)
-      })
+
+if (isMobile) {
+// Add the scatterplot
+scatterplot.selectAll("dot")
+//   .data(data)
+  .data(data.filter(function(d){ return ocedCountries.includes(d.indicator); }))
+  .enter().append("circle")
+  .attr("r",8)
+  .attr("class", "dot")
+  .attr("cx", function(d) { return x(d.wages); })
+  .attr("cy", function(d) { return y(d.hours); })
+  .on('mouseover', function(d) {
+    scatterplotTip.show(d)
+  })
+  .on('mouseout', function(d) {
+    scatterplotTip.hide(d)
+  })
+} else {
+// Add the scatterplot
+scatterplot.selectAll("dot")
+//   .data(data)
+  .data(data.filter(function(d){ return ocedCountries.includes(d.indicator); }))
+  .enter().append("circle")
+  .attr("r",14)
+  .attr("class", "dot")
+  .attr("cx", function(d) { return x(d.wages); })
+  .attr("cy", function(d) { return y(d.hours); })
+  .on('mouseover', function(d) {
+    scatterplotTip.show(d)
+  })
+  .on('mouseout', function(d) {
+    scatterplotTip.hide(d)
+  })
+}
+  
 
     let test = getSpecificCountriesScatterplot()
     d3.selectAll("circle")

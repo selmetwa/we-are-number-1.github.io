@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="styles/oced-compare.css">
     <link rel="stylesheet" href="styles/scatterplot-tooltip.css">
     <link rel="stylesheet" href="styles/scatterplot-takeaways.css">
+    <link rel="stylesheet" href="styles/mobile-responsive.css">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -335,7 +336,7 @@
                 despite not having universal coverage.</p>
             </div>
             <div class="chart-takeaway-images">
-                <div class="chart-takeaway-image-wrapper">
+                <div class="chart-takeaway-image-wrapper first-chart-takeaway-image-wrapper">
                     <h1 class="chart-takeaway-image-title">GDP in billions (based on purchasing power parity)</h1>
                     <img src="./assets/gdp.svg" class="chart-image">
                 </div>
@@ -371,9 +372,10 @@
                     <option value="public expenditure as percent of GDP">public expenditure as percent of GDP</option>
                     <option value="tax revenue as percent of GDP">tax revenue as percent of GDP</option>
                     <option value="government spending score">government spending score</option>
+                    <option value="population">population</option>
                 </select>
             </div>
-            <div class="scatterplot-selects-wrapper ">
+            <div class="scatterplot-selects-wrapper x-value-scatterplot-selects-wrapper">
                 <label class="scatterplot-label">X Value Metric</label>
                 <select class="x-value-select scatterplot-select" data-live-search="true" title="X Value Select" data-width="auto">
                     <option value="annual hours per worker">annual hours per worker</option>
@@ -381,9 +383,11 @@
                     <option value="GINI index">wealth Inequality</option>
                     <option value="human development index">human development index</option>
                     <option value="world happiness report score">world happiness report score</option>
+                    <option value="GDP (Purchasing Power Parity)">GDP (based on purchasing power parity)</option>
+                    <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
                 </select>
             </div>
-            <div class="scatterplot-selects-wrapper">
+            <div class="scatterplot-selects-wrapper scatterplot-country-selects-wrapper">
                 <label class="scatterplot-label">Highlight Specific Country</label>
                 <select class="scatterplot-country-select " id="chkveg" multiple data-actions-box="true" data-live-search="true" title="Choose a specific country..." data-width="auto">
                     <option value="Australia">Australia</option>

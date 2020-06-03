@@ -3,6 +3,11 @@
 }
 .map-container {
   margin-top: -2vh;
+  /* overflow-x: auto; */
+}
+::-webkit-scrollbar-thumb:horizontal{
+  background: #000;
+  border-radius: 10px;
 }
 .map-wrapper-widgets {
   width: 80%;
