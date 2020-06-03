@@ -31,7 +31,7 @@ const surface_area_array = []
 const happy_planet_array = []
 const world_happiness_score_array = []
 
-d3.csv("./data/country-data.csv", function(error, data) {
+d3.csv("data/country-data.csv", function(error, data) {
     let dataWithValues = []              
     for (let i=4; i<data.length; i++) {
         let value = []
@@ -1059,7 +1059,7 @@ function getValue() {
         selected = 'health expenditure \r\n% of GDP'
     }
 
-    d3.csv("./data/country-data.csv", function(error, data) {
+    d3.csv("data/country-data.csv", function(error, data) {
 
         let dataToBePassed = []            
 
