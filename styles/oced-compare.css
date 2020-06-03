@@ -6,7 +6,7 @@
 }
 .oced-compare p {
     width: 60%;
-    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    font-family: 'Avenir', Lato, Arial, Helvetica, sans-serif;
     color: #323648;
     opacity: .8;
     font-weight: 100;
@@ -20,7 +20,7 @@
 }
 .oced-compare ul {
     width: 60%;
-    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    font-family: 'Avenir', Lato, Arial, Helvetica, sans-serif;
     color: #323648;
     opacity: .8;
     font-weight: 100;
@@ -32,13 +32,13 @@
 
   
   text {
-    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    font-family: 'Avenir', Lato, Arial, Helvetica, sans-serif;
     color: #323648;
   }
   
   .tick text {
     font-size: 2.4em;
-    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    font-family: 'Avenir', Lato, Arial, Helvetica, sans-serif;
     color: #323648;
   }
   
@@ -115,7 +115,7 @@ circle.specificCountryScatterplot {
 @media screen and (min-width: 1900px) {
   .oced-compare p {
     width: 45%;
-    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    font-family: 'Avenir', Lato, Arial, Helvetica, sans-serif;
     color: #323648;
     opacity: .8;
     font-weight: 100;

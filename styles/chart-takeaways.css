@@ -7,7 +7,7 @@
     flex-direction: column;
 }
 .chart-takeaways-title {
-    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
     font-size: 1.6em;
     margin-left: 7vw;
     margin-top: 10vh;
@@ -29,7 +29,7 @@
 }
 .chart-takeaway-text-wrapper p {
     width: 60%;
-    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    font-family: 'Avenir', Lato, Arial, Helvetica, sans-serif;
     color: #323648;
     opacity: .8;
     font-weight: 100;

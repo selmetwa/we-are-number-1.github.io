@@ -50,7 +50,7 @@ html {
   }
   .section-header__description {
     width: 60%;
-    font-family: 'Avenir', Arial, Helvetica, sans-serif;
+    font-family: 'Avenir', Lato Arial, Helvetica, sans-serif;
     margin-left: 7vw;
     color: #323648;
     opacity: .8;
@@ -108,7 +108,7 @@ svg {
     /* color: #050609; */
     color: #323648;
     margin: 0;
-    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-family: Avenir, Lato,Arial, Helvetica, sans-serif;
     font-weight: 100;
     font-size: .8rem;
     border-radius: 3px;
@@ -127,7 +127,7 @@ svg {
     /* color: #050609; */
     color: #323648;
     margin: 0;
-    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-family: Avenir,  Lato,Arial, Helvetica, sans-serif;
     font-weight: 100;
     font-size: .8rem;
     border-radius: 3px;
@@ -139,7 +139,7 @@ svg {
     font-size: 1rem;
   }
   .first-tip-value {
-    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
     font-size: 1rem;
     margin-left: 4%;
     white-space: nowrap;
@@ -222,7 +222,7 @@ svg {
 .takeaways-title {
   margin-left: 10%;
   margin-top: 6%;
-  font-family: Avenir, Arial, Helvetica, sans-serif;
+  font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
   font-size: 1.6em;
   font-weight: 500;
   color: #323648;
@@ -255,7 +255,7 @@ svg {
   text-align: left;
   width: 88%;
   margin-left: 6%;
-  font-family: Avenir, Arial, Helvetica, sans-serif;
+  font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
   opacity: 1;
   color: #323648;
   margin-top: 3vh;
@@ -266,7 +266,7 @@ svg {
   text-align: left;
   width: 90%;
   margin-left: 6%;
-  font-family: Avenir, Arial, Helvetica, sans-serif;
+  font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
   color: #323648;
   opacity: .8;
   margin-top: 1vh;
@@ -274,7 +274,7 @@ svg {
 }
 .map-notes { 
   opacity: .6;
-  font-family: Avenir, Arial, Helvetica, sans-serif;
+  font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
   margin-left: 7%;
   font-size: 1.1rem;
   width: 60%;

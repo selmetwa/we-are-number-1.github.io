@@ -17,7 +17,7 @@
     margin-top: 2vh;
 }
 .footer-contents h3 span {
-    font-family: Lato, Arial, Helvetica, sans-serif;
+    font-family: Lato, Avenir, Arial, Helvetica, sans-serif;
     font-size: 1rem;
     font-weight: 900;
     opacity: .5;
@@ -25,7 +25,7 @@
     margin-right: .5%;
 }
 .footer-contents h3 {
-    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
     font-size: 1.4rem;
     font-weight: 500;
     color: #323648;

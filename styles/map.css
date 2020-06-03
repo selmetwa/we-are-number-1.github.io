@@ -51,7 +51,7 @@
     transition: .2s ease-in-out;
   }
   .similar-wrapper {
-    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
     display: flex;
     width: min-content;
     margin: auto;
@@ -59,7 +59,7 @@
     flex-direction: row;
   }
   .signifigant-metrics-wrapper {
-    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
     margin-top: 0vh;
     display: flex;
     width: 100vw;
@@ -163,7 +163,7 @@
     }
     .map-description-paragraph {
       width: 60%;
-      font-family: 'Avenir', Arial, Helvetica, sans-serif;
+      font-family: 'Avenir', Lato, Arial, Helvetica, sans-serif;
       margin-left: 7vw;
       color: #323648;
       opacity: .8;
