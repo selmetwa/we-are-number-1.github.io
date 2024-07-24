@@ -2,33 +2,26 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
   <script src="https://d3js.org/d3.v3.min.js"></script>
   <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,700&display=swap" rel="stylesheet" />
 
   <script defer src="./main.js" type="module"></script>
   <script defer src="d3-tip.js"></script>
-  <link rel="stylesheet" href="styles/styles.css">
-  <link rel="stylesheet" href="styles/keys.css">
-  <link rel="stylesheet" href="styles/map.css">
-  <link rel="stylesheet" href="styles/chart-takeaways.css">
-  <link rel="stylesheet" href="styles/oced-compare.css">
-  <link rel="stylesheet" href="styles/scatterplot-tooltip.css">
-  <link rel="stylesheet" href="styles/scatterplot-takeaways.css">
-  <link rel="stylesheet" href="styles/mobile-responsive.css">
-  <link rel="stylesheet" href="styles/footer.css">
+  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="styles/keys.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
   <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
   <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.min.js"></script>
 
   <!-- Latest compiled and minified JavaScript -->
@@ -37,8 +30,8 @@
   <script src="https://d3js.org/queue.v1.min.js"></script>
   <script src="https://d3js.org/topojson.v1.min.js"></script>
   <script src="https://d3js.org/d3-geo-projection.v1.min.js"></script>
-  <script src='https://unpkg.com/simple-statistics@2.0.0/dist/simple-statistics.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js'></script>
+  <script src="https://unpkg.com/simple-statistics@2.0.0/dist/simple-statistics.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.10.3/babel.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
@@ -46,718 +39,676 @@
 </head>
 
 <body>
-  <!-- <svg height="3000" width="1750" style="border: 2px solid lightblue"></svg> -->
-  <div class="section-header">
-    <div class="section-header-wrapper">
-      <h1 class="section-header__title">We're number 1!</h1>
-      <!-- <h3 class="section-header__subtitle">By Sherif Elmetwally</h3> -->
-    </div>
-
-
-    <!-- <p class="section-header__description first-description">Many of us in the United States grow up assuming that we live in the richest, 
-            most powerful, freest, and overall greatest country in the world.</p>
-        <p class="section-header__description">I remember watching Obama’s 2013 inaugural address where he said “America is still number one”(The “still” of course hints at some 
-            anxiety that there may be some slippage).</p>
-        <p class="section-header__description">If we’re number one, what exactly are we number one in? Intrigued by this question, 
-            I decided to create this project and allow users to compare countries 
-            and continents based on a whole host of different metrics.
-        </p> -->
-
-    <h1 class="map-description-title" style="margin-top: 50px;">Bar Chart</h1>
-    <p class="section-header__description first-description">Compare countries and continents based on a whole host of different metrics.</p>
-  </div>
-  <div class="selects-wrapper">
-    <div class="value-select-wrapper">
-      <div class="sample-size-wrapper">
-        <p class="sample-size"></p>
-        <p class="sample-size-metric"></p>
-      </div>
-      <select class="value-select" data-live-search="true" title="Choose metric" data-width="auto">
-                <option value="4">civil liberties score</option>
-                <option value="control of corruption">control of corruption</option>
-                <option value="6">education expenditure per person</option>
-                <option value="7">education expenditure as % of GDP </option>
-                <option value="financial freedom score">financial freedom score</option>
-                <option value="1">health expenditure as % of GDP</option>
-                <option value="2">health expenditure per person</option>
-                <option value="8">GDP (based on purchasing power parity)</option>
-                <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
-                <option value="3">GDP growth per year</option>
-                <option value="government effectiveness">government effectiveness</option>
-                <option value="government expenditure (% of GDP)">government expenditure (% of GDP)</option>
-                <option value="government integrity score">government integrity score</option>
-                <option value="government spending score">government spending score</option>
-                <option value="human development index">human development index</option>
-                <option value="judicial effectiveness score">judicial effectiveness score</option>
-                <option value="overall economic freedom score">overall economic freedom score</option>
-                <option value="unemployment (%)">percent unemployment</option>
-                <option value="5">political rights score</option>
-                <option value="political stability & absence of violence">political stability & absence of violence</option>
-                <option value="population">population</option>
-                <option value="property rights score">property rights score</option>
-                <option value="rule of law">rule of law</option>
-                <option value="school life expectancy (YEARS)">school life expectancy (YEARS)</option>
-                <option value="surface area (Km2)">surface area</option>
-                <option value="sustainable economic development assessment (SEDA)">sustainable economic development assessment</option>
-                <option value="tax burden score">tax burden score</option>
-                <option value="GINI index">Wealth Inequality</option>
-                <option value="women MPs (% of all MPs)">women in parliament/congress</option>
-                <option value="world happiness report score">world happiness report score</option>
-                <!-- <option value="property rights score">property rights score</option> -->
-                <optgroup label="OCED Only">
-                    <option value="collective bargaining">collective bargaining</option>
-                    <option value="trade unions participation">trade unions participation</option>
-                    <option value="annual hours per worker">annual hours per worker</option>
-                    <option value="public expenditure as percent of GDP">public expenditure as percent of GDP</option>
-                    <option value="tax revenue as percent of GDP">tax revenue as percent of GDP</option>
-                    <option value="lowest hourly wage (USD)">lowest hourly wage (USD)</option>
-                </optgroup>
+  <main>
+    <section>
+      <h2>Bar Chart</h2>
+      <p>
+        Compare countries and continents based on a whole host of different metrics.
+      </p>
+      <div class="controls">
+        <div class="value-select-wrapper">
+          <p class="sample-size-wrapper">
+            <span class="sample-size"></span>
+            <span class="sample-size-metric"></span>
+          </p>
+          <select class="value-select" data-live-search="true" title="Choose metric" data-width="auto">
+              <option value="4">civil liberties score</option>
+              <option value="control of corruption">
+                control of corruption
+              </option>
+              <option value="6">education expenditure per person</option>
+              <option value="7">education expenditure as % of GDP</option>
+              <option value="financial freedom score">
+                financial freedom score
+              </option>
+              <option value="1">health expenditure as % of GDP</option>
+              <option value="2">health expenditure per person</option>
+              <option value="8">GDP (based on purchasing power parity)</option>
+              <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
+              <option value="3">GDP growth per year</option>
+              <option value="government effectiveness">
+                government effectiveness
+              </option>
+              <option value="government expenditure (% of GDP)">
+                government expenditure (% of GDP)
+              </option>
+              <option value="government integrity score">
+                government integrity score
+              </option>
+              <option value="government spending score">
+                government spending score
+              </option>
+              <option value="human development index">
+                human development index
+              </option>
+              <option value="judicial effectiveness score">
+                judicial effectiveness score
+              </option>
+              <option value="overall economic freedom score">
+                overall economic freedom score
+              </option>
+              <option value="unemployment (%)">percent unemployment</option>
+              <option value="5">political rights score</option>
+              <option value="political stability & absence of violence">
+                political stability & absence of violence
+              </option>
+              <option value="population">population</option>
+              <option value="property rights score">
+                property rights score
+              </option>
+              <option value="rule of law">rule of law</option>
+              <option value="school life expectancy (YEARS)">
+                school life expectancy (YEARS)
+              </option>
+              <option value="surface area (Km2)">surface area</option>
+              <option
+                value="sustainable economic development assessment (SEDA)"
+              >
+                sustainable economic development assessment
+              </option>
+              <option value="tax burden score">tax burden score</option>
+              <option value="GINI index">Wealth Inequality</option>
+              <option value="women MPs (% of all MPs)">
+                women in parliament/congress
+              </option>
+              <option value="world happiness report score">
+                world happiness report score
+              </option>
+              <optgroup label="OCED Only">
+                <option value="collective bargaining">
+                  collective bargaining
+                </option>
+                <option value="trade unions participation">
+                  trade unions participation
+                </option>
+                <option value="annual hours per worker">
+                  annual hours per worker
+                </option>
+                <option value="public expenditure as percent of GDP">
+                  public expenditure as percent of GDP
+                </option>
+                <option value="tax revenue as percent of GDP">
+                  tax revenue as percent of GDP
+                </option>
+                <option value="lowest hourly wage (USD)">
+                  lowest hourly wage (USD)
+                </option>
+              </optgroup>
             </select>
-
-    </div>
-    <div class="country-select-wrapper">
-      <div class="colors-key">
-        <div class="key asia-key">
-          <p>Asia</p>
         </div>
-        <div class="key africa-key">
-          <p>Africa</p>
-        </div>
-        <div class="key south-america-key">
-          <p>South America</p>
-        </div>
-        <div class="key north-america-key">
-          <p>North America</p>
-        </div>
-        <div class="key europe-key">
-          <p>Europe</p>
-        </div>
-        <div class="key oceania-key">
-          <p>Oceania</p>
-        </div>
-        <div class="key clear-key">
-          <p>x</p>
-        </div>
-      </div>
-      <select class="country-select injectHere" id="chkveg" multiple data-actions-box="true" data-live-search="true" title="Choose a specific country..." data-width="auto">
-                <option class="asia">Afghanistan</option>
-                <option class="europe">Albania</option>
-                <option class="africa">Algeria</option>
-                <option class="europe">Andorra</option>
-                <option class="africa">Angola</option>
-                <option class="north-america">Antigua & Barbuda</option>
-                <option class="south-america">Argentina</option>
-                <option class="asia">Armenia</option>
-                <option class="oceania">Australia</option>
-                <option class="europe">Austria</option>
-                <option class="asia">Azerbaijan</option>
-                <option class="north-america">Bahamas</option>
-                <option class="asia">Bahrain</option>
-                <option class="asia">Bangladesh</option>
-                <option class="north-america">Barbados</option>
-                <option class="europe">Belarus</option>
-                <option class="europe">Belgium</option>
-                <option class="north-america">Belize</option>
-                <option class="africa">Benin</option>
-                <option class="asia">Bhutan</option>
-                <option class="south-america">Bolivia</option>
-                <option class="europe">Bosnia and Herzegovina</option>
-                <option class="africa">Botswana</option>
-                <option class="south-america">Brazil</option>
-                <option class="asia">Brunei</option>
-                <option class="europe">Bulgaria</option>
-                <option class="africa">Burkina Faso</option>
-                <option class="africa">Burundi</option>
-                <option class="asia">Cabo Verde</option>
-                <option class="asia">Cambodia</option>
-                <option class="africa">Cameroon</option>
-                <option class="north-america">Canada</option>
-                <option class="africa">Central African Republic</option>
-                <option class="africa">Chad</option>
-                <option class="south-america">Chile</option>
-                <option class="asia">China</option>
-                <option class="south-america">Colombia</option>
-                <option class="africa">Comoros</option>
-                <option class="africa">Congo (Dem. Rep.)</option>
-                <option class="africa">Congo (Rep.)</option>
-                <option class="south-america">Costa Rica</option>
-                <option class="africa">Cote d'Ivoire</option>
-                <option class="europe">Croatia</option>
-                <option class="north-america">Cuba</option>
-                <option class="europe">Cyprus</option>
-                <option class="europe">Czech Republic</option>
-                <option class="europe">Denmark</option>
-                <option class="africa">Djibouti</option>
-                <option class="north-america">Dominican Republic</option>
-                <option class="north-america">Dominica</option>
-                <option class="south-america">Ecuador</option>
-                <option class="africa">Egypt</option>
-                <option class="north-america">El Salvador</option>
-                <option class="africa">Equatorial Guinea</option>
-                <option class="africa">Eritrea</option>
-                <option class="europe">Estonia</option>
-                <option class="africa">Eswatini</option>
-                <option class="africa">Ethiopia</option>
-                <option class="oceania">Fiji</option>
-                <option class="europe">Finland</option>
-                <option class="europe">France</option>
-                <option class="africa">Gabon</option>
-                <option class="africa">Gambia</option>
-                <option class="africa">Gambia, The</option>
-                <option class="europe">Georgia</option>
-                <option class="europe">Germany</option>
-                <option class="africa">Ghana</option>
-                <option class="europe">Greece</option>
-                <option class="north-america">Grenada</option>
-                <option class="north-america">Guatemala</option>
-                <option class="africa">Guinea</option>
-                <option class="africa">Guinea-Bissau</option>
-                <option class="south-america">Guyana</option>
-                <option class="north-america">Haiti</option>
-                <option class="north-america">Honduras</option>
-                <option class="europe">Hungary</option>
-                <option class="europe">Iceland</option>
-                <option class="asia">India</option>
-                <option class="asia">Indonesia</option>
-                <option class="asia">Iran</option>
-                <option class="asia">Iraq</option>
-                <option class="europe">Ireland</option>
-                <option class="asia">Israel</option>
-                <option class="europe">Italy</option>
-                <option class="north-america">Jamaica</option>
-                <option class="asia">Japan</option>
-                <option class="asia">Jordan</option>
-                <option class="asia">Kazakhstan</option>
-                <option class="africa">Kenya</option>
-                <option class="oceania">Kiribati</option>
-                <option class="asia">Korea (Dem. People’s Rep.)	</option>
-                <option class="asia">Korea (Rep.)</option>
-                <option class="europe">Kosovo</option>
-                <option class="asia">Kuwait</option>
-                <option class="asia">Kyrgyzstan</option>
-                <option class="asia">Laos</option>
-                <option class="europe">Latvia</option>
-                <option class="asia">Lebanon</option>
-                <option class="africa">Lesotho</option>
-                <option class="africa">Liberia</option>
-                <option class="africa">Libya</option>
-                <option class="europe">Liechtenstein</option>
-                <option class="europe">Lithuania</option>
-                <option class="europe">Luxembourg</option>
-                <option class="europe">Macedonia</option>
-                <option class="asia">Madagascar</option>
-                <option class="africa">Malawi</option>
-                <option class="asia">Malaysia</option>
-                <option class="asia">Maldives</option>
-                <option class="africa">Mali</option>
-                <option class="europe">Malta</option>
-                <option class="oceania">Marshall Islands</option>
-                <option class="africa">Mauritania</option>
-                <option class="africa">Mauritius</option>
-                <option class="north-america">Mexico</option>
-                <option class="oceania">Micronesia</option>
-                <option class="europe">Moldova</option>
-                <option class="europe">Monaco</option>
-                <option class="asia">Mongolia</option>
-                <option class="europe">Montenegro</option>
-                <option class="africa">Morocco</option>
-                <option class="africa">Mozambique</option>
-                <option class="asia">Myanmar</option>
-                <option class="africa">Namibia</option>
-                <option class="oceania">Nauru</option>
-                <option class="asia">Nepal</option>
-                <option class="europe">Netherlands</option>
-                <option class="oceania">New Zealand</option>
-                <option class="north-america">Nicaragua</option>
-                <option class="africa">Niger</option>
-                <option class="africa">Nigeria</option>
-                <option class="europe">Norway</option>
-                <option class="asia">Oman</option>
-                <option class="asia">Pakistan</option>
-                <option class="oceania">Palau</option>
-                <option class="north-america">Panama</option>
-                <option class="oceania">Papua New Guinea</option>
-                <option class="south-america">Paraguay</option>
-                <option class="south-america">Peru</option>
-                <option class="asia">Philippines</option>
-                <option class="europe">Poland</option>
-                <option class="europe">Portugal</option>
-                <option class="asia">Qatar</option>
-                <option class="europe">Romania</option>
-                <option class="europe">Russia</option>
-                <option class="africa">Rwanda</option>
-                <option class="north-america">Saint Kitts and Nevis</option>
-                <option class="north-america">Saint Lucia</option>
-                <option class="north-america">Saint Vincent and the Grenadines</option>
-                <option class="oceania">Samoa</option>
-                <option class="europe">San Marino</option>
-                <option class="africa">Sao Tome and Principe</option>
-                <option class="asia">Saudi Arabia</option>
-                <option class="africa">Senegal</option>
-                <option class="europe">Serbia</option>
-                <option class="africa">Seychelles</option>
-                <option class="africa">Sierra Leone</option>
-                <option class="asia">Singapore</option>
-                <option class="europe">Slovenia</option>
-                <option class="europe">Slovakia</option>
-                <option class="oceania">Solomon Islands</option>
-                <option class="africa">Somalia</option>
-                <option class="africa">South Africa</option>
-                <option class="africa">South Sudan</option>
-                <option class="europe">Spain</option>
-                <option class="asia">Sri Lanka</option>
-                <option class="africa">Sudan</option>
-                <option class="south-america">Suriname</option>
-                <option class="europe">Sweden</option>
-                <option class="europe">Switzerland</option>
-                <option class="asia">Syria</option>
-                <option class="asia">Taiwan</option>
-                <option class="asia">Tajikistan</option>
-                <option class="africa">Tanzania</option>
-                <option class="asia">Thailand</option>
-                <option class="asia">Timor-Leste</option>
-                <option class="africa">Togo</option>
-                <option class="oceania">Tonga</option>
-                <option class="north-america">Trinidad and Tobago</option>
-                <option class="africa">Tunisia</option>
-                <option class="asia">Turkey</option>
-                <option class="asia">Turkmenistan</option>
-                <option class="oceania">Tuvalu</option>
-                <option class="africa">Uganda</option>
-                <option class="europe">Ukraine</option>
-                <option class="asia">United Arab Emirates</option>
-                <option class="europe">United Kingdom</option>
-                <option class="north-america">United States</option>
-                <option class="south-america">Uruguay</option>
-                <option class="asia">Uzbekistan</option>
-                <option class="oceania">Vanuatu</option>
-                <option class="south-america">Venezuela</option>
-                <option class="asia">Vietnam</option>
-                <option class="asia">Yemen</option>
-                <option class="africa">Zambia</option>
-                <option class="africa">Zimbabwe</option>
+        <div class="country-select-wrapper">
+          <div class="colors-key">
+            <button class="key asia-key">
+              <p>Asia</p>
+            </button>
+            <button class="key africa-key">
+              <p>Africa</p>
+            </button>
+            <button class="key south-america-key">
+              <p>South America</p>
+            </button>
+            <button class="key north-america-key">
+              <p>North America</p>
+            </button>
+            <button class="key europe-key">
+              <p>Europe</p>
+            </button>
+            <button class="key oceania-key">
+              <p>Oceania</p>
+            </button>
+            <button class="key clear-key">
+              <p>x</p>
+            </button>
+          </div>
+          <select class="country-select injectHere" id="chkveg" multiple data-actions-box="true" data-live-search="true" title="Choose a specific country..." data-width="auto">
+              <option class="asia">Afghanistan</option>
+              <option class="europe">Albania</option>
+              <option class="africa">Algeria</option>
+              <option class="europe">Andorra</option>
+              <option class="africa">Angola</option>
+              <option class="north-america">Antigua & Barbuda</option>
+              <option class="south-america">Argentina</option>
+              <option class="asia">Armenia</option>
+              <option class="oceania">Australia</option>
+              <option class="europe">Austria</option>
+              <option class="asia">Azerbaijan</option>
+              <option class="north-america">Bahamas</option>
+              <option class="asia">Bahrain</option>
+              <option class="asia">Bangladesh</option>
+              <option class="north-america">Barbados</option>
+              <option class="europe">Belarus</option>
+              <option class="europe">Belgium</option>
+              <option class="north-america">Belize</option>
+              <option class="africa">Benin</option>
+              <option class="asia">Bhutan</option>
+              <option class="south-america">Bolivia</option>
+              <option class="europe">Bosnia and Herzegovina</option>
+              <option class="africa">Botswana</option>
+              <option class="south-america">Brazil</option>
+              <option class="asia">Brunei</option>
+              <option class="europe">Bulgaria</option>
+              <option class="africa">Burkina Faso</option>
+              <option class="africa">Burundi</option>
+              <option class="asia">Cabo Verde</option>
+              <option class="asia">Cambodia</option>
+              <option class="africa">Cameroon</option>
+              <option class="north-america">Canada</option>
+              <option class="africa">Central African Republic</option>
+              <option class="africa">Chad</option>
+              <option class="south-america">Chile</option>
+              <option class="asia">China</option>
+              <option class="south-america">Colombia</option>
+              <option class="africa">Comoros</option>
+              <option class="africa">Congo (Dem. Rep.)</option>
+              <option class="africa">Congo (Rep.)</option>
+              <option class="south-america">Costa Rica</option>
+              <option class="africa">Cote d'Ivoire</option>
+              <option class="europe">Croatia</option>
+              <option class="north-america">Cuba</option>
+              <option class="europe">Cyprus</option>
+              <option class="europe">Czech Republic</option>
+              <option class="europe">Denmark</option>
+              <option class="africa">Djibouti</option>
+              <option class="north-america">Dominican Republic</option>
+              <option class="north-america">Dominica</option>
+              <option class="south-america">Ecuador</option>
+              <option class="africa">Egypt</option>
+              <option class="north-america">El Salvador</option>
+              <option class="africa">Equatorial Guinea</option>
+              <option class="africa">Eritrea</option>
+              <option class="europe">Estonia</option>
+              <option class="africa">Eswatini</option>
+              <option class="africa">Ethiopia</option>
+              <option class="oceania">Fiji</option>
+              <option class="europe">Finland</option>
+              <option class="europe">France</option>
+              <option class="africa">Gabon</option>
+              <option class="africa">Gambia</option>
+              <option class="africa">Gambia, The</option>
+              <option class="europe">Georgia</option>
+              <option class="europe">Germany</option>
+              <option class="africa">Ghana</option>
+              <option class="europe">Greece</option>
+              <option class="north-america">Grenada</option>
+              <option class="north-america">Guatemala</option>
+              <option class="africa">Guinea</option>
+              <option class="africa">Guinea-Bissau</option>
+              <option class="south-america">Guyana</option>
+              <option class="north-america">Haiti</option>
+              <option class="north-america">Honduras</option>
+              <option class="europe">Hungary</option>
+              <option class="europe">Iceland</option>
+              <option class="asia">India</option>
+              <option class="asia">Indonesia</option>
+              <option class="asia">Iran</option>
+              <option class="asia">Iraq</option>
+              <option class="europe">Ireland</option>
+              <option class="asia">Israel</option>
+              <option class="europe">Italy</option>
+              <option class="north-america">Jamaica</option>
+              <option class="asia">Japan</option>
+              <option class="asia">Jordan</option>
+              <option class="asia">Kazakhstan</option>
+              <option class="africa">Kenya</option>
+              <option class="oceania">Kiribati</option>
+              <option class="asia">Korea (Dem. People’s Rep.)</option>
+              <option class="asia">Korea (Rep.)</option>
+              <option class="europe">Kosovo</option>
+              <option class="asia">Kuwait</option>
+              <option class="asia">Kyrgyzstan</option>
+              <option class="asia">Laos</option>
+              <option class="europe">Latvia</option>
+              <option class="asia">Lebanon</option>
+              <option class="africa">Lesotho</option>
+              <option class="africa">Liberia</option>
+              <option class="africa">Libya</option>
+              <option class="europe">Liechtenstein</option>
+              <option class="europe">Lithuania</option>
+              <option class="europe">Luxembourg</option>
+              <option class="europe">Macedonia</option>
+              <option class="asia">Madagascar</option>
+              <option class="africa">Malawi</option>
+              <option class="asia">Malaysia</option>
+              <option class="asia">Maldives</option>
+              <option class="africa">Mali</option>
+              <option class="europe">Malta</option>
+              <option class="oceania">Marshall Islands</option>
+              <option class="africa">Mauritania</option>
+              <option class="africa">Mauritius</option>
+              <option class="north-america">Mexico</option>
+              <option class="oceania">Micronesia</option>
+              <option class="europe">Moldova</option>
+              <option class="europe">Monaco</option>
+              <option class="asia">Mongolia</option>
+              <option class="europe">Montenegro</option>
+              <option class="africa">Morocco</option>
+              <option class="africa">Mozambique</option>
+              <option class="asia">Myanmar</option>
+              <option class="africa">Namibia</option>
+              <option class="oceania">Nauru</option>
+              <option class="asia">Nepal</option>
+              <option class="europe">Netherlands</option>
+              <option class="oceania">New Zealand</option>
+              <option class="north-america">Nicaragua</option>
+              <option class="africa">Niger</option>
+              <option class="africa">Nigeria</option>
+              <option class="europe">Norway</option>
+              <option class="asia">Oman</option>
+              <option class="asia">Pakistan</option>
+              <option class="oceania">Palau</option>
+              <option class="north-america">Panama</option>
+              <option class="oceania">Papua New Guinea</option>
+              <option class="south-america">Paraguay</option>
+              <option class="south-america">Peru</option>
+              <option class="asia">Philippines</option>
+              <option class="europe">Poland</option>
+              <option class="europe">Portugal</option>
+              <option class="asia">Qatar</option>
+              <option class="europe">Romania</option>
+              <option class="europe">Russia</option>
+              <option class="africa">Rwanda</option>
+              <option class="north-america">Saint Kitts and Nevis</option>
+              <option class="north-america">Saint Lucia</option>
+              <option class="north-america">
+                Saint Vincent and the Grenadines
+              </option>
+              <option class="oceania">Samoa</option>
+              <option class="europe">San Marino</option>
+              <option class="africa">Sao Tome and Principe</option>
+              <option class="asia">Saudi Arabia</option>
+              <option class="africa">Senegal</option>
+              <option class="europe">Serbia</option>
+              <option class="africa">Seychelles</option>
+              <option class="africa">Sierra Leone</option>
+              <option class="asia">Singapore</option>
+              <option class="europe">Slovenia</option>
+              <option class="europe">Slovakia</option>
+              <option class="oceania">Solomon Islands</option>
+              <option class="africa">Somalia</option>
+              <option class="africa">South Africa</option>
+              <option class="africa">South Sudan</option>
+              <option class="europe">Spain</option>
+              <option class="asia">Sri Lanka</option>
+              <option class="africa">Sudan</option>
+              <option class="south-america">Suriname</option>
+              <option class="europe">Sweden</option>
+              <option class="europe">Switzerland</option>
+              <option class="asia">Syria</option>
+              <option class="asia">Taiwan</option>
+              <option class="asia">Tajikistan</option>
+              <option class="africa">Tanzania</option>
+              <option class="asia">Thailand</option>
+              <option class="asia">Timor-Leste</option>
+              <option class="africa">Togo</option>
+              <option class="oceania">Tonga</option>
+              <option class="north-america">Trinidad and Tobago</option>
+              <option class="africa">Tunisia</option>
+              <option class="asia">Turkey</option>
+              <option class="asia">Turkmenistan</option>
+              <option class="oceania">Tuvalu</option>
+              <option class="africa">Uganda</option>
+              <option class="europe">Ukraine</option>
+              <option class="asia">United Arab Emirates</option>
+              <option class="europe">United Kingdom</option>
+              <option class="north-america">United States</option>
+              <option class="south-america">Uruguay</option>
+              <option class="asia">Uzbekistan</option>
+              <option class="oceania">Vanuatu</option>
+              <option class="south-america">Venezuela</option>
+              <option class="asia">Vietnam</option>
+              <option class="asia">Yemen</option>
+              <option class="africa">Zambia</option>
+              <option class="africa">Zimbabwe</option>
             </select>
-
-      <!-- <div class="countries-selected"></div> -->
-    </div>
-  </div>
-
-  <div class="charts"></div>
-  <!-- <div class="charts"></div>
-  <h1 class="chart-takeaways-title">Interesting takeaways from this chart:</h1>
-  <div class="chart-takeaways">
-    <div class="chart-takeaway">
-      <div class="chart-takeaway-text-wrapper">
-        <p>The United States ranks very high on <span>GDP</span> (only behind China), but is closer to developing nations such as Guyana, Peru, and Mozambique, than it is to say Western Europe when it comes to <span>Wealth Inequality</span>.</p>
-        <p>America also spends more than almost any nation on <span>Health as a percentage of GDP</span>, despite not having universal coverage.</p>
-      </div>
-      <div class="chart-takeaway-images">
-        <div class="chart-takeaway-image-wrapper first-chart-takeaway-image-wrapper">
-          <h1 class="chart-takeaway-image-title">GDP in billions (based on purchasing power parity)</h1>
-          <img src="./assets/gdp.svg" class="chart-image">
-        </div>
-        <div class="chart-takeaway-image-wrapper">
-          <h1 class="chart-takeaway-image-title second-image-title">Wealth Inequality Score</h1>
-          <img src="./assets/wealth_inequality.svg" class="chart-image wealth-inequality-chart">
-        </div>
-        <div class="chart-takeaway-image-wrapper">
-          <h1 class="chart-takeaway-image-title second-image-title">Health Expenditure as a percentage of GDP</h1>
-          <img src="./assets/health_expenditure.svg" class="chart-image">
         </div>
       </div>
-    </div>
-  </div> -->
-  <div class="oced-compare">
-    <!-- <p>Interested by these results, particularly the score regarding Wealth Inequality, I wanted to do a more in-depth comparison with other OCED countries on metrics that I found personally interesting.
-    </p>
-    <p>I added 4 new metrics specific to OCED countries including, <span>collective bargaining score, trade union participation, annual hours
-            per worker, and public expenditure as a percent of GDP</span>.
-    </p> -->
-    <h1 class="map-description-title" style="margin-top: 50px;">Compare OECD Countries</h1>
-    <p>Explore correlations between (collective bargaining, trade union participation) & wealth inequality, the minimum wage, and annual hours worked.
-    </p>
-  </div>
-  <div class="scatterplot-container">
-    <div class="scatterplot-select-wrapper">
-      <div class="scatterplot-selects-wrapper first-scatterplot-selects-wrapper">
-        <label class="scatterplot-label">Y Value Metric</label>
-        <select class="y-value-select scatterplot-select" data-live-search="true" title="Y Value Select" data-width="auto">
-                    <option value="collective bargaining">collective bargaining</option>
-                    <option value="trade unions participation">trade unions participation</option>
-                    <option value="public expenditure as percent of GDP">public expenditure as percent of GDP</option>
-                    <option value="tax revenue as percent of GDP">tax revenue as percent of GDP</option>
-                    <option value="government spending score">government spending score</option>
-                </select>
-      </div>
-      <div class="scatterplot-selects-wrapper x-value-scatterplot-selects-wrapper">
-        <label class="scatterplot-label">X Value Metric</label>
-        <select class="x-value-select scatterplot-select" data-live-search="true" title="X Value Select" data-width="auto">
-                    <option value="annual hours per worker">annual hours per worker</option>
-                    <option value="lowest hourly wage (USD)">lowest hourly wage (USD)</option>
-                    <option value="GINI index">wealth Inequality</option>
-                    <option value="human development index">human development index</option>
-                    <option value="world happiness report score">world happiness report score</option>
-                    <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
-                </select>
-      </div>
-      <div class="scatterplot-selects-wrapper scatterplot-country-selects-wrapper">
-        <label class="scatterplot-label">Highlight Specific Country</label>
-        <select class="scatterplot-country-select" id="chkveg" multiple data-actions-box="true" data-live-search="true" title="Choose a specific country..." data-width="auto">
-                    <option value="Australia">Australia</option>
-                    <option value="Austria">Austria</option>
-                    <option value="Belgium">Belgium</option>
-                    <option value="Canada">Canada</option>
-                    <option value="Chile">Chile</option>
-                    <option value="Czech Republic">Czech Republic</option>
-                    <option value="Denmark">Denmark</option>
-                    <option value="Estonia">Estonia</option>
-                    <option value="Finland">Finland</option>
-                    <option value="France">France</option>
-                    <option value="Germany">Germany</option>
-                    <option value="Greece">Greece</option>
-                    <option value="Hungary">Hungary</option>
-                    <option value="Iceland">Iceland</option>
-                    <option value="Ireland">Ireland</option>
-                    <option value="Israel">Israel</option>
-                    <option value="Italy">Italy</option>
-                    <option value="Japan">Japan</option>
-                    <option value="Korea">Korea</option>
-                    <option value="Latvia">Latvia</option>
-                    <option value="Lithuania">Lithuania</option>
-                    <option value="Luxembourg">Luxembourg</option>
-                    <option value="Mexico">Mexico</option>
-                    <option value="Netherlands">Netherlands</option>
-                    <option value="New Zealand">New Zealand</option>
-                    <option value="Norway">Norway</option>
-                    <option value="Poland">Poland</option>
-                    <option value="Portugal">Portugal</option>
-                    <option value="Slovenia">Slovenia</option>
-                    <option value="Slovenia">Slovenia</option>
-                    <option value="Spain">Spain</option>
-                    <option value="Sweden">Sweden</option>
-                    <option value="Switzerland">Switzerland</option>
-                    <option value="Turkey">Turkey</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="United States">United States</option>
-                </select>
-      </div>
 
-    </div>
-    <div class="scatterplot-svg-container"></div>
-
-    <!-- <div class="scatterplot-takeaways">
-      <h1 class="scatterplot-takeaways-title">Interesting takeaways from this scatterplot:</h1>
-      <div class="scatterplot-takeaways-wrapper">
-        <div class="scatterplot-takeaway">
-          <h1 class="scatterplot-takeaway-title">Collective Bargaining vs Annual Hours</h1>
-          <img src="assets/bargaining_vs_hours.svg" class="scatterplot-takeaway-image">
-          <p class="scatterplot-takeaway-paragraph first-scatterplot-takeaway-paragraph">
-            Based on this scatterplot there appears to be a negative correlation between the
-            <span>collective bargaining rights of workers</span> compared to the <span>amount of hours they work annually</span>
-          </p>
-          <p class="scatterplot-takeaway-paragraph">
-            This means the higher the bargaining rights of workers the less hours they work annually.
-          </p>
-          <p class="scatterplot-takeaway-paragraph">
-            It is also interesting to note that the United States is more similar to Turkey, Poland, and Estonia, than Western/Northern Europe.
-          </p>
+      <div class="charts"></div>
+    </section>
+    <section>
+      <h2 class="map-description-title">Compare OECD Countries</h2>
+      <p>
+        Explore correlations between (collective bargaining, trade union participation) & wealth inequality, the minimum wage, and annual hours worked.
+      </p>
+      <div class="oecd-controls">
+        <div>
+          <label>Y Value Metric</label>
+          <select class="y-value-select scatterplot-select" data-live-search="true" title="Y Value Select" data-width="auto">
+              <option value="collective bargaining">
+                collective bargaining
+              </option>
+              <option value="trade unions participation">
+                trade unions participation
+              </option>
+              <option value="public expenditure as percent of GDP">
+                public expenditure as percent of GDP
+              </option>
+              <option value="tax revenue as percent of GDP">
+                tax revenue as percent of GDP
+              </option>
+              <option value="government spending score">
+                government spending score
+              </option>
+            </select>
         </div>
-        <div class="scatterplot-takeaway">
-          <h1 class="scatterplot-takeaway-title">Trade Unions vs Lowest Hourly Wage</h1>
-          <img src="assets/trade_unions_vs_minimum_wage.svg" class="scatterplot-takeaway-image">
-          <p class="scatterplot-takeaway-paragraph first-scatterplot-takeaway-paragraph">
-            There is a slight positive correlation between trade union membership and the lowest hourly wage of a country.
-          </p>
-          <p class="scatterplot-takeaway-paragraph ">
-            The obvious outlier is Switzerland which has a relatively low number of workers in trade unions but has the highest minimum wage of any country.
-          </p>
+        <div>
+          <label class="scatterplot-label">X Value Metric</label>
+          <select class="x-value-select scatterplot-select" data-live-search="true" title="X Value Select" data-width="auto">
+              <option value="annual hours per worker">
+                annual hours per worker
+              </option>
+              <option value="lowest hourly wage (USD)">
+                lowest hourly wage (USD)
+              </option>
+              <option value="GINI index">wealth Inequality</option>
+              <option value="human development index">
+                human development index
+              </option>
+              <option value="world happiness report score">
+                world happiness report score
+              </option>
+              <option value="GDP per capita (PPP)">GDP per capita (PPP)</option>
+            </select>
         </div>
-        <div class="scatterplot-takeaway">
-          <h1 class="scatterplot-takeaway-title">Tax Rate vs Wealth Inequality</h1>
-          <img src="assets/taxes_vs_wealth_inequality.svg" class="scatterplot-takeaway-image">
-          <p class="scatterplot-takeaway-paragraph first-scatterplot-takeaway-paragraph">
-            There appears to be a strong negative correlation between the amount of taxes a country pays compared with the amount of wealth inequality in that country. Higher taxes generally means less wealth inequality.
-          </p>
-          <p class="scatterplot-takeaway-paragraph">
-            The United States again ranks much closer to Mexico, Turkey, and Chile than Western/Northern Europe.
-          </p>
+        <div>
+          <label class="scatterplot-label">Highlight Specific Country</label>
+          <select class="scatterplot-country-select" id="chkveg" multiple data-actions-box="true" data-live-search="true" title="Choose a specific country..." data-width="auto">
+              <option value="Australia">Australia</option>
+              <option value="Austria">Austria</option>
+              <option value="Belgium">Belgium</option>
+              <option value="Canada">Canada</option>
+              <option value="Chile">Chile</option>
+              <option value="Czech Republic">Czech Republic</option>
+              <option value="Denmark">Denmark</option>
+              <option value="Estonia">Estonia</option>
+              <option value="Finland">Finland</option>
+              <option value="France">France</option>
+              <option value="Germany">Germany</option>
+              <option value="Greece">Greece</option>
+              <option value="Hungary">Hungary</option>
+              <option value="Iceland">Iceland</option>
+              <option value="Ireland">Ireland</option>
+              <option value="Israel">Israel</option>
+              <option value="Italy">Italy</option>
+              <option value="Japan">Japan</option>
+              <option value="Korea">Korea</option>
+              <option value="Latvia">Latvia</option>
+              <option value="Lithuania">Lithuania</option>
+              <option value="Luxembourg">Luxembourg</option>
+              <option value="Mexico">Mexico</option>
+              <option value="Netherlands">Netherlands</option>
+              <option value="New Zealand">New Zealand</option>
+              <option value="Norway">Norway</option>
+              <option value="Poland">Poland</option>
+              <option value="Portugal">Portugal</option>
+              <option value="Slovenia">Slovenia</option>
+              <option value="Slovenia">Slovenia</option>
+              <option value="Spain">Spain</option>
+              <option value="Sweden">Sweden</option>
+              <option value="Switzerland">Switzerland</option>
+              <option value="Turkey">Turkey</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="United States">United States</option>
+            </select>
         </div>
       </div>
-    </div> -->
-  </div>
-  <div class="oced-chart"></div>
-  <div class="map-description">
-    <h1 class="map-description-title">Country Correlation Map</h1>
-    <p class="map-description-paragraph first-map-description-paragraph">
-      Select a country from the dropdown menu to see which other countries are closely related. The map will recolor itself to display the <span class="most-similar-countries-span">most similar countries</span> and the <span class="least-similar-countries-span">least similar countries</span>.
-    </p>
-    <p class="map-description-paragraph">
-      The correlation was done by creating an array filled with the percentile scores of each metric for every country, and then comparing every array to the target country using the Pearson Correlation Coefficient (PCC). The numbers you see when hovering over
-      a country represents each countries score from the PCC.
-    </p>
-    <p class="map-notes">
-      Note: the metrics exclusive to OCED countries were excluded from these calculations, as the results would be skewed too much.
-    </p>
-  </div>
-  <div class="map-wrapper">
-    <div class="map-wrapper-widgets">
-      <div class="country-to-compare-wrapper">
-        <h1>Countries Similar to</h1>
-        <select class="country-to-compare" id="country-to-compare" data-actions-box="true" data-live-search="true" data-width="auto" name="country-compare">
-                        <option value="Afghanistan">Afghanistan</option>
-                        <option value="Albania">Albania</option>
-                        <option>Algeria</option>
-                        <option>Andorra</option>
-                        <option>Angola</option>
-                        <option>Antigua & Barbuda</option>
-                        <option>Argentina</option>
-                        <option>Armenia</option>
-                        <option>Australia</option>
-                        <option>Austria</option>
-                        <option>Azerbaijan</option>
-                        <option>Bahamas</option>
-                        <option>Bahrain</option>
-                        <option>Bangladesh</option>
-                        <option>Barbados</option>
-                        <option>Belarus</option>
-                        <option>Belgium</option>
-                        <option>Belize</option>
-                        <option>Benin</option>
-                        <option>Bhutan</option>
-                        <option>Bolivia</option>
-                        <option>Bosnia and Herzegovina</option>
-                        <option>Botswana</option>
-                        <option>Brazil</option>
-                        <option>Brunei</option>
-                        <option>Bulgaria</option>
-                        <option>Burkina Faso</option>
-                        <option>Burundi</option>
-                        <option>Cabo Verde</option>
-                        <option>Cambodia</option>
-                        <option>Cameroon</option>
-                        <option>Canada</option>
-                        <option>Central African Republic</option>
-                        <option>Chad</option>
-                        <option>Chile</option>
-                        <option>China</option>
-                        <option>Colombia</option>
-                        <option>Comoros</option>
-                        <option>Congo (Dem. Rep.)</option>
-                        <option>Congo (Rep.)</option>
-                        <option>Costa Rica</option>
-                        <option>Cote d'Ivoire</option>
-                        <option>Croatia</option>
-                        <option>Cuba</option>
-                        <option>Cyprus</option>
-                        <option>Czech Republic</option>
-                        <option>Denmark</option>
-                        <option>Djibouti</option>
-                        <option>Dominican Republic</option>
-                        <option>Dominica</option>
-                        <option>Ecuador</option>
-                        <option>Egypt</option>
-                        <option>El Salvador</option>
-                        <option>Equatorial Guinea</option>
-                        <option>Eritrea</option>
-                        <option>Estonia</option>
-                        <option>Eswatini</option>
-                        <option>Ethiopia</option>
-                        <option>Fiji</option>
-                        <option>Finland</option>
-                        <option>France</option>
-                        <option>Gabon</option>
-                        <option>Gambia</option>
-                        <option>Gambia, The</option>
-                        <option>Georgia</option>
-                        <option>Germany</option>
-                        <option>Ghana</option>
-                        <option>Greece</option>
-                        <option>Grenada</option>
-                        <option>Guatemala</option>
-                        <option>Guinea</option>
-                        <option>Guinea-Bissau</option>
-                        <option>Guyana</option>
-                        <option>Haiti</option>
-                        <option>Honduras</option>
-                        <option>Hungary</option>
-                        <option>Iceland</option>
-                        <option>India</option>
-                        <option>Indonesia</option>
-                        <option>Iran</option>
-                        <option>Iraq</option>
-                        <option>Ireland</option>
-                        <option>Israel</option>
-                        <option>Italy</option>
-                        <option>Jamaica</option>
-                        <option>Japan</option>
-                        <option>Jordan</option>
-                        <option>Kazakhstan</option>
-                        <option>Kenya</option>
-                        <option>Kiribati</option>
-                        <option>Korea (Dem. People’s Rep.)	</option>
-                        <option>Korea (Rep.)</option>
-                        <option>Kosovo</option>
-                        <option>Kuwait</option>
-                        <option>Kyrgyzstan</option>
-                        <option>Laos</option>
-                        <option>Latvia</option>
-                        <option>Lebanon</option>
-                        <option>Lesotho</option>
-                        <option>Liberia</option>
-                        <option>Libya</option>
-                        <option>Liechtenstein</option>
-                        <option>Lithuania</option>
-                        <option>Luxembourg</option>
-                        <option>Macedonia</option>
-                        <option>Madagascar</option>
-                        <option>Malawi</option>
-                        <option>Malaysia</option>
-                        <option>Maldives</option>
-                        <option>Mali</option>
-                        <option>Malta</option>
-                        <option>Marshall Islands</option>
-                        <option>Mauritania</option>
-                        <option>Mauritius</option>
-                        <option>Mexico</option>
-                        <option>Micronesia</option>
-                        <option>Moldova</option>
-                        <option>Monaco</option>
-                        <option>Mongolia</option>
-                        <option>Montenegro</option>
-                        <option>Morocco</option>
-                        <option>Mozambique</option>
-                        <option>Myanmar</option>
-                        <option>Namibia</option>
-                        <option>Nauru</option>
-                        <option>Nepal</option>
-                        <option>Netherlands</option>
-                        <option>New Zealand</option>
-                        <option>Nicaragua</option>
-                        <option>Niger</option>
-                        <option>Nigeria</option>
-                        <option>Norway</option>
-                        <option>Oman</option>
-                        <option>Pakistan</option>
-                        <option>Palau</option>
-                        <option>Panama</option>
-                        <option>Papua New Guinea</option>
-                        <option>Paraguay</option>
-                        <option>Peru</option>
-                        <option>Philippines</option>
-                        <option>Poland</option>
-                        <option>Portugal</option>
-                        <option>Qatar</option>
-                        <option>Romania</option>
-                        <option>Russia</option>
-                        <option>Rwanda</option>
-                        <option>Saint Kitts and Nevis</option>
-                        <option>Saint Lucia</option>
-                        <option>Saint Vincent and the Grenadines</option>
-                        <option>Samoa</option>
-                        <option>San Marino</option>
-                        <option>Sao Tome and Principe</option>
-                        <option>Saudi Arabia</option>
-                        <option>Senegal</option>
-                        <option>Serbia</option>
-                        <option>Seychelles</option>
-                        <option>Sierra Leone</option>
-                        <option>Singapore</option>
-                        <option>Slovenia</option>
-                        <option>Slovakia</option>
-                        <option>Solomon Islands</option>
-                        <option>Somalia</option>
-                        <option>South Africa</option>
-                        <option>South Sudan</option>
-                        <option>Spain</option>
-                        <option>Sri Lanka</option>
-                        <option>Sudan</option>
-                        <option>Suriname</option>
-                        <option>Sweden</option>
-                        <option>Switzerland</option>
-                        <option>Syria</option>
-                        <option>Taiwan</option>
-                        <option>Tajikistan</option>
-                        <option>Tanzania</option>
-                        <option>Thailand</option>
-                        <option>Timor-Leste</option>
-                        <option>Togo</option>
-                        <option>Tonga</option>
-                        <option>Trinidad and Tobago</option>
-                        <option>Tunisia</option>
-                        <option>Turkey</option>
-                        <option>Turkmenistan</option>
-                        <option>Tuvalu</option>
-                        <option>Uganda</option>
-                        <option>Ukraine</option>
-                        <option>United Arab Emirates</option>
-                        <option>United Kingdom</option>
-                        <option selected>United States</option>
-                        <option>Uruguay</option>
-                        <option>Uzbekistan</option>
-                        <option>Vanuatu</option>
-                        <option>Venezuela</option>
-                        <option>Vietnam</option>
-                        <option>Yemen</option>
-                        <option>Zambia</option>
-                        <option>Zimbabwe</option>
-                </select>
-      </div>
-      <div class="similar-wrapper">
-        <p class="most-span most-similar-span">Most Similar</p>
-        <p class="most-similar"></p>
-        <p class="least-similar"></p>
-        <p class="least-span least-similar-span">Least Similar</p>
-      </div>
-      <div class="signifigant-metrics-wrapper">
-        <p class="most-span">Highest Scoring Metrics</p>
-        <p class="highest-metrics"></p>
-        <p class="lowest-metrics"></p>
-        <p class="least-span">Lowest Scoring Metrics</p>
-      </div>
-    </div>
+      <div class="scatterplot-svg-container"></div>
+      <div class="oced-chart"></div>
+    </section>
+    <section>
+      <div>
+        <h2 class="map-description-title">Country Correlation Map</h2>
+        <p>
+          Select a country from the dropdown menu to see which other countries are closely related. The map will recolor itself to display the
+          <span class="most-similar-countries-span">most similar countries</span
+            >
+            and the
+            <span class="least-similar-countries-span"
+              >least similar countries</span
+            >.
+          </p>
+          <p>
+            The correlation was done by creating an array filled with the
+            percentile scores of each metric for every country, and then
+            comparing every array to the target country using the Pearson
+            Correlation Coefficient (PCC). The numbers you see when hovering
+            over a country represents each countries score from the PCC.
+          </p>
+          <p>
+            Note: the metrics exclusive to OCED countries were excluded from
+            these calculations, as the results would be skewed too much.
+          </p>
+        </div>
+        <div>
+          <div>
+            <div class="map-controls">
+              <h3>Countries Similar to</h3>
+              <select
+                class="country-to-compare"
+                id="country-to-compare"
+                data-actions-box="true"
+                data-live-search="true"
+                data-width="auto"
+                name="country-compare"
+              >
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Albania">Albania</option>
+                <option>Algeria</option>
+                <option>Andorra</option>
+                <option>Angola</option>
+                <option>Antigua & Barbuda</option>
+                <option>Argentina</option>
+                <option>Armenia</option>
+                <option>Australia</option>
+                <option>Austria</option>
+                <option>Azerbaijan</option>
+                <option>Bahamas</option>
+                <option>Bahrain</option>
+                <option>Bangladesh</option>
+                <option>Barbados</option>
+                <option>Belarus</option>
+                <option>Belgium</option>
+                <option>Belize</option>
+                <option>Benin</option>
+                <option>Bhutan</option>
+                <option>Bolivia</option>
+                <option>Bosnia and Herzegovina</option>
+                <option>Botswana</option>
+                <option>Brazil</option>
+                <option>Brunei</option>
+                <option>Bulgaria</option>
+                <option>Burkina Faso</option>
+                <option>Burundi</option>
+                <option>Cabo Verde</option>
+                <option>Cambodia</option>
+                <option>Cameroon</option>
+                <option>Canada</option>
+                <option>Central African Republic</option>
+                <option>Chad</option>
+                <option>Chile</option>
+                <option>China</option>
+                <option>Colombia</option>
+                <option>Comoros</option>
+                <option>Congo (Dem. Rep.)</option>
+                <option>Congo (Rep.)</option>
+                <option>Costa Rica</option>
+                <option>Cote d'Ivoire</option>
+                <option>Croatia</option>
+                <option>Cuba</option>
+                <option>Cyprus</option>
+                <option>Czech Republic</option>
+                <option>Denmark</option>
+                <option>Djibouti</option>
+                <option>Dominican Republic</option>
+                <option>Dominica</option>
+                <option>Ecuador</option>
+                <option>Egypt</option>
+                <option>El Salvador</option>
+                <option>Equatorial Guinea</option>
+                <option>Eritrea</option>
+                <option>Estonia</option>
+                <option>Eswatini</option>
+                <option>Ethiopia</option>
+                <option>Fiji</option>
+                <option>Finland</option>
+                <option>France</option>
+                <option>Gabon</option>
+                <option>Gambia</option>
+                <option>Gambia, The</option>
+                <option>Georgia</option>
+                <option>Germany</option>
+                <option>Ghana</option>
+                <option>Greece</option>
+                <option>Grenada</option>
+                <option>Guatemala</option>
+                <option>Guinea</option>
+                <option>Guinea-Bissau</option>
+                <option>Guyana</option>
+                <option>Haiti</option>
+                <option>Honduras</option>
+                <option>Hungary</option>
+                <option>Iceland</option>
+                <option>India</option>
+                <option>Indonesia</option>
+                <option>Iran</option>
+                <option>Iraq</option>
+                <option>Ireland</option>
+                <option>Israel</option>
+                <option>Italy</option>
+                <option>Jamaica</option>
+                <option>Japan</option>
+                <option>Jordan</option>
+                <option>Kazakhstan</option>
+                <option>Kenya</option>
+                <option>Kiribati</option>
+                <option>Korea (Dem. People’s Rep.)</option>
+                <option>Korea (Rep.)</option>
+                <option>Kosovo</option>
+                <option>Kuwait</option>
+                <option>Kyrgyzstan</option>
+                <option>Laos</option>
+                <option>Latvia</option>
+                <option>Lebanon</option>
+                <option>Lesotho</option>
+                <option>Liberia</option>
+                <option>Libya</option>
+                <option>Liechtenstein</option>
+                <option>Lithuania</option>
+                <option>Luxembourg</option>
+                <option>Macedonia</option>
+                <option>Madagascar</option>
+                <option>Malawi</option>
+                <option>Malaysia</option>
+                <option>Maldives</option>
+                <option>Mali</option>
+                <option>Malta</option>
+                <option>Marshall Islands</option>
+                <option>Mauritania</option>
+                <option>Mauritius</option>
+                <option>Mexico</option>
+                <option>Micronesia</option>
+                <option>Moldova</option>
+                <option>Monaco</option>
+                <option>Mongolia</option>
+                <option>Montenegro</option>
+                <option>Morocco</option>
+                <option>Mozambique</option>
+                <option>Myanmar</option>
+                <option>Namibia</option>
+                <option>Nauru</option>
+                <option>Nepal</option>
+                <option>Netherlands</option>
+                <option>New Zealand</option>
+                <option>Nicaragua</option>
+                <option>Niger</option>
+                <option>Nigeria</option>
+                <option>Norway</option>
+                <option>Oman</option>
+                <option>Pakistan</option>
+                <option>Palau</option>
+                <option>Panama</option>
+                <option>Papua New Guinea</option>
+                <option>Paraguay</option>
+                <option>Peru</option>
+                <option>Philippines</option>
+                <option>Poland</option>
+                <option>Portugal</option>
+                <option>Qatar</option>
+                <option>Romania</option>
+                <option>Russia</option>
+                <option>Rwanda</option>
+                <option>Saint Kitts and Nevis</option>
+                <option>Saint Lucia</option>
+                <option>Saint Vincent and the Grenadines</option>
+                <option>Samoa</option>
+                <option>San Marino</option>
+                <option>Sao Tome and Principe</option>
+                <option>Saudi Arabia</option>
+                <option>Senegal</option>
+                <option>Serbia</option>
+                <option>Seychelles</option>
+                <option>Sierra Leone</option>
+                <option>Singapore</option>
+                <option>Slovenia</option>
+                <option>Slovakia</option>
+                <option>Solomon Islands</option>
+                <option>Somalia</option>
+                <option>South Africa</option>
+                <option>South Sudan</option>
+                <option>Spain</option>
+                <option>Sri Lanka</option>
+                <option>Sudan</option>
+                <option>Suriname</option>
+                <option>Sweden</option>
+                <option>Switzerland</option>
+                <option>Syria</option>
+                <option>Taiwan</option>
+                <option>Tajikistan</option>
+                <option>Tanzania</option>
+                <option>Thailand</option>
+                <option>Timor-Leste</option>
+                <option>Togo</option>
+                <option>Tonga</option>
+                <option>Trinidad and Tobago</option>
+                <option>Tunisia</option>
+                <option>Turkey</option>
+                <option>Turkmenistan</option>
+                <option>Tuvalu</option>
+                <option>Uganda</option>
+                <option>Ukraine</option>
+                <option>United Arab Emirates</option>
+                <option>United Kingdom</option>
+                <option selected>United States</option>
+                <option>Uruguay</option>
+                <option>Uzbekistan</option>
+                <option>Vanuatu</option>
+                <option>Venezuela</option>
+                <option>Vietnam</option>
+                <option>Yemen</option>
+                <option>Zambia</option>
+                <option>Zimbabwe</option>
+              </select>
+            </div>
+            <div class="similar-wrapper">
+              <p class="most-span most-similar-span">Most Similar</p>
+              <p class="most-similar"></p>
+              <p class="least-similar"></p>
+              <p class="least-span least-similar-span">Least Similar</p>
+            </div>
+            <div class="similar-wrapper">
+              <p class="most-span">Highest Scoring Metrics</p>
+              <p class="most-similar highest-metrics"></p>
+              <p class="least-similar lowest-metrics"></p>
+              <p class="least-span">Lowest Scoring Metrics</p>
+            </div>
+          </div>
 
-    <div class="map-container"></div>
-    <!-- <h1 class="takeaways-title">Key takeaways from this map:</h1>
-    <div class="takeaways-wrapper">
-      <div class="takeaway first-takeaway">
-        <h1 class="takeaway-title">Most countries are similar to nearby countries</h1>
-        <p class="takeaway-description">
-          A country like Egypt is closely correlated to most of Africa and the rest of the Arab world. The same trend applies to Western Europe, most of South America, and most of Asia.
-        </p>
-      </div>
-      <div class="takeaway">
-        <h1 class="takeaway-title">Some countries are not similar to nearby countries</h1>
-        <p class="takeaway-description">
-          Countries like Japan and Korea and more related to Western Europe & North America than China, and Southeast Asia. Also Uruguay is unlike most of South America and again resembles Western Europe more than neighboring countries.
-        </p>
-      </div>
-      <div class="takeaway">
-        <h1 class="takeaway-title">Some countries are oddly unique</h1>
-        <p class="takeaway-description">
-          A few countries, most notably, Tunisia and Mongolia, are not closely correlated to any other countries on the map.
-        </p>
-      </div>
-    </div> -->
-  </div>
-  <div class="footer">
-    <h1 class="footer-title">Thanks for Scrolling!</h1>
-    <div class="footer-contents">
-      <h3><span>Built by</span>Sherif Elmetwally</h3>
-      <h3><span>Tools Used</span>JavaScript, CSS, D3.js, Photoshop</h3>
-      <h3><span>Datasets</span>
-        <a href="https://docs.google.com/spreadsheets/d/11LhOlwsloUuA495r-04IDwciMqNrLwWGpveqpF61WXU/edit#gid=0" target="_blank">WDVP</a>,
-        <a href="https://docs.google.com/spreadsheets/d/1DKP-wlDPxBBTny7yabCT39CZ1MZTQn2JaD7kfGmhdOY/edit?usp=sharing" target="_blank">OCED specific</a>
-      </h3>
-      <h3><span>Inspired by</span><a href="https://wattenberger.com/wdvp" target="_blank">What makes a country good?</a> by
-        <a href="https://wattenberger.com/" target="_blank">Amelia Wattenberger</a>
-      </h3>
-
-    </div>
-  </div>
-</body>
-
+          <div class="map-container"></div>
+        </div>
+      </section>
+      <footer>
+        <p>Created by <a href="https://github.com/selmetwa">Sherif Elmetwally</a></p>
+      </footer>
+    </main>
+  </body>
 </html>
-
-<style>
-
-</style>

@@ -1,83 +1,115 @@
 .colors-key {
   display: flex;
-  width: 45vw;
   flex-direction: row;
-  margin-top: -.75vh;
+  flex-wrap: wrap;
 }
-  .key {
-    display: flex;
-    padding: 8px;
-    padding-left: 15px;
-    padding-right: 15px;
-    border: 1px dashed #F1EDEE;
+
+.key {
+  display: flex;
+  padding: 6px 12px;
+  border: 1px dashed #e3e3e3;
+  background-color: #ffffff;
+  font-size: .1rem!important;
+  font-weight: 400!important;
+  font-family: Avenir, Lato, Arial, Helvetica, sans-serif;
+  >p {
+    font-size: 1rem;
   }
-  .key:hover {
-    cursor: pointer;
-  }
-  .key p {
-    text-align: center;
-    padding-top: -10px;
-    margin: auto;
-    font-size: .85rem;
-  }
-  .asia {
-    color: #487DAD!important;
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .asia-key {
-    color: #487DAD!important;
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .africa {
-    color: #00AF54!important; 
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .africa-key {
-    color: #00AF54!important; 
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .europe {
-    color: #FDB650!important;
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .europe-key {
-    color: #FDB650!important;
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .north-america {
-    color: #1D1E2C!important;
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .north-america-key {
-    color: #1D1E2C;
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .south-america {
-    color: #e77082!important;
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .south-america-key {
-    color: #e77082!important;
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .oceania {
-    color: #802694!important;
-    /* color: rgb(22, 10, 31)!important; */
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
-  .oceania-key {
-    color: #802694!important;
-    font-weight: 400!important;
-    font-family: Avenir, Lato, Arial, Helvetica, sans-serif
-  }
+}
+
+.key:hover {
+  cursor: pointer;
+}
+
+.key p {
+  text-align: center;
+  margin: auto;
+}
+
+.asia {
+  color: #487DAD!important;
+}
+
+.asia-key {
+  color: #487DAD!important;
+}
+
+.africa {
+  color: #00AF54!important;
+}
+
+.africa-key {
+  color: #00AF54!important;
+}
+
+.europe {
+  color: #FDB650!important;
+}
+
+.europe-key {
+  color: #FDB650!important;
+}
+
+.north-america {
+  color: #1D1E2C!important;
+}
+
+.north-america-key {
+  color: #1D1E2C;
+}
+
+.south-america {
+  color: #e77082!important;
+}
+
+.south-america-key {
+  color: #e77082!important;
+}
+
+.oceania {
+  color: #802694!important;
+}
+
+.oceania-key {
+  color: #802694!important;
+}
+
+.bar {
+  fill: orange;
+}
+
+.bar.africaActive {
+  fill: #00AF54!important;
+}
+
+.bar.asiaActive {
+  fill: #487DAD!important;
+}
+
+.bar.europeActive {
+  fill: #FDB650!important
+}
+
+.bar.southAmericaActive {
+  fill: #e77082!important
+}
+
+.bar.northAmericaActive {
+  fill: #1D1E2C!important
+}
+
+.bar.oceaniaActive {
+  fill: #802694!important
+}
+
+.active {
+  fill: orangered;
+}
+
+.bar.specificCountry {
+  fill: red!important;
+}
+
+.bar:hover {
+  fill: red!important;
+}
